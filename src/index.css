@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:wght@300;400;500;600;700&family=Dancing+Script:wght@600&family=Petemoss&display=swap');
+
+:root {
+  color-scheme: dark;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Shared rhythm — keeps copy and spacing consistent across routes */
+  --pf-copy-body: clamp(16px, 1.45vw, 20px);
+  --pf-copy-intro: clamp(17px, 2.1vw, 24px);
+  --pf-copy-lead: clamp(17px, 1.75vw, 22px);
+  --pf-kicker: clamp(13px, 1.35vw, 18px);
+  --pf-space-y: clamp(56px, 7vh, 96px);
+  --pf-space-y-lg: clamp(72px, 10vh, 120px);
+}
+
+html {
+  /* Fixed nav: in-page anchors (#contact, …) land with room below the bar */
+  scroll-padding-top: 96px;
+  /* Instant scroll by default; smooth scrolling is opt-in via scrollIntoView in JS (e.g. #contact). */
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  background: #070707;
+  color: rgba(255, 255, 255, 0.92);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 0;
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

@@ -1,0 +1,1981 @@
+/* Full-width column grid: |  ||  ||  ||  ||  ||  | — 28px between the two strokes in each || */
+:root {
+  /* Outline / Anton display — same fluid scale as “Concept to creation” across viewports */
+  --pf-display-outline: clamp(28px, 10.5vw, 205px);
+  /* Large script (Petemoss) — caps like About Approach hero */
+  --pf-script-large: clamp(40px, 14vw, 270px);
+
+  --pf-grid-line: rgba(238, 238, 238, 0.12);
+  --pf-grid-vertical: linear-gradient(
+    to right,
+    /* var(--pf-grid-line) 0,
+    var(--pf-grid-line) 1px,
+    transparent 1px,
+    transparent calc(100% / 6 - 15px),
+    var(--pf-grid-line) calc(100% / 6 - 15px),
+    var(--pf-grid-line) calc(100% / 6 - 14px),
+    transparent calc(100% / 6 - 14px),
+    transparent calc(100% / 6 + 14px),
+    var(--pf-grid-line) calc(100% / 6 + 14px),
+    var(--pf-grid-line) calc(100% / 6 + 15px),
+    transparent calc(100% / 6 + 15px),
+    transparent calc(100% / 3 - 15px),
+    var(--pf-grid-line) calc(100% / 3 - 15px),
+    var(--pf-grid-line) calc(100% / 3 - 14px),
+    transparent calc(100% / 3 - 14px),
+    transparent calc(100% / 3 + 14px),
+    var(--pf-grid-line) calc(100% / 3 + 14px),
+    var(--pf-grid-line) calc(100% / 3 + 15px),
+    transparent calc(100% / 3 + 15px),
+    transparent calc(100% / 2 - 15px),
+    var(--pf-grid-line) calc(100% / 2 - 15px),
+    var(--pf-grid-line) calc(100% / 2 - 14px),
+    transparent calc(100% / 2 - 14px),
+    transparent calc(100% / 2 + 14px),
+    var(--pf-grid-line) calc(100% / 2 + 14px),
+    var(--pf-grid-line) calc(100% / 2 + 15px),
+    transparent calc(100% / 2 + 15px),
+    transparent calc((200% / 3) - 15px),
+    var(--pf-grid-line) calc((200% / 3) - 15px),
+    var(--pf-grid-line) calc((200% / 3) - 14px),
+    transparent calc((200% / 3) - 14px),
+    transparent calc((200% / 3) + 14px),
+    var(--pf-grid-line) calc((200% / 3) + 14px),
+    var(--pf-grid-line) calc((200% / 3) + 15px),
+    transparent calc((200% / 3) + 15px),
+    transparent calc((500% / 6) - 15px),
+    var(--pf-grid-line) calc((500% / 6) - 15px),
+    var(--pf-grid-line) calc((500% / 6) - 14px),
+    transparent calc((500% / 6) - 14px),
+    transparent calc((500% / 6) + 14px),
+    var(--pf-grid-line) calc((500% / 6) + 14px),
+    var(--pf-grid-line) calc((500% / 6) + 15px),
+    transparent calc((500% / 6) + 15px),
+    transparent calc(100% - 1px),
+    var(--pf-grid-line) calc(100% - 1px),
+    var(--pf-grid-line) 100% */
+  );
+}
+
+.pf-page {
+  min-height: auto;
+  position: relative;
+  overflow-x: hidden;
+  isolation: isolate;
+  background: #070707;
+}
+
+.pf-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--pf-grid-vertical);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+.pf-page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.28) 58%,
+    rgba(0, 0, 0, 0.52) 100%
+  );
+  pointer-events: none;
+}
+
+.pf-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding: 32px 24px 20px;
+  /* Content scrolls underneath; keep nav readable */
+  background: rgba(7, 7, 7, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  /* Clicks pass through the bar except on links */
+  pointer-events: none;
+}
+
+.pf-nav {
+  display: flex;
+  gap: 56px;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.pf-navLink {
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.86);
+  transition: color 160ms ease;
+}
+
+.pf-navLink:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.pf-navLink--active {
+  color: rgba(255, 255, 255, 1);
+  font-weight: 500;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  text-decoration-color: #cfff71;
+  text-decoration-skip-ink: none;
+}
+
+.pf-navLink--pending {
+  cursor: default;
+  color: rgba(255, 255, 255, 0.42);
+  pointer-events: none;
+}
+
+.pf-navLink--pending:hover {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.pf-hero {
+  position: relative;
+  z-index: 0;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+/* Work route: single section, no forced tall main */
+.pf-main--work {
+  min-height: auto;
+  --work-left: 80px;
+}
+
+.pf-main--about {
+  min-height: auto;
+  --about-gutter: 80px;
+}
+
+/* About route: content height only; full-width sections (stretch, not centered column) */
+.pf-hero.pf-main--about {
+  min-height: auto;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Default: height from content only. (Old 100svh here forced a full screen of empty scroll after the footer.) */
+.pf-panel {
+  min-height: auto;
+  width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Home hero only: full viewport */
+.pf-panel.pf-panelHero {
+  min-height: 100svh;
+}
+
+/* Footer + CTA must never inherit a viewport min-height */
+.pf-panel.pf-footer,
+.pf-panel.pf-panelCTA {
+  min-height: auto;
+}
+
+/* Content sections: drop default 100svh so copy blocks don’t float in empty space */
+.pf-panelIntro,
+.pf-panelNarrative,
+.pf-panelAbout,
+.pf-panelBrands,
+.pf-panelPlay,
+.pf-panelWork.pf-panelWork--onHome,
+.pf-panel.pf-panelWork--solo {
+  min-height: auto;
+}
+
+.pf-panelHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 124px;
+}
+
+.pf-titleWrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: clamp(60px, 10vh, 140px);
+}
+
+.pf-heroTitle {
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  margin: 0;
+  font-size: clamp(56px, 16vw, 205px);
+  line-height: 0.92;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #eeeeee;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.pf-tagline {
+  padding-bottom: 48px;
+  color: #baff2b;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-size: var(--pf-kicker);
+  line-height: 1.35;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-align: center;
+}
+
+.pf-panelIntro {
+  padding-top: var(--pf-space-y-lg);
+  padding-bottom: var(--pf-space-y);
+  display: flex;
+  justify-content: center;
+}
+
+.pf-introText {
+  margin: 0;
+  max-width: min(1280px, 100%);
+  padding: 0 clamp(4px, 2vw, 16px);
+  text-align: center;
+  color: #eeeeee;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-size: var(--pf-copy-intro);
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.pf-panelWork {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: 0;
+  --work-left: 80px; /* left offset for 'DESIGN THAT' */
+}
+
+/* /work route — only the WORK title screen */
+.pf-panelWork--solo {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* /work — project card last (below WORK title) */
+.pf-panelWorkProject.pf-panel {
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 48px;
+  padding-bottom: var(--pf-space-y-lg);
+}
+
+.pf-workProjectInner {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.pf-case.pf-case--workEnd {
+  margin-top: 0;
+  width: calc(100% - 120px);
+  max-width: 1600px;
+}
+
+/* Work page — closing typographic block (last) */
+.pf-workReimagine.pf-panel {
+  min-height: auto;
+  padding-top: var(--pf-space-y);
+  padding-bottom: var(--pf-space-y-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pf-workReimagineInner {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-left: var(--work-left);
+  padding-right: var(--work-left);
+  box-sizing: border-box;
+}
+
+.pf-workReimagineGrid {
+  display: grid;
+  width: 100%;
+  /* Second column at least as wide as kicker (full first line) so “WHAT” isn’t clipped */
+  grid-template-columns: max-content minmax(min-content, 1fr);
+  grid-template-rows: auto auto auto;
+  column-gap: 100px;
+  row-gap: 0;
+  align-items: start;
+}
+
+.pf-workReimagineScript {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+  font-family: 'Petemoss', 'Dancing Script', cursive;
+  font-weight: 400;
+  font-size: clamp(40px, 10vw, 150px);
+  line-height: 0.9;
+  color: #eeeeee;
+  transform: rotate(-4deg);
+  transform-origin: left bottom;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -0.14em;
+}
+
+.pf-workReimagineIdeas {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  font-size: 205px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px #eeeeee;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+.pf-workReimagineKickerLine1 {
+  white-space: nowrap;
+}
+
+.pf-workReimagineKicker {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  margin: clamp(18px, 2.2vw, 28px) 0 0;
+  color: #baff2b;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 600;
+  font-size: clamp(11px, 1.25vw, 17px);
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+  max-width: none;
+  justify-self: start;
+}
+
+.pf-workReimagineHuge {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  margin: clamp(4px, 1vw, 16px) 0 0;
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  font-size: 205px;
+  line-height: 0.95;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px #eeeeee;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+/* Work page — two project cards (last) */
+.pf-workPairSection.pf-panel {
+  min-height: auto;
+  padding-top: var(--pf-space-y);
+  padding-bottom: var(--pf-space-y-lg);
+}
+
+.pf-workPairInner {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-left: var(--work-left);
+  padding-right: var(--work-left);
+  box-sizing: border-box;
+}
+
+.pf-workPairGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+
+.pf-workPairCard {
+  margin: 0;
+  min-width: 0;
+}
+
+.pf-workPairImage {
+  width: 100%;
+  height: min(48vh, 480px);
+  min-height: 240px;
+  background: #8a8989;
+  border-radius: 12px;
+}
+
+.pf-workPairBody {
+  padding: 18px 4px 0 0;
+  text-align: left;
+}
+
+.pf-workPairTitle {
+  margin: 0;
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #eeeeee;
+}
+
+.pf-workPairMeta {
+  margin: 12px 0 0;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 400;
+  font-size: clamp(18px, 2vw, 28px);
+  line-height: 1.3;
+  color: rgba(238, 238, 238, 0.75);
+}
+
+/* Work page — shared Approach banner uses .pf-aboutApproach; align gutters to --work-left */
+.pf-main--work .pf-aboutApproachInner {
+  padding-left: max(0px, calc(var(--work-left, 80px) - 24px));
+  padding-right: max(0px, calc(var(--work-left, 80px) - 24px));
+}
+
+/* Work page — process: L-border, steps touch (flush diagonal) */
+.pf-workProcess.pf-panel {
+  min-height: auto;
+  padding-top: var(--pf-space-y);
+  padding-bottom: clamp(80px, 12vh, 140px);
+}
+
+.pf-workProcessInner {
+  --pf-process-step: min(380px, calc(100vw - 2 * var(--work-left, 80px) - 32px));
+  width: 100%;
+  max-width: calc(var(--pf-process-step) * 3 + 120px);
+  margin: 0 auto;
+  padding: 0 var(--work-left);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: flex-start;
+}
+
+.pf-workProcessStepRow {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.pf-workProcessStepRow:first-child {
+  z-index: 1;
+}
+
+/* Pull next step up so it overlaps previous ~half height (stair) */
+.pf-workProcessStepRow--2 {
+  padding-left: var(--pf-process-step);
+  margin-top: clamp(-130px, -19vw, -72px);
+  z-index: 2;
+}
+
+.pf-workProcessStepRow--3 {
+  padding-left: calc(var(--pf-process-step) * 2);
+  margin-top: clamp(-130px, -19vw, -72px);
+  z-index: 3;
+}
+
+.pf-workProcessCard {
+  width: var(--pf-process-step);
+  max-width: 100%;
+  flex: 0 0 auto;
+  margin: 0;
+  border: none;
+  border-top: 1px solid rgba(238, 238, 238, 0.95);
+  border-left: 1px solid rgba(238, 238, 238, 0.95);
+  border-bottom: 1px solid rgba(238, 238, 238, 0.95);
+  border-right: none;
+  padding: 22px 16px 24px 22px;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+/* DESIGN only: right stroke; RESEARCH and TEST stay open on the right */
+.pf-workProcessInner > .pf-workProcessStepRow--2 .pf-workProcessCard {
+  border-right: 1px solid rgba(238, 238, 238, 0.95);
+}
+
+.pf-workProcessNum {
+  display: block;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: #eeeeee;
+  margin-bottom: 16px;
+}
+
+.pf-workProcessTitle {
+  margin: 0 0 16px;
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  font-size: clamp(40px, 5.5vw, 72px);
+  line-height: 0.95;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #eeeeee;
+}
+
+.pf-workProcessBody {
+  margin: 0;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 400;
+  font-size: clamp(14px, 1.35vw, 17px);
+  line-height: 1.6;
+  color: rgba(238, 238, 238, 0.9);
+}
+
+/* About page — same process block as Work; align to --about-gutter */
+.pf-main--about .pf-workProcessInner {
+  padding-left: var(--about-gutter, 80px);
+  padding-right: var(--about-gutter, 80px);
+  --pf-process-step: min(
+    380px,
+    calc(100vw - 2 * var(--about-gutter, 80px) - 32px)
+  );
+}
+
+/* About page — hero: gray pillar + BEHIND / THE / CANVAS (one shared baseline) */
+.pf-aboutHero.pf-panel {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px var(--about-gutter) 80px;
+  box-sizing: border-box;
+}
+
+.pf-aboutHeroStage {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.pf-aboutHeroCompose {
+  position: relative;
+  width: 100%;
+  min-height: min(62vh, 560px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  padding-bottom: clamp(12px, 3vh, 40px);
+  box-sizing: border-box;
+}
+
+.pf-aboutHeroPhoto {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(400px, 36vw);
+  height: min(62vh, 560px);
+  min-height: 280px;
+  border-radius: 16px;
+  background: #8a8989;
+  z-index: 0;
+}
+
+.pf-aboutHeroWords {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: baseline;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pf-aboutHeroWord {
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  font-size: clamp(28px, 10vw, 150px);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #eeeeee;
+  white-space: nowrap;
+}
+
+.pf-aboutHeroWord--behind {
+  grid-column: 1;
+  justify-self: end;
+  padding-right: clamp(4px, 1.2vw, 16px);
+}
+
+.pf-aboutHeroWord--the {
+  grid-column: 2;
+  justify-self: center;
+  padding-left: clamp(4px, 1.2vw, 16px);
+  padding-right: clamp(4px, 1.2vw, 16px);
+}
+
+.pf-aboutHeroWord--canvas {
+  grid-column: 3;
+  justify-self: start;
+  padding-left: clamp(4px, 1.2vw, 16px);
+}
+
+/* About page — Timeline banner (script + outlined headline + kicker) */
+.pf-aboutTimeline.pf-panel {
+  min-height: auto;
+  padding-top: clamp(48px, 8vh, 100px);
+  padding-bottom: clamp(80px, 12vh, 140px);
+  overflow: visible;
+}
+
+.pf-aboutTimelineInner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: max(0px, calc(var(--about-gutter, 80px) - 24px));
+  padding-right: max(0px, calc(var(--about-gutter, 80px) - 24px));
+  box-sizing: border-box;
+}
+
+/* Headline block shrink-wrapped; kicker is a separate full-width row */
+.pf-aboutTimelineCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: max-content;
+  max-width: 100%;
+}
+
+.pf-aboutTimelineStage {
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  padding-top: clamp(12px, 2vh, 28px);
+  padding-left: clamp(4px, 1.5vw, 16px);
+  overflow: visible;
+}
+
+/*
+  Script anchored top-left; outline gets padding-top so “TRACKS” starts
+  just under the script’s lower edge (corner tuck), not under the middle of “Timeline”.
+*/
+.pf-aboutTimelineScript {
+  position: absolute;
+  top: 0;
+  left: clamp(0px, 1vw, 16px);
+  z-index: 2;
+  font-family: 'Petemoss', 'Dancing Script', cursive;
+  font-weight: 400;
+  font-size: clamp(56px, 18vw, 270px);
+  line-height: 0.85;
+  color: #eeeeee;
+  pointer-events: none;
+  transform: rotate(-6deg);
+  transform-origin: left bottom;
+}
+
+.pf-aboutTimelineOutline {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  width: max-content;
+  max-width: 100%;
+  /* ~script cap height minus small tuck (overlap) */
+  padding-top: clamp(100px, 22vw, 198px);
+}
+
+.pf-aboutTimelineOutline span {
+  display: block;
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  color: transparent;
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
+  font-size: 205px;
+}
+
+@media (min-width: 1200px) {
+  .pf-aboutTimelineScript {
+    font-size: 270px;
+    transform: rotate(-6deg);
+  }
+
+  .pf-aboutTimelineOutline {
+    /* 270px × 0.85 line-height ≈ 230px; tuck ~32px into script tail */
+    padding-top: 198px;
+  }
+}
+
+.pf-aboutTimelineKicker {
+  margin: 0;
+  margin-top: clamp(-20px, -3vh, -6px);
+  align-self: stretch;
+  width: 100%;
+  text-align: right;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 500;
+  font-size: clamp(12px, 1.35vw, 18px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  color: #baff2b;
+}
+
+/* About page — experience rows (role / description / company + date pill) */
+.pf-aboutExperience.pf-panel {
+  min-height: auto;
+  padding-top: clamp(40px, 6vh, 72px);
+  padding-bottom: clamp(96px, 12vh, 140px);
+}
+
+.pf-aboutExperienceInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding-left: max(0px, calc(var(--about-gutter, 80px) - 24px));
+  padding-right: max(0px, calc(var(--about-gutter, 80px) - 24px));
+  box-sizing: border-box;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.pf-aboutExperienceRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr) minmax(0, 0.85fr);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+  padding: clamp(26px, 3.5vh, 44px) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.pf-aboutExperienceRole {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pf-aboutExperienceRoleLine {
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  font-size: clamp(18px, 2.8vw, 28px);
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: #eeeeee;
+}
+
+.pf-aboutExperienceDesc {
+  margin: 0;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 600;
+  font-size: clamp(16px, 2vw, 22px);
+  line-height: 1.55;
+  color: #eeeeee;
+  max-width: 42em;
+}
+
+.pf-aboutExperienceDescLine {
+  display: block;
+}
+
+.pf-aboutExperienceMeta {
+  display: flex;
+  justify-content: flex-end;
+  justify-self: end;
+  width: 100%;
+}
+
+/* Left-align company + pill text so “E” lines up with “2”; block stays right in column */
+.pf-aboutExperienceMetaInner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.pf-aboutExperienceCompany {
+  padding-left: 18px;
+  box-sizing: border-box;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 600;
+  font-size: clamp(16px, 2vw, 22px);
+  color: #eeeeee;
+}
+
+.pf-aboutExperiencePill {
+  display: inline-block;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 600;
+  font-size: clamp(16px, 2vw, 22px);
+  letter-spacing: 0.04em;
+  color: #eeeeee;
+  background: rgba(40, 40, 40, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 18px;
+  border-radius: 999px;
+}
+
+@media (max-width: 900px) {
+  .pf-aboutExperienceRow {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pf-aboutExperienceDesc {
+    max-width: none;
+  }
+
+  .pf-aboutExperienceMeta {
+    justify-content: flex-start;
+    justify-self: start;
+  }
+}
+
+/* About page — Approach / CONCEPT TO / CREATION (centered, script + outline + kicker) */
+.pf-aboutApproach.pf-panel {
+  min-height: auto;
+  padding-top: clamp(56px, 9vh, 112px);
+  padding-bottom: clamp(100px, 14vh, 160px);
+  overflow: visible;
+}
+
+.pf-aboutApproachInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(32px, 5vh, 56px);
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: max(0px, calc(var(--about-gutter, 80px) - 24px));
+  padding-right: max(0px, calc(var(--about-gutter, 80px) - 24px));
+  box-sizing: border-box;
+}
+
+.pf-aboutApproachStage {
+  position: relative;
+  width: 100%;
+  max-width: min(1200px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: clamp(16px, 3vh, 36px);
+}
+
+.pf-aboutApproachScript {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+  font-family: 'Petemoss', 'Dancing Script', cursive;
+  font-weight: 400;
+  font-size: clamp(56px, 18vw, 270px);
+  line-height: 0.85;
+  color: #eeeeee;
+  pointer-events: none;
+  transform: translateX(-50%) rotate(-6deg);
+  transform-origin: center bottom;
+}
+
+.pf-aboutApproachOutline {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-top: clamp(100px, 22vw, 198px);
+}
+
+.pf-aboutApproachOutline span {
+  display: block;
+  text-align: center;
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  color: transparent;
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
+  font-size: 205px;
+}
+
+@media (min-width: 1200px) {
+  .pf-aboutApproachScript {
+    font-size: 270px;
+    transform: translateX(-50%) rotate(-6deg);
+  }
+
+  .pf-aboutApproachOutline {
+    padding-top: 198px;
+  }
+}
+
+.pf-aboutApproachKicker {
+  margin: 0;
+  max-width: 42em;
+  text-align: center;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 500;
+  font-size: clamp(12px, 1.35vw, 18px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.45;
+  color: #baff2b;
+}
+
+@media (max-width: 640px) {
+  .pf-aboutApproachScript {
+    font-size: clamp(48px, 14vw, 100px);
+  }
+
+  .pf-aboutApproachOutline {
+    padding-top: clamp(72px, 26vw, 140px);
+  }
+
+  .pf-aboutApproachInner {
+    gap: 28px;
+  }
+}
+
+.pf-aboutIntro.pf-panel {
+  min-height: auto;
+  padding-top: clamp(40px, 7vh, 96px);
+  padding-bottom: clamp(80px, 14vh, 160px);
+  display: flex;
+  justify-content: center;
+}
+
+/* About page — closing: headline + philosophy copy */
+.pf-aboutClosing.pf-panel {
+  min-height: auto;
+  padding-top: clamp(48px, 8vh, 112px);
+  padding-bottom: clamp(72px, 12vh, 160px);
+  display: flex;
+  justify-content: center;
+}
+
+.pf-aboutClosingInner {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pf-aboutClosingHead {
+  margin: 0;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 700;
+  font-size: clamp(17px, 2.35vw, 28px);
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #eeeeee;
+}
+
+.pf-aboutClosingHead span {
+  display: block;
+}
+
+.pf-aboutClosingHead span + span {
+  margin-top: 0.5em;
+}
+
+.pf-aboutClosingCopy {
+  margin-top: clamp(44px, 6.5vh, 80px);
+}
+
+.pf-aboutClosingCopy p {
+  margin: 0;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 400;
+  font-size: clamp(16px, 1.55vw, 19px);
+  line-height: 1.75;
+  color: rgba(238, 238, 238, 0.9);
+}
+
+.pf-aboutClosingCopy p + p {
+  margin-top: clamp(28px, 4vh, 44px);
+}
+
+/* Home — DESIGN THAT CONNECTS + case (not on /work) */
+.pf-panelWork--onHome {
+  padding-top: var(--pf-space-y);
+}
+
+.pf-panelWork--onHome .pf-workInner {
+  position: relative;
+}
+
+/* Script “Work” over first outline line (Figma) */
+.pf-panelWork--onHome .pf-workScript {
+  position: absolute;
+  top: clamp(16px, 6vw, 18px);
+  left: var(--work-left);
+  z-index: 2;
+  font-family: 'Petemoss', 'Dancing Script', cursive;
+  font-weight: 400;
+  font-size: clamp(72px, 14vw, 200px);
+  line-height: 0.95;
+  color: #eeeeee;
+  transform: rotate(-8deg);
+  transform-origin: left bottom;
+  pointer-events: none;
+}
+
+.pf-panelWork--onHome .pf-workTitle {
+  margin-top: 48px;
+}
+
+/* Full-viewport entry — centered WORK (matches work nav target) */
+.pf-workLanding {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.pf-workLandingTitle {
+  margin: 0;
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  font-size: clamp(120px, 22vw, 280px);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #eeeeee;
+}
+
+.pf-workInner {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  position: relative;
+  padding: var(--pf-space-y-lg) 0 var(--pf-space-y-lg);
+}
+
+.pf-workTitle {
+  margin: 120px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative; /* anchor kicker to this title block */
+  padding-left: var(--work-left);
+  padding-bottom: 56px; /* space for kicker under the word */
+}
+
+.pf-workTitle span {
+  display: block;
+}
+
+.pf-workKicker {
+  position: absolute;
+  right: 0;          /* align to right edge of CONNECTS */
+  bottom: 0;         /* sit flush under the word */
+  text-align: right;
+  color: #baff2b;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: var(--pf-kicker);
+}
+
+/* Work case block */
+.pf-case {
+  position: relative;
+  margin: 120px auto 0; /* push below headline to avoid overlap */
+  width: calc(100% - 120px);
+  max-width: 1600px;
+}
+
+.pf-caseImage {
+  width: 100%;
+  height: min(54vh, 520px);
+  background: #8a8989;
+  border-radius: 12px;
+}
+
+.pf-caseFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 18px 6px 0;
+}
+
+.pf-caseTitle {
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  font-size: clamp(24px, 3.5vw, 40px);
+  color: #eeeeee;
+}
+
+.pf-caseMeta {
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 400;
+  font-size: clamp(16px, 2.2vw, 28px);
+  color: rgba(238, 238, 238, 0.75);
+}
+
+/* Playground section */
+.pf-panelPlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--pf-space-y-lg);
+  padding-bottom: var(--pf-space-y);
+}
+
+.pf-playInner {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pf-playScript {
+  font-family: 'Petemoss', 'Dancing Script', cursive;
+  font-weight: 400;
+  font-size: clamp(72px, 22vw, 270px);
+  color: #eeeeee;
+  line-height: 1;
+  margin-bottom: 18px;
+}
+
+.pf-playTitle {
+  margin: 0;
+}
+
+.pf-playKicker {
+  margin-top: 24px;
+  color: #baff2b;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: var(--pf-kicker);
+}
+
+@media (max-width: 640px) {
+  .pf-header {
+    padding-top: 22px;
+  }
+
+  .pf-panel {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .pf-main--about {
+    --about-gutter: 24px;
+  }
+
+  .pf-aboutHero.pf-panel {
+    padding-top: 96px;
+    padding-bottom: 64px;
+  }
+
+  .pf-aboutHeroCompose {
+    min-height: min(52vh, 480px);
+    padding-bottom: 16px;
+  }
+
+  .pf-aboutHeroPhoto {
+    width: min(100%, 340px);
+    height: min(48vh, 420px);
+    min-height: 240px;
+  }
+
+  .pf-aboutHeroWord {
+    font-size: clamp(22px, 7.5vw, 96px);
+  }
+
+  .pf-aboutClosingHead {
+    font-size: clamp(13px, 3.8vw, 20px);
+    letter-spacing: 0.05em;
+  }
+
+  .pf-aboutClosingCopy p {
+    font-size: clamp(14px, 4.1vw, 17px);
+  }
+
+  .pf-aboutTimelineInner {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .pf-aboutTimelineCol {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pf-aboutTimelineStage {
+    width: 100%;
+  }
+
+  .pf-aboutTimelineOutline {
+    width: 100%;
+    max-width: 100%;
+    padding-top: clamp(72px, 28vw, 140px);
+  }
+
+  .pf-aboutTimelineScript {
+    font-size: clamp(56px, 15vw, 270px);
+    transform: rotate(-6deg);
+  }
+
+  .pf-panelHero {
+    padding-top: 104px;
+  }
+
+  .pf-nav {
+    gap: 22px;
+  }
+
+  .pf-navLink {
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
+
+  .pf-heroTitle {
+    white-space: normal;
+    font-size: clamp(48px, 14vw, 120px);
+  }
+
+  .pf-titleWrap {
+    padding-top: clamp(36px, 8vh, 80px);
+  }
+
+  .pf-tagline {
+    font-size: 14px;
+    padding-bottom: 36px;
+    letter-spacing: 0.6px;
+  }
+
+  .pf-panelIntro {
+    padding-top: var(--pf-space-y);
+    padding-bottom: var(--pf-space-y);
+  }
+
+  .pf-workLandingTitle {
+    font-size: clamp(88px, 26vw, 220px);
+    letter-spacing: 0.06em;
+  }
+
+  .pf-workTitle {
+    margin-top: 82px;
+    padding-bottom: 44px;
+  }
+
+  .pf-panelWork--onHome .pf-workTitle {
+    margin-top: 40px;
+  }
+
+  .pf-panelWork--onHome .pf-workScript {
+    top: clamp(18px, 5vw, 56px);
+    font-size: clamp(48px, 16vw, 120px);
+  }
+
+  .pf-workKicker { font-size: 14px; }
+
+  .pf-panelWork {
+    --work-left: 24px;
+  }
+
+  .pf-main--work {
+    --work-left: 24px;
+  }
+
+  .pf-workReimagine.pf-panel {
+    padding-top: 48px;
+    padding-bottom: 100px;
+  }
+
+  .pf-workReimagineGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .pf-workReimagineScript {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .pf-workReimagineIdeas {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .pf-workReimagineKicker {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: start;
+    text-align: left;
+    justify-self: start;
+    max-width: none;
+    margin-top: 24px;
+    font-size: 13px;
+  }
+
+  .pf-workReimagineHuge {
+    grid-column: 1;
+    grid-row: 4;
+    margin-top: 8px;
+  }
+
+  .pf-workPairGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .pf-workPairSection.pf-panel {
+    padding-top: 48px;
+    padding-bottom: 100px;
+  }
+
+  .pf-workPairImage {
+    height: 220px;
+    min-height: 200px;
+  }
+
+  .pf-workProcess.pf-panel {
+    padding-top: 56px;
+    padding-bottom: 120px;
+  }
+
+  .pf-workProcessInner {
+    max-width: none;
+    --pf-process-step: min(100%, calc(100vw - 2 * var(--work-left, 24px) - 24px));
+  }
+
+  .pf-main--about .pf-workProcessInner {
+    --pf-process-step: min(
+      100%,
+      calc(100vw - 2 * var(--about-gutter, 24px) - 24px)
+    );
+  }
+
+  .pf-workProcessStepRow--2,
+  .pf-workProcessStepRow--3 {
+    padding-left: 0;
+    margin-top: 0;
+  }
+
+  .pf-workProcessCard {
+    width: 100%;
+    max-width: none;
+  }
+
+  .pf-case {
+    width: calc(100% - 32px);
+    margin-top: 48px;
+  }
+
+  .pf-case.pf-case--workEnd {
+    width: calc(100% - 32px);
+  }
+
+  .pf-panelWorkProject.pf-panel {
+    padding-top: 32px;
+    padding-bottom: 100px;
+  }
+
+  .pf-caseImage {
+    height: 220px;
+  }
+
+  .pf-caseTitle {
+    font-size: 28px;
+  }
+
+  .pf-caseMeta {
+    font-size: 18px;
+  }
+
+  .pf-panelPlay {
+    padding-top: 72px;
+  }
+
+  .pf-playKicker {
+    font-size: 14px;
+  }
+}
+
+/* Brands section */
+.pf-panelBrands {
+  display: flex;
+  align-items: center;
+  padding-top: var(--pf-space-y-lg);
+  padding-bottom: var(--pf-space-y);
+  --brands-left: 80px;
+}
+
+.pf-brandsInner {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.pf-brandsScript {
+  position: absolute;
+  top: -40px;
+  left: var(--brands-left);
+  font-family: 'Petemoss', 'Dancing Script', cursive;
+  font-weight: 400;
+  font-size: clamp(72px, 18vw, 205px);
+  color: #eeeeee;
+  transform: rotate(-8deg);
+  transform-origin: left bottom;
+}
+
+.pf-brandsTitle {
+  margin: 120px 0 0 var(--brands-left);
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-bottom: 56px;
+}
+
+.pf-brandsTitle span {
+  display: block;
+}
+
+.pf-brandsKicker {
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  text-align: right;
+  color: #baff2b;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: var(--pf-kicker);
+}
+
+@media (max-width: 640px) {
+  .pf-panelBrands { --brands-left: 24px; padding-top: 72px; }
+  .pf-brandsKicker { font-size: 14px; right: 16px; }
+}
+
+/* About: align brands block with page gutter; avoid full-viewport min-height */
+.pf-main--about .pf-panelBrands {
+  min-height: auto;
+  --brands-left: var(--about-gutter, 80px);
+}
+
+/* Life / Unplugged — About (script + outline + gallery placeholders) */
+.pf-lifeUnplugged.pf-panel {
+  min-height: auto;
+  background: #000000;
+  padding-top: var(--pf-space-y-lg);
+  padding-bottom: var(--pf-space-y-lg);
+  padding-left: var(--about-gutter, 80px);
+  padding-right: var(--about-gutter, 80px);
+  box-sizing: border-box;
+}
+
+.pf-lifeUnplugInner {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.pf-lifeUnplugHead {
+  text-align: center;
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+
+.pf-lifeUnplugScript {
+  font-family: 'Petemoss', 'Dancing Script', cursive;
+  font-weight: 400;
+  font-size: clamp(72px, 20vw, 270px);
+  color: #eeeeee;
+  line-height: 1;
+  margin: 0 0 12px;
+}
+
+.pf-lifeUnplugTitle {
+  margin: 0;
+}
+
+.pf-lifeUnplugRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2vw, 24px);
+  width: 100%;
+}
+
+.pf-lifeUnplugCard {
+  box-sizing: border-box;
+  border-radius: 12px;
+  background: #bdbdbd;
+  flex-shrink: 0;
+  min-height: 0;
+}
+
+/* Landscape slots: 330 × 170 */
+.pf-lifeUnplugCard--landscape {
+  width: 330px;
+  height: 170px;
+}
+
+/* Portrait slots: 200 × 260 */
+.pf-lifeUnplugCard--portrait {
+  width: 200px;
+  height: 260px;
+}
+
+@media (max-width: 900px) {
+  .pf-lifeUnplugRow {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pf-lifeUnplugCard--landscape {
+    width: min(330px, calc(50vw - 20px));
+    height: calc(min(330px, calc(50vw - 20px)) * 170 / 330);
+  }
+
+  .pf-lifeUnplugCard--portrait {
+    width: min(200px, calc(50vw - 20px));
+    height: calc(min(200px, calc(50vw - 20px)) * 260 / 200);
+  }
+}
+
+@media (max-width: 640px) {
+  .pf-lifeUnplugged.pf-panel {
+    padding-top: var(--pf-space-y);
+    padding-bottom: var(--pf-space-y-lg);
+  }
+}
+
+/* Narrative block below brands */
+.pf-panelNarrative {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: var(--pf-space-y);
+  padding-bottom: var(--pf-space-y-lg);
+}
+
+.pf-narrative {
+  max-width: min(1100px, 100%);
+  width: 100%;
+  color: #eeeeee;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 600;
+  font-size: var(--pf-copy-lead);
+  line-height: 1.5;
+  text-align: left;
+  margin: 0 auto;
+  padding: 0 clamp(4px, 2vw, 16px);
+  box-sizing: border-box;
+}
+
+/* About hero */
+.pf-panelAbout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--pf-space-y-lg);
+  padding-bottom: var(--pf-space-y);
+}
+.pf-aboutInner { width: 100%; max-width: 1500px; margin: 0 auto; position: relative; text-align: center; }
+.pf-aboutScript {
+  position: absolute;
+  top: -109px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-8deg);
+  transform-origin: center bottom;
+  font-family: 'Petemoss', 'Dancing Script', cursive;
+  font-weight: 400;
+  font-size: clamp(72px, 22vw, 270px);
+  color: #eeeeee;
+}
+.pf-aboutTitle { margin: 120px auto 0; width: max-content; display: flex; flex-direction: column; gap: 18px; padding-bottom: 24px; }
+.pf-aboutTitle span { display: block; }
+.pf-aboutKicker {
+  position: static;
+  margin-top: 12px;
+  text-align: center;
+  color: #baff2b;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: var(--pf-kicker);
+}
+
+/* About detail (Home + /about — three columns + carousel) */
+.pf-panelAboutDetail {
+  min-height: auto;
+  padding-top: var(--pf-space-y);
+  padding-bottom: var(--pf-space-y-lg);
+}
+.pf-aboutDetailInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: max(0px, calc(var(--work-left, 80px) - 24px));
+  padding-right: max(0px, calc(var(--work-left, 80px) - 24px));
+  box-sizing: border-box;
+}
+
+.pf-main--about .pf-aboutDetailInner {
+  padding-left: max(0px, calc(var(--about-gutter, 80px) - 24px));
+  padding-right: max(0px, calc(var(--about-gutter, 80px) - 24px));
+}
+.pf-aboutHead { text-align: center; color: #eeeeee; font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+.pf-aboutHead > div:first-child { font-size: 38px; margin-bottom: 14px; }
+.pf-aboutHead > div:last-child { font-size: 34px; }
+
+.pf-aboutHead--interfaces > div {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+  line-height: 1.2;
+}
+
+.pf-aboutHead--interfaces > div:first-child {
+  font-size: clamp(22px, 3.1vw, 36px);
+  margin-bottom: 14px;
+}
+
+.pf-aboutHead--interfaces > div:last-child {
+  font-size: clamp(20px, 2.85vw, 34px);
+}
+.pf-aboutGrid { margin-top: 48px; display: grid; grid-template-columns: 1fr 280px 1fr; gap: 80px; align-items: start; }
+.pf-aboutGrid > .pf-aboutCol:first-child { align-self: start; }
+.pf-aboutGrid > .pf-aboutCol:last-child {
+  align-self: end;
+  transform: translateY(-clamp(20px, 3vh, 44px));
+}
+.pf-aboutCol {
+  color: #eeeeee;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 600;
+  font-size: var(--pf-copy-body);
+  line-height: 1.5;
+}
+.pf-aboutCenter { display: flex; justify-content: center; }
+.pf-photoStack { position: relative; width: 520px; height: 520px; }
+.pf-photoBack { display: none; }
+
+/* Carousel cards */
+.pf-carousel { position: relative; width: 280px; height: 360px; }
+.pf-slide { position: absolute; inset: 0; border-radius: 16px; width: 100%; height: 100%; object-fit: cover; transition: transform 420ms ease, opacity 420ms ease, filter 420ms ease; box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+.pf-center { transform: translateX(0) scale(1); z-index: 3; opacity: 1; }
+.pf-left { transform: translateX(-80px) scale(0.9); z-index: 2; opacity: 0.75; filter: brightness(0.9); }
+.pf-right { transform: translateX(80px) scale(0.9); z-index: 2; opacity: 0.75; filter: brightness(0.9); }
+.pf-hidden { opacity: 0; pointer-events: none; transform: translateX(0) scale(0.85); z-index: 1; }
+.pf-cta {
+  display: inline-block;
+  margin-top: 24px;
+  background: transparent;
+  border: 2px solid #baff2b;
+  color: #baff2b;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 16px 26px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.pf-cta:hover { filter: brightness(1.1); }
+
+@media (max-width: 1024px) {
+  .pf-aboutHead > div:first-child { font-size: 28px; }
+  .pf-aboutHead > div:last-child { font-size: 24px; }
+  .pf-aboutHead--interfaces > div:first-child {
+    font-size: clamp(18px, 4.2vw, 28px);
+  }
+
+  .pf-aboutHead--interfaces > div:last-child {
+    font-size: clamp(16px, 3.8vw, 24px);
+  }
+  .pf-aboutGrid { grid-template-columns: 1fr; gap: 28px; }
+  .pf-aboutGrid > .pf-aboutCol:last-child {
+    transform: translateY(-10px);
+  }
+  .pf-photoStack { width: 100%; max-width: 420px; height: 420px; margin: 0 auto; }
+  .pf-aboutCol { font-size: 18px; }
+  .pf-cta { font-size: 16px; }
+}
+
+/* Final CTA — min-height off so the rule can sit 24px above the footer */
+.pf-panelCTA {
+  min-height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pf-space-y-lg) 24px 0;
+  text-align: center;
+}
+.pf-ctaInner { width: 100%; max-width: 1400px; margin: 0 auto; }
+.pf-ctaHead { margin: 0 0 28px; font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #eeeeee; text-transform: uppercase; letter-spacing: 2px; font-size: clamp(48px, 8vw, 180px); line-height: 1; }
+
+/* Outline headlines — match LET'S DO IT; h2 bold + stroke looks triple, so weight 400 */
+.pf-ctaOutline,
+.pf-playTitle,
+.pf-workTitle span,
+.pf-brandsTitle span,
+.pf-aboutTitle span,
+.pf-lifeUnplugTitle {
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px #eeeeee;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  font-size: 205px;
+  line-height: 1;
+}
+
+.pf-ctaOutline {
+  margin-bottom: 24px;
+}
+
+.pf-ctaSub {
+  color: #eeeeee;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: var(--pf-kicker);
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.pf-ctaRule { margin: 36px auto 0; height: 2px; width: 100%; max-width: 1400px; background: #eeeeee; opacity: 0.2; }
+
+/* Footer */
+.pf-footer {
+  padding: 20px 24px 8px;
+  position: relative;
+  overflow: visible;
+}
+.pf-footerInner { max-width: 1400px; margin: 0 auto; position: relative; }
+.pf-footerRows {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 0;
+  color: #eeeeee;
+}
+
+.pf-footerLower {
+  position: relative;
+  padding-top: clamp(12px, 2.5vw, 28px);
+  z-index: 1;
+}
+
+/* Fixed-height band for watermark */
+.pf-footerWatermarkSlot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  /* Signature watermark can be very large (e.g. 205px) */
+  max-height: none;
+  padding: 0 8px 2px;
+  overflow: visible;
+  pointer-events: none;
+  position: relative;
+}
+
+.pf-footerWatermarkSlot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--pf-grid-vertical);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+.pf-footerLower .pf-footerCopy {
+  position: relative;
+  z-index: 3;
+}
+
+.pf-footerRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px 32px;
+}
+
+.pf-footerRowRight {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px 24px;
+  text-align: right;
+  flex: 1;
+  min-width: min(100%, 280px);
+}
+
+.pf-footerHeading {
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  font-size: clamp(28px, 4.5vw, 44px);
+  letter-spacing: 2px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.pf-footerItem,
+.pf-footerLink {
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-size: clamp(16px, 2vw, 22px);
+  color: #baff2b;
+  text-decoration: none;
+}
+
+.pf-footerRow .pf-footerItem,
+.pf-footerRow .pf-footerLink {
+  margin: 0;
+}
+
+.pf-footerItemLink:hover,
+.pf-footerLink:hover {
+  color: #d4ff6b;
+}
+
+.pf-footerRowCta {
+  justify-content: flex-end;
+}
+
+.pf-footerRowCta .pf-cta {
+  margin-top: 0;
+}
+
+.pf-ctaSmall {
+  font-size: 18px;
+}
+.pf-footerSignature {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  width: max-content;
+  max-width: min(100%, 100vw - 48px);
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 205px;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(238, 238, 238, 0.1);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pf-footerCopy {
+  margin: 0;
+  padding-top: 2px;
+  padding-bottom: 0;
+  text-align: right;
+  color: #eeeeee;
+  opacity: 1;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-size: var(--pf-copy-body);
+}
