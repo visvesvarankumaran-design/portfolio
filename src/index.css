@@ -21,6 +21,8 @@ html {
   scroll-behavior: auto;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* Clip horizontal bleed here only; avoid overflow-x on inner wrappers (nested scrollports). */
+  overflow-x: hidden;
 }
 
 body {

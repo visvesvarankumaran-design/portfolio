@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Carousel } from './Carousel'
 
 type AboutDetailBlockProps = {
@@ -58,9 +59,9 @@ export function AboutDetailBlock({
               inspiration from everywhere I go.
             </p>
             {showKnowMore ? (
-              <button type="button" className="pf-cta">
+              <Link to="/about" className="pf-cta">
                 KNOW MORE
-              </button>
+              </Link>
             ) : null}
           </div>
         </div>

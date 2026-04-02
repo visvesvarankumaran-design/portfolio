@@ -34,7 +34,7 @@ export function ContactCtaFooter() {
               <div className="pf-footerRowRight">
                 <a
                   className="pf-footerLink"
-                  href="https://www.linkedin.com/feed/"
+                  href="https://www.linkedin.com/in/visvesvaran-k-2428v/"
                   target="_blank"
                   rel="noreferrer"
                 >

@@ -60,7 +60,6 @@
 .pf-page {
   min-height: auto;
   position: relative;
-  overflow-x: hidden;
   isolation: isolate;
   background: #070707;
 }
@@ -227,7 +226,7 @@
     sans-serif;
   font-weight: 400;
   margin: 0;
-  font-size: clamp(56px, 16vw, 205px);
+  font-size: 205px;
   line-height: 0.92;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -345,7 +344,7 @@
   margin: 0;
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: clamp(40px, 10vw, 150px);
+  font-size: 270px;
   line-height: 0.9;
   color: #eeeeee;
   transform: rotate(-4deg);
@@ -367,7 +366,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: transparent;
-  -webkit-text-stroke: 1px #eeeeee;
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
   -webkit-text-fill-color: transparent;
   text-shadow: none;
 }
@@ -406,7 +405,7 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: transparent;
-  -webkit-text-stroke: 1px #eeeeee;
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
   -webkit-text-fill-color: transparent;
   text-shadow: none;
 }
@@ -722,7 +721,7 @@
   z-index: 2;
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: clamp(56px, 18vw, 270px);
+  font-size: 270px;
   line-height: 0.85;
   color: #eeeeee;
   pointer-events: none;
@@ -755,7 +754,6 @@
 
 @media (min-width: 1200px) {
   .pf-aboutTimelineScript {
-    font-size: 270px;
     transform: rotate(-6deg);
   }
 
@@ -932,7 +930,7 @@
   z-index: 2;
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: clamp(56px, 18vw, 270px);
+  font-size: 270px;
   line-height: 0.85;
   color: #eeeeee;
   pointer-events: none;
@@ -968,7 +966,6 @@
 
 @media (min-width: 1200px) {
   .pf-aboutApproachScript {
-    font-size: 270px;
     transform: translateX(-50%) rotate(-6deg);
   }
 
@@ -992,10 +989,6 @@
 }
 
 @media (max-width: 640px) {
-  .pf-aboutApproachScript {
-    font-size: clamp(48px, 14vw, 100px);
-  }
-
   .pf-aboutApproachOutline {
     padding-top: clamp(72px, 26vw, 140px);
   }
@@ -1084,7 +1077,7 @@
   z-index: 2;
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: clamp(72px, 14vw, 200px);
+  font-size: 270px;
   line-height: 0.95;
   color: #eeeeee;
   transform: rotate(-8deg);
@@ -1213,7 +1206,7 @@
 .pf-playScript {
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: clamp(72px, 22vw, 270px);
+  font-size: 270px;
   color: #eeeeee;
   line-height: 1;
   margin-bottom: 18px;
@@ -1298,7 +1291,7 @@
   }
 
   .pf-aboutTimelineScript {
-    font-size: clamp(56px, 15vw, 270px);
+    font-size: 270px;
     transform: rotate(-6deg);
   }
 
@@ -1317,7 +1310,7 @@
 
   .pf-heroTitle {
     white-space: normal;
-    font-size: clamp(48px, 14vw, 120px);
+    font-size: 205px;
   }
 
   .pf-titleWrap {
@@ -1351,7 +1344,7 @@
 
   .pf-panelWork--onHome .pf-workScript {
     top: clamp(18px, 5vw, 56px);
-    font-size: clamp(48px, 16vw, 120px);
+    font-size: 270px;
   }
 
   .pf-workKicker { font-size: 14px; }
@@ -1506,6 +1499,12 @@
   transform-origin: left bottom;
 }
 
+/* Home + About — script “Brands” matches Work / Play / About scale */
+.pf-hero:not(.pf-main--about) .pf-brandsScript,
+.pf-main--about .pf-brandsScript {
+  font-size: 270px;
+}
+
 .pf-brandsTitle {
   margin: 120px 0 0 var(--brands-left);
   width: max-content;
@@ -1569,7 +1568,7 @@
 .pf-lifeUnplugScript {
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: clamp(72px, 20vw, 270px);
+  font-size: 270px;
   color: #eeeeee;
   line-height: 1;
   margin: 0 0 12px;
@@ -1674,7 +1673,7 @@
   transform-origin: center bottom;
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: clamp(72px, 22vw, 270px);
+  font-size: 270px;
   color: #eeeeee;
 }
 .pf-aboutTitle { margin: 120px auto 0; width: max-content; display: flex; flex-direction: column; gap: 18px; padding-bottom: 24px; }
@@ -1803,7 +1802,17 @@
   text-align: center;
 }
 .pf-ctaInner { width: 100%; max-width: 1400px; margin: 0 auto; }
-.pf-ctaHead { margin: 0 0 28px; font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #eeeeee; text-transform: uppercase; letter-spacing: 2px; font-size: clamp(48px, 8vw, 180px); line-height: 1; }
+.pf-ctaHead {
+  margin: 0 0 28px;
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    sans-serif;
+  color: #eeeeee;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: clamp(48px, 8vw, 180px);
+  line-height: 1;
+  white-space: nowrap;
+}
 
 /* Outline headlines — match LET'S DO IT; h2 bold + stroke looks triple, so weight 400 */
 .pf-ctaOutline,
@@ -1827,6 +1836,29 @@
 
 .pf-ctaOutline {
   margin-bottom: 24px;
+  font-size: 120px;
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
+}
+
+/* Home featured work — override shared 1px stroke (comes later in cascade) */
+.pf-panelWork--onHome .pf-workTitle span {
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
+}
+
+.pf-panelPlay .pf-playTitle {
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
+}
+
+.pf-panelBrands .pf-brandsTitle span {
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
+}
+
+.pf-panelAbout .pf-aboutTitle span {
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
+}
+
+.pf-lifeUnplugged .pf-lifeUnplugTitle {
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
 }
 
 .pf-ctaSub {
