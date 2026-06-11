@@ -43,7 +43,7 @@ export function AboutDetailBlock({
         <div className="pf-aboutGrid">
           <div className="pf-aboutCol">
             <p>
-              With 2.5+ years in UI/ UX design, I&apos;ve led initiatives,
+              With 3+ years in UI/ UX design, I&apos;ve led initiatives,
               collaborated with brands, and mentored designers. I craft simple
               interfaces with deep meaning, using AI and experimentation to
               turn complexity into experiences people remember.

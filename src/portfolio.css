@@ -1164,6 +1164,126 @@
   border-radius: 12px;
 }
 
+/* BiteSplit cover — minimal, full-height hero */
+.pf-caseImage--bitesplit {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(420px, 64svh, 760px);
+  background: linear-gradient(160deg, #f7f6f3 0%, #ecebe7 100%);
+}
+
+/* faint hairline grid, echoing the site's column rhythm */
+.pf-caseImage--bitesplit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: linear-gradient(
+      to right,
+      rgba(20, 20, 24, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(20, 20, 24, 0.05) 1px, transparent 1px);
+  background-size: clamp(48px, 6vw, 88px) clamp(48px, 6vw, 88px);
+  -webkit-mask-image: radial-gradient(
+    120% 120% at 50% 40%,
+    #000 35%,
+    transparent 80%
+  );
+  mask-image: radial-gradient(
+    120% 120% at 50% 40%,
+    #000 35%,
+    transparent 80%
+  );
+}
+
+.pf-bsCover {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(14px, 2vw, 22px);
+  padding: 24px;
+}
+
+.pf-bsBadge {
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 7.5vw, 96px);
+  aspect-ratio: 1;
+  border-radius: clamp(16px, 1.8vw, 24px);
+  background: #ffffff;
+  color: #f2691e; /* the single accent */
+  border: 1px solid rgba(20, 20, 24, 0.08);
+  box-shadow: 0 16px 36px rgba(20, 20, 24, 0.1);
+}
+
+.pf-bsBadge svg {
+  width: 52%;
+  height: 52%;
+}
+
+.pf-bsWordmark {
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 700;
+  font-size: clamp(38px, 5.6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #15151a;
+}
+
+.pf-bsRule {
+  width: clamp(40px, 5vw, 64px);
+  height: 3px;
+  border-radius: 3px;
+  background: #f2691e;
+}
+
+.pf-bsTagline {
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.7vw, 21px);
+  letter-spacing: 0.01em;
+  color: rgba(21, 21, 26, 0.6);
+}
+
+/* Case card as a link (opens the case study) */
+.pf-case--link {
+  display: block;
+  cursor: pointer;
+  transition: transform 220ms ease;
+}
+
+.pf-case--link .pf-caseImage--bitesplit {
+  transition: box-shadow 220ms ease;
+}
+
+.pf-case--link:hover {
+  transform: translateY(-4px);
+}
+
+.pf-case--link:hover .pf-caseImage--bitesplit {
+  box-shadow: 0 26px 64px rgba(0, 0, 0, 0.5);
+}
+
+.pf-case--link:hover .pf-caseTitle {
+  color: #ffffff;
+}
+
+.pf-case--link:focus-visible {
+  outline: 2px solid #f2691e;
+  outline-offset: 8px;
+  border-radius: 14px;
+}
+
 .pf-caseFooter {
   display: flex;
   justify-content: space-between;
@@ -1452,6 +1572,10 @@
 
   .pf-caseImage {
     height: 220px;
+  }
+
+  .pf-caseImage--bitesplit {
+    height: min(56svh, 460px);
   }
 
   .pf-caseTitle {
@@ -2010,4 +2134,473 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-size: var(--pf-copy-body);
+}
+
+/* ============================================================
+   BiteSplit case study — full-bleed storytelling layout
+   ============================================================ */
+.pf-cs {
+  --cs-pad: clamp(20px, 5vw, 104px);
+  --cs-reading: 760px;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  color: rgba(238, 238, 238, 0.92);
+  overflow-x: clip;
+}
+
+/* Scroll reveal — visible by default; only hidden once JS marks the page
+   reveal-ready, so content can never get stuck invisible. */
+.pf-cs.is-reveal-ready .pf-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 750ms ease, transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.pf-cs.is-reveal-ready .pf-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- HERO (full viewport) ---------- */
+.pf-csHero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(120px, 18vh, 220px) var(--cs-pad) clamp(56px, 9vh, 110px);
+}
+.pf-csHeroInner {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.pf-csBack {
+  display: inline-block;
+  margin-bottom: clamp(28px, 5vh, 56px);
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(238, 238, 238, 0.55);
+  transition: color 160ms ease;
+}
+.pf-csBack:hover {
+  color: #f2691e;
+}
+.pf-csTags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 22px;
+  padding: 0;
+}
+.pf-csTags li {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(238, 238, 238, 0.66);
+  padding: 6px 13px;
+  border: 1px solid rgba(238, 238, 238, 0.18);
+  border-radius: 999px;
+}
+.pf-csTitle {
+  margin: 0;
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(72px, 18vw, 280px);
+  line-height: 0.86;
+  letter-spacing: 1px;
+  color: #eeeeee;
+}
+.pf-csLede {
+  margin: clamp(22px, 3vh, 36px) 0 0;
+  max-width: 720px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: 1.5;
+  color: rgba(238, 238, 238, 0.82);
+}
+.pf-csMetaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: clamp(22px, 4vw, 60px);
+  margin-top: clamp(34px, 5vh, 56px);
+  padding-top: 26px;
+  border-top: 1px solid rgba(238, 238, 238, 0.14);
+}
+.pf-csMetaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.pf-csMetaLabel {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(238, 238, 238, 0.45);
+}
+.pf-csMetaValue {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 600;
+  color: #eeeeee;
+}
+.pf-csPdf {
+  margin-left: auto;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #f2691e;
+  padding: 10px 20px;
+  border: 1px solid rgba(242, 105, 30, 0.5);
+  border-radius: 999px;
+  transition: background 160ms ease, color 160ms ease;
+}
+.pf-csPdf:hover {
+  background: #f2691e;
+  color: #fff;
+}
+.pf-csScrollCue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(18px, 3vh, 34px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(238, 238, 238, 0.45);
+}
+.pf-csScrollCue i {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, #f2691e, transparent);
+  animation: pf-cue 1.8s ease-in-out infinite;
+}
+@keyframes pf-cue {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+    transform-origin: top;
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+    opacity: 1;
+  }
+}
+
+/* ---------- Browser-framed screenshot ---------- */
+.pf-shot {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #1a1a1f;
+  border: 1px solid rgba(238, 238, 238, 0.1);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+}
+.pf-shotBar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 15px;
+  background: #2a2a30;
+}
+.pf-shotBar span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+.pf-shotBar span:first-child {
+  background: #ff5f57;
+}
+.pf-shotBar span:nth-child(2) {
+  background: #febc2e;
+}
+.pf-shotBar span:nth-child(3) {
+  background: #28c840;
+}
+.pf-shotImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.pf-shotCap {
+  padding: 16px 20px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(238, 238, 238, 0.6);
+  background: #101013;
+  border-top: 1px solid rgba(238, 238, 238, 0.08);
+}
+
+/* ---------- STAGE: large/edge image ---------- */
+.pf-csStage {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: clamp(48px, 8vh, 96px) var(--cs-pad) 0;
+}
+.pf-csStage--withHead {
+  padding-top: clamp(72px, 12vh, 150px);
+}
+.pf-csStageHead {
+  max-width: var(--cs-reading);
+  margin: 0 0 clamp(26px, 4vh, 44px);
+}
+
+/* ---------- CHAPTER (text beats) ---------- */
+.pf-csChapter {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: clamp(72px, 13vh, 168px) var(--cs-pad) 0;
+}
+.pf-csChapter--center {
+  text-align: center;
+}
+.pf-csChapterHead {
+  max-width: 1100px;
+  margin-bottom: clamp(34px, 5vh, 60px);
+}
+.pf-csNum {
+  display: block;
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: 1;
+  color: rgba(242, 105, 30, 0.28);
+  margin-bottom: 6px;
+}
+.pf-csEyebrow {
+  display: block;
+  margin-bottom: 16px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #f2691e;
+}
+.pf-csH2 {
+  margin: 0;
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 72px);
+  line-height: 1.02;
+  letter-spacing: 0.5px;
+  color: #eeeeee;
+}
+.pf-csH2--big {
+  font-size: clamp(36px, 6vw, 90px);
+}
+.pf-csH3 {
+  margin: 0 0 16px;
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 52px);
+  line-height: 1.04;
+  letter-spacing: 0.5px;
+  color: #eeeeee;
+}
+.pf-csBody {
+  margin: 0;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.68;
+  color: rgba(238, 238, 238, 0.74);
+}
+.pf-csBody--lead {
+  max-width: var(--cs-reading);
+  font-size: clamp(18px, 1.7vw, 23px);
+  color: rgba(238, 238, 238, 0.82);
+}
+
+.pf-csOverview {
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(24px, 3.4vw, 46px);
+  line-height: 1.4;
+  font-weight: 600;
+  color: rgba(238, 238, 238, 0.55);
+}
+.pf-csOverview span {
+  color: #eeeeee;
+}
+
+/* The Need — 3 wide beats */
+.pf-csNeed {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 52px);
+}
+.pf-csNeedItem {
+  border-top: 2px solid rgba(242, 105, 30, 0.5);
+  padding-top: 22px;
+}
+.pf-csNeedTitle {
+  margin: 0 0 12px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(18px, 1.8vw, 23px);
+  font-weight: 700;
+  color: #eeeeee;
+}
+
+/* ---------- SCENE: full-width text + image ---------- */
+.pf-csScene {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: clamp(72px, 13vh, 168px) var(--cs-pad) 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: center;
+}
+.pf-csScene--reverse .pf-csSceneText {
+  order: 2;
+}
+.pf-csSceneText {
+  align-self: center;
+}
+.pf-csSceneMedia--pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 1.5vw, 22px);
+}
+
+/* ---------- FINANCIAL RIGOR (tinted full-width band) ---------- */
+.pf-csRigor {
+  margin-top: clamp(72px, 13vh, 168px);
+  padding: clamp(64px, 12vh, 150px) var(--cs-pad);
+  background: linear-gradient(
+    180deg,
+    rgba(242, 105, 30, 0.08) 0%,
+    rgba(242, 105, 30, 0.02) 100%
+  );
+  border-top: 1px solid rgba(242, 105, 30, 0.22);
+  border-bottom: 1px solid rgba(242, 105, 30, 0.22);
+}
+.pf-csRigorInner {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.pf-csRigor .pf-csBody--lead {
+  margin-top: 24px;
+}
+.pf-csEquation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-top: 40px;
+  padding: clamp(24px, 3vw, 38px);
+  background: rgba(10, 10, 12, 0.5);
+  border: 1px solid rgba(242, 105, 30, 0.3);
+  border-radius: 18px;
+  font-family: 'Anton', Impact, sans-serif;
+}
+.pf-csEqPart {
+  font-size: clamp(22px, 3vw, 36px);
+  color: #eeeeee;
+}
+.pf-csEqTotal {
+  font-size: clamp(28px, 4vw, 50px);
+  color: #f2691e;
+}
+.pf-csEqOp {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(12px, 1.3vw, 15px);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(238, 238, 238, 0.5);
+}
+
+/* ---------- IMPACT ---------- */
+.pf-csImpact {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: clamp(72px, 13vh, 168px) var(--cs-pad) clamp(96px, 16vh, 200px);
+}
+.pf-csMetrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 44px;
+}
+.pf-csMetric {
+  padding: clamp(28px, 3.5vw, 44px);
+  background: #0c0c0c;
+  border: 1px solid rgba(238, 238, 238, 0.1);
+  border-radius: 16px;
+}
+.pf-csMetricFigure {
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(30px, 3.8vw, 52px);
+  line-height: 1.02;
+  color: #f2691e;
+  margin-bottom: 12px;
+}
+.pf-csMetricLabel {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgba(238, 238, 238, 0.66);
+}
+.pf-csBackBig {
+  display: inline-block;
+  margin-top: clamp(40px, 7vh, 72px);
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: clamp(22px, 2.8vw, 38px);
+  letter-spacing: 0.5px;
+  color: #eeeeee;
+  transition: color 160ms ease;
+}
+.pf-csBackBig:hover {
+  color: #f2691e;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .pf-csNeed {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .pf-csScene {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .pf-csScene--reverse .pf-csSceneText {
+    order: 0;
+  }
+  .pf-csMetrics {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .pf-csSceneMedia--pair {
+    grid-template-columns: 1fr;
+  }
 }

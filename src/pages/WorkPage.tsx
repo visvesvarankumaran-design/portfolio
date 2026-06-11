@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { AboutApproachBanner } from '../components/AboutApproachBanner'
 import { WorkProcessSection } from '../components/WorkProcessSection'
 import { ContactCtaFooter } from '../components/ContactCtaFooter'
@@ -19,13 +20,35 @@ export function WorkPage() {
         aria-label="Project showcase"
       >
         <div className="pf-workProjectInner">
-          <article className="pf-case pf-case--workEnd">
-            <div className="pf-caseImage" aria-hidden="true" />
-            <div className="pf-caseFooter">
-              <div className="pf-caseTitle">Personal Finance</div>
-              <div className="pf-caseMeta">UI/UX | Mobile App</div>
+          <Link
+            className="pf-case pf-case--workEnd pf-case--link"
+            to="/work/bitesplit"
+            state={{ from: '/work', fromLabel: 'Work' }}
+            aria-label="Open BiteSplit case study"
+          >
+            <div
+              className="pf-caseImage pf-caseImage--bitesplit"
+              role="img"
+              aria-label="BiteSplit — group ordering made effortless"
+            >
+              <div className="pf-bsCover">
+                <span className="pf-bsBadge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg>
+                </span>
+                <span className="pf-bsWordmark">BiteSplit</span>
+                <span className="pf-bsRule" aria-hidden="true" />
+                <span className="pf-bsTagline">Group ordering made effortless.</span>
+              </div>
             </div>
-          </article>
+            <div className="pf-caseFooter">
+              <div className="pf-caseTitle">BiteSplit</div>
+              <div className="pf-caseMeta">UI /UX | Web App</div>
+            </div>
+          </Link>
         </div>
       </section>
 

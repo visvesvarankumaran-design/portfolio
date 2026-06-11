@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { AboutDetailBlock } from '../components/AboutDetailBlock'
 import { BrandsHeroSection } from '../components/BrandsHeroSection'
 import { ContactCtaFooter } from '../components/ContactCtaFooter.tsx'
@@ -19,7 +20,7 @@ export function HomePage() {
       <section id="about" className="pf-panel pf-panelIntro">
         <p className="pf-introText">
           Hey there, I'm Visvesvaran -- a Junior Product Designer turning messy
-          problems into simple, human experiences that just click. With 2.5+
+          problems into simple, human experiences that just click. With 3+
           years of crafting, mentoring, and adding a spark of delight, I
           design not just for screens, but for moments people remember.
         </p>
@@ -42,13 +43,35 @@ export function HomePage() {
               <div>DESIGN MEETS IMPACT</div>
             </div>
           </h2>
-          <div className="pf-case">
-            <div className="pf-caseImage" aria-hidden="true" />
-            <div className="pf-caseFooter">
-              <div className="pf-caseTitle">Personal Finance</div>
-              <div className="pf-caseMeta">UI/UX | Mobile App</div>
+          <Link
+            className="pf-case pf-case--link"
+            to="/work/bitesplit"
+            state={{ from: '/', fromLabel: 'Home' }}
+            aria-label="Open BiteSplit case study"
+          >
+            <div
+              className="pf-caseImage pf-caseImage--bitesplit"
+              role="img"
+              aria-label="BiteSplit — group ordering made effortless"
+            >
+              <div className="pf-bsCover">
+                <span className="pf-bsBadge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg>
+                </span>
+                <span className="pf-bsWordmark">BiteSplit</span>
+                <span className="pf-bsRule" aria-hidden="true" />
+                <span className="pf-bsTagline">Group ordering made effortless.</span>
+              </div>
             </div>
-          </div>
+            <div className="pf-caseFooter">
+              <div className="pf-caseTitle">BiteSplit</div>
+              <div className="pf-caseMeta">UI /UX | Web App</div>
+            </div>
+          </Link>
         </div>
       </section>
 

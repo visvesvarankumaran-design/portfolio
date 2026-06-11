@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>BiteSplit — Case Study</title>
+<style>
+  body { font-family: 'Calibri', 'Segoe UI', Arial, sans-serif; font-size: 11pt; color: #20202a; line-height: 1.4; }
+  h1 { font-size: 30pt; color: #15151a; margin: 0 0 2pt; letter-spacing: -0.5pt; }
+  h2 { font-size: 16pt; color: #c2410c; border-bottom: 1.5px solid #e8e8e8; padding-bottom: 5pt; margin-top: 26pt; }
+  h3 { font-size: 12.5pt; color: #15151a; margin-bottom: 1pt; margin-top: 14pt; }
+  .subtitle { font-size: 14pt; color: #444; font-weight: bold; margin: 0 0 8pt; }
+  .lede { font-size: 12pt; color: #333; margin: 0 0 10pt; }
+  .tagrow { font-size: 9.5pt; color: #888; letter-spacing: 1pt; text-transform: uppercase; font-weight: bold; margin-bottom: 4pt; }
+  .callout { background: #fff7f2; border: 1px solid #f3c9ad; padding: 9pt 13pt; margin: 8pt 0; }
+  table { border-collapse: collapse; width: 100%; margin: 10pt 0; }
+  td, th { border: 1px solid #dcdcdc; padding: 6pt 9pt; text-align: left; vertical-align: top; font-size: 10.5pt; }
+  th { background: #f5f5f5; width: 20%; color: #555; }
+  code { font-family: 'Consolas', monospace; font-size: 10pt; background: #f0f0f0; padding: 0 3pt; }
+  ul, ol { margin-top: 4pt; }
+  li { margin-bottom: 5pt; }
+  .meta { color: #888; font-size: 9.5pt; margin-top: 18pt; }
+  blockquote { border-left: 3px solid #f2691e; margin: 10pt 0; padding: 3pt 13pt; color: #444; font-style: italic; }
+  /* Screens */
+  .shot { width: 600px; border: 1px solid #e2e2e2; margin-top: 6pt; }
+  .shot-sm { width: 290px; border: 1px solid #e2e2e2; margin-top: 6pt; }
+  .cap { font-size: 9pt; color: #999; font-style: italic; margin: 3pt 0 0; }
+  .pair td { border: none; padding: 0 8pt 0 0; vertical-align: top; }
+</style>
+</head>
+<body>
+
+<!-- ===================== COVER ===================== -->
+<p class="tagrow">UI/UX &middot; Web App &middot; 2026</p>
+<h1>BiteSplit</h1>
+<p class="subtitle">Group food ordering, without the math fight at the end.</p>
+<p class="lede">A collaborative web app where a group orders from one shared cart in real time — and the bill splits itself, to the rupee, before anyone pays.</p>
+<blockquote>Turned the messiest part of group food ordering — the &ldquo;who owes what&rdquo; — into a self-resolving, real-time checkout.</blockquote>
+
+<table>
+  <tr><th>Role</th><td>UI/UX Designer &amp; Frontend Developer (full-stack build with AI pair-programming)</td></tr>
+  <tr><th>Type</th><td>Self-initiated proof of concept &middot; 1-week sprint</td></tr>
+  <tr><th>Stack</th><td>React 18 &middot; TypeScript &middot; Tailwind CSS &middot; Framer Motion &middot; Socket.io &middot; Node / Express</td></tr>
+</table>
+
+<!-- ===================== PROBLEM ===================== -->
+<h2>The Problem</h2>
+<p>Ordering food for a group is a coordination tax everyone has paid and nobody enjoys. It breaks down in three predictable places:</p>
+<ul>
+  <li><strong>One person becomes the human order form.</strong> The host collects picks over chat, fixes the &ldquo;wait, no onions,&rdquo; and types it all into one account. Items get missed; the order goes in late.</li>
+  <li><strong>The host eats the bill.</strong> They pay upfront, then back-calculate what each person owes — items <em>plus</em> their share of delivery, tax, and tip — and chase people for &#8377;230 three days later.</li>
+  <li><strong>Nobody can see the shared cart.</strong> Delivery apps are single-device, so the group orders blind: duplicate fries, lopsided meals, no real-time alignment.</li>
+</ul>
+
+<!-- ===================== GOAL ===================== -->
+<h2>The Goal</h2>
+<p>Replace the chat + spreadsheet + IOU ritual with one shared session where anyone joins with <strong>zero signup</strong>, everyone sees the <strong>same live cart</strong>, and the bill <strong>splits itself correctly</strong> before checkout — so the host is never out of pocket and no one does mental math.</p>
+
+<!-- ===================== WALKTHROUGH ===================== -->
+<h2>The Experience, Step by Step</h2>
+
+<h3>1. Join in one field</h3>
+<p>The host starts a session and gets a short, shareable room code. Guests open the link, see the code pre-filled, and tap Join — no account, no password, no install. Removing friction at the door is why the group actually shows up.</p>
+<table class="pair"><tr>
+  <td><img class="shot-sm" width="285" src="assets/01-start.png" /><p class="cap">Host starts a group order with just a name.</p></td>
+  <td><img class="shot-sm" width="285" src="assets/03-join.png" /><p class="cap">Guests join the session with the code pre-filled.</p></td>
+</tr></table>
+
+<h3>2. Pick where you&rsquo;re ordering from</h3>
+<p>A familiar restaurant grid — rating, prep time, distance — so nobody needs instructions. Choosing one loads that restaurant&rsquo;s real menu, not a generic template.</p>
+<img class="shot" width="600" src="assets/02-restaurants.png" />
+<p class="cap">Restaurant selection, shared across everyone in the room.</p>
+
+<h3>3. The shared cart is the centerpiece</h3>
+<p>The menu sits on the left with search and category filters; the <strong>Shared Cart</strong> sits on the right and is the heart of the product. Items are grouped per person, so everyone sees exactly who ordered what — live. Every add, edit, and remove broadcasts instantly to all devices via Socket.io, which kills duplicate orders.</p>
+<img class="shot" width="600" src="assets/04-menu-cart.png" />
+<p class="cap">Live shared cart — items grouped by person, updating in real time for everyone.</p>
+
+<h3>4. The bill splits itself</h3>
+<p>At checkout the host gets <strong>Individual Shares</strong> with a Proportional / Equal toggle, a tip selector, and a transparent breakdown — items, delivery, taxes, total. Every member reviews and approves their own share, and the host <em>can&rsquo;t pay until everyone has</em> — the pay button stays disabled while &ldquo;2 members haven&rsquo;t approved yet.&rdquo;</p>
+<table class="pair"><tr>
+  <td><img class="shot-sm" width="285" src="assets/05-bill-host.png" /><p class="cap">Host view — pay locked until all members approve.</p></td>
+  <td><img class="shot-sm" width="285" src="assets/08-bill-all-approved.png" /><p class="cap">All approved — Proceed to Pay unlocks.</p></td>
+</tr></table>
+
+<h3>5. Order placed, tracked together</h3>
+<p>Once paid, everyone lands on a shared confirmation with a live tracking timeline — Preparing &rarr; Picked up &rarr; Arriving &rarr; Delivered — plus the participant list and the total paid.</p>
+<img class="shot" width="600" src="assets/09-order-success.png" />
+<p class="cap">Shared order confirmation and live tracking for the whole group.</p>
+
+<!-- ===================== DESIGN DECISIONS ===================== -->
+<h2>Key Design Decisions</h2>
+<ul>
+  <li><strong>Make the cart the hero, not the menu.</strong> In a <em>group</em> app the shared cart is the whole reason you&rsquo;re here, so it gets persistent real estate — a sticky sidebar on desktop, a slide-up sheet on mobile.</li>
+  <li><strong>Borrow a visual language people trust.</strong> Money and other people are involved; novelty would cost trust. Clean white surfaces, a confident orange accent, and clear typography buy instant comfort.</li>
+  <li><strong>Built for two contexts at once.</strong> Guests join on phones; the host often checks out on a laptop — so the layout is genuinely fluid, not one design squeezed into the other.</li>
+  <li><strong>The host is a referee, not a gatekeeper.</strong> The host controls flow (lock, checkout, pay) but never people&rsquo;s choices — members approve their own shares.</li>
+  <li><strong>No minimum order.</strong> A &#8377;520 side of fries is a valid order; the product serves the lightest member as gracefully as the biggest.</li>
+</ul>
+
+<!-- ===================== THE MATH ===================== -->
+<h2>The Hard Part: Getting the Money Exactly Right</h2>
+<p>A bill splitter that&rsquo;s off by a rupee isn&rsquo;t a rounding quirk — it&rsquo;s a broken promise, because the host absorbs the gap.</p>
+<div class="callout">
+<ul>
+  <li><strong>Floating-point money is a trap.</strong> <code>0.1 + 0.2</code> is <code>0.30000000000000004</code>. So calculations run on integers in the smallest unit (paise) and only convert back to rupees for display.</li>
+  <li><strong>The split has to reconcile.</strong> Proportional or equal, the sum of all shares equals <code>subtotal + delivery + taxes + tip</code> exactly — the stray rounding rupee is assigned deterministically.</li>
+  <li><strong>The guarantee.</strong> A &#8377;3,758 cart became a &#8377;5,022 total split as &#8377;2,756 + &#8377;2,266 — and those add back to &#8377;5,022 exactly. That reconciliation is the feature.</li>
+</ul>
+</div>
+
+<!-- ===================== EDGE CASES ===================== -->
+<h2>Edge Cases I Designed For</h2>
+<ul>
+  <li><strong>Host switches restaurant mid-session</strong> &rarr; all carts and totals clear instantly, so menus can&rsquo;t cross-contaminate.</li>
+  <li><strong>A guest refreshes or drops connection</strong> &rarr; room state is preserved and they rejoin straight into their own cart.</li>
+  <li><strong>Cart locked at checkout</strong> &rarr; adds and removes freeze, so no one alters the order after shares are computed.</li>
+  <li><strong>Someone leaves the group</strong> &rarr; every remaining member&rsquo;s split is recomputed live.</li>
+</ul>
+
+<!-- ===================== OUTCOME ===================== -->
+<h2>Outcome &amp; Takeaways</h2>
+<ul>
+  <li><strong>~15 minutes &rarr; seconds.</strong> Group coordination collapses from a long chat thread to everyone tapping on their own phone.</li>
+  <li><strong>Host anxiety, designed out.</strong> Accurate shares, visible approvals, and a guarantee they&rsquo;re never short.</li>
+  <li><strong>Full stack, solo, in a week.</strong> Real-time sync, a self-reconciling split engine, and a complete join-to-delivery flow — proof that AI pair-programming lets one designer own the whole product while still deciding what&rsquo;s correct and what feels right.</li>
+</ul>
+
+<p class="meta">Designed &amp; built by Visvesvaran K — UI/UX Designer &amp; Frontend Developer.</p>
+
+</body>
+</html>
