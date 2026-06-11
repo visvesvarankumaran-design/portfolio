@@ -33,9 +33,77 @@ const NEED = [
 ]
 
 const METRICS = [
-  { figure: '~15 min → secs', label: 'Group coordination time' },
-  { figure: '₹0', label: 'Discrepancy between split & total' },
-  { figure: '1 week', label: 'Full-stack build, solo' },
+  { figure: '₹0', label: 'Every split reconciles to the invoice total — down to the paise' },
+  { figure: '1 week', label: 'Designed & built solo, with AI pair-programming' },
+  { figure: 'Minutes → seconds', label: 'The group coordination the flow is designed to remove' },
+]
+
+const PERSONAS = [
+  'Office teams at lunch',
+  'Roommates on a Friday',
+  'Friends splitting a party order',
+]
+
+const FLOW = [
+  'Host starts a room',
+  'Guests join with a code',
+  'Pick a restaurant',
+  'Build the shared cart, live',
+  'Lock & auto-split',
+  'Everyone approves',
+  'Host pays',
+  'Track together',
+]
+
+const DECISIONS = [
+  {
+    k: 'Make the cart the hero, not the menu',
+    v: 'In a group app the shared cart is the whole reason you’re here, so it gets permanent real estate instead of hiding behind a button. Watching the order assemble in real time is the “aha.”',
+  },
+  {
+    k: 'Borrow a visual language people trust',
+    v: 'Money and other people are involved — novelty would cost trust. Clean surfaces, a confident orange accent and green veg-dots echo the delivery apps everyone already knows.',
+  },
+  {
+    k: 'The host is a referee, not a gatekeeper',
+    v: 'The host controls flow — lock, checkout, pay — but never anyone’s choices. Members approve their own share, so one person isn’t babysitting the whole order.',
+  },
+  {
+    k: 'No minimum order',
+    v: 'A ₹520 side of fries is a valid order. Removing the artificial floor means the lightest member is served as gracefully as the biggest.',
+  },
+]
+
+const EDGE_CASES = [
+  {
+    k: 'Host switches restaurant mid-session',
+    v: 'Every cart and total clears instantly across all screens, so a burger menu can’t contaminate a sushi order.',
+  },
+  {
+    k: 'A guest refreshes or drops offline',
+    v: 'Room state is preserved on the server — they rejoin straight back into their own cart, nothing lost.',
+  },
+  {
+    k: 'Cart locked at checkout',
+    v: 'Once the host starts checkout, adds and removes freeze, so no one can slip in an item after shares are computed.',
+  },
+  {
+    k: 'A member leaves the group',
+    v: 'Every remaining person’s split is recomputed live, so the totals always stay correct.',
+  },
+]
+
+const LEARNINGS = [
+  'In a multiplayer product, the shared state is the product — most of the design effort went into making “what is everyone doing right now” obvious and trustworthy.',
+  'Trust lives in the details that don’t demo well: the disabled pay button, the per-person grouping, the rupee that always reconciles.',
+  'Holding both the design and the build let me move fast without losing intent — AI handled boilerplate while I owned the product calls.',
+]
+
+const NEXT = [
+  'In-app payments with automatic settlement, so members pay their share directly instead of the host fronting it.',
+  'Saved groups and one-tap reorder (“same as last Friday”).',
+  'Dietary tags and allergen filters surfaced right in the shared cart.',
+  'Light persistence so a session survives a closed tab, not just a refresh.',
 ]
 
 /** A desktop screenshot dressed in browser chrome so the light UI pops on the dark canvas. */
@@ -119,6 +187,11 @@ export function BiteSplitCaseStudy() {
             cart, updated live for everyone — and a bill that splits itself, to
             the rupee, before anyone pays.
           </p>
+          <p className="pf-csRole">
+            A solo project — I led the UI/UX and product design and built the
+            frontend, directing the full-stack work (real-time sync and the
+            split engine) with AI as a pair-programmer.
+          </p>
           <div className="pf-csMetaRow">
             {META.map((m) => (
               <div className="pf-csMetaItem" key={m.label}>
@@ -161,6 +234,27 @@ export function BiteSplitCaseStudy() {
         </p>
       </section>
 
+      {/* ===================== WHO IT'S FOR ===================== */}
+      <section className="pf-csChapter">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csEyebrow">Who it’s for</span>
+          <h2 className="pf-csH2">
+            The people who order together — and the host who pays for it.
+          </h2>
+        </div>
+        <div className="pf-csPersonas pf-reveal">
+          {PERSONAS.map((p) => (
+            <span className="pf-csPersona" key={p}>
+              {p}
+            </span>
+          ))}
+        </div>
+        <p className="pf-csBody pf-csBody--lead pf-reveal">
+          Anyone who’s been the host — stuck passing a phone around, fronting the
+          whole bill, and chasing reimbursements days later.
+        </p>
+      </section>
+
       {/* ===================== THE NEED ===================== */}
       <section className="pf-csChapter">
         <div className="pf-csChapterHead pf-reveal">
@@ -191,7 +285,7 @@ export function BiteSplitCaseStudy() {
           </h2>
         </div>
         <p className="pf-csBody pf-csBody--lead pf-reveal">
-          Anyone joins from their own phone with just a name. Every add and
+          Anyone joins from their own device with just a name. Every add and
           remove broadcasts instantly over Socket.io, so the cart is a single
           source of truth the whole group watches fill up together. At checkout,
           a split engine computes each person’s share — proportionally or
@@ -199,10 +293,35 @@ export function BiteSplitCaseStudy() {
         </p>
       </section>
 
+      {/* ===================== PROCESS ===================== */}
+      <section className="pf-csChapter">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csNum">03</span>
+          <span className="pf-csEyebrow">Process</span>
+          <h2 className="pf-csH2">
+            I mapped one continuous session before designing a single screen.
+          </h2>
+        </div>
+        <p className="pf-csBody pf-csBody--lead pf-reveal">
+          The guiding rule: no step should ever make you leave the room or do
+          mental math. I sketched the end-to-end flow first, then designed each
+          screen to that spine — so joining, ordering, splitting, paying and
+          tracking all live inside one session.
+        </p>
+        <ol className="pf-csFlow pf-reveal">
+          {FLOW.map((step, i) => (
+            <li className="pf-csFlowStep" key={step}>
+              <span className="pf-csFlowNum">{i + 1}</span>
+              <span className="pf-csFlowLabel">{step}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
       {/* ===================== SCENE: JOIN ===================== */}
       <section className="pf-csScene">
         <div className="pf-csSceneText pf-reveal">
-          <span className="pf-csEyebrow">Chapter 03 — Arrive</span>
+          <span className="pf-csEyebrow">The experience — Join</span>
           <h3 className="pf-csH3">Join in one field</h3>
           <p className="pf-csBody">
             The host opens a room and shares a short code. Guests open the link,
@@ -220,7 +339,7 @@ export function BiteSplitCaseStudy() {
       {/* ===================== STAGE: RESTAURANTS ===================== */}
       <section className="pf-csStage pf-csStage--withHead">
         <div className="pf-csStageHead pf-reveal">
-          <span className="pf-csEyebrow">Chapter 04 — Choose</span>
+          <span className="pf-csEyebrow">The experience — Choose</span>
           <h3 className="pf-csH3">Pick where you’re ordering from</h3>
           <p className="pf-csBody">
             A familiar grid — rating, prep time, distance. Choosing a restaurant
@@ -236,7 +355,7 @@ export function BiteSplitCaseStudy() {
       {/* ===================== SCENE: SPLIT ===================== */}
       <section className="pf-csScene pf-csScene--reverse">
         <div className="pf-csSceneText pf-reveal">
-          <span className="pf-csEyebrow">Chapter 05 — Settle</span>
+          <span className="pf-csEyebrow">The experience — Split</span>
           <h3 className="pf-csH3">The bill splits itself</h3>
           <p className="pf-csBody">
             Each member reviews and approves their own share, and the host
@@ -279,7 +398,7 @@ export function BiteSplitCaseStudy() {
       {/* ===================== STAGE: SUCCESS ===================== */}
       <section className="pf-csStage pf-csStage--withHead">
         <div className="pf-csStageHead pf-reveal">
-          <span className="pf-csEyebrow">Chapter 06 — Track</span>
+          <span className="pf-csEyebrow">The experience — Track</span>
           <h3 className="pf-csH3">Order placed, tracked together</h3>
           <p className="pf-csBody">
             One shared confirmation, a live tracking timeline, and the
@@ -289,11 +408,47 @@ export function BiteSplitCaseStudy() {
         <Shot src={imgSuccess} alt="Shared order confirmation with live tracking" />
       </section>
 
-      {/* ===================== IMPACT ===================== */}
+      {/* ===================== DESIGN DECISIONS ===================== */}
+      <section className="pf-csChapter">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csNum">04</span>
+          <span className="pf-csEyebrow">Design decisions</span>
+          <h2 className="pf-csH2">The calls that shaped how it feels.</h2>
+        </div>
+        <div className="pf-csCards">
+          {DECISIONS.map((d) => (
+            <div className="pf-csCard pf-reveal" key={d.k}>
+              <h3 className="pf-csCardTitle">{d.k}</h3>
+              <p className="pf-csBody">{d.v}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===================== EDGE CASES ===================== */}
+      <section className="pf-csChapter">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csNum">05</span>
+          <span className="pf-csEyebrow">Edge cases</span>
+          <h2 className="pf-csH2">
+            Real groups are chaotic — the unhappy paths got real attention.
+          </h2>
+        </div>
+        <div className="pf-csCards">
+          {EDGE_CASES.map((e) => (
+            <div className="pf-csCard pf-reveal" key={e.k}>
+              <h3 className="pf-csCardTitle">{e.k}</h3>
+              <p className="pf-csBody">{e.v}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===================== OUTCOME ===================== */}
       <section className="pf-csImpact">
         <div className="pf-csChapterHead pf-reveal">
-          <span className="pf-csNum">07</span>
-          <span className="pf-csEyebrow">Impact</span>
+          <span className="pf-csNum">06</span>
+          <span className="pf-csEyebrow">Outcome</span>
           <h2 className="pf-csH2">From a logistical headache to a calm, social ritual.</h2>
         </div>
         <div className="pf-csMetrics">
@@ -305,10 +460,37 @@ export function BiteSplitCaseStudy() {
           ))}
         </div>
         <p className="pf-csBody pf-csBody--lead pf-reveal">
-          BiteSplit proves AI pair-programming lets one designer own a real-time
-          product end-to-end — while still deciding what’s correct and what
-          feels right.
+          As a proof of concept, BiteSplit shows how AI pair-programming lets one
+          designer own a real-time product end-to-end — while still owning the
+          calls on what’s correct and what feels right.
         </p>
+      </section>
+
+      {/* ===================== REFLECTION ===================== */}
+      <section className="pf-csImpact">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csNum">07</span>
+          <span className="pf-csEyebrow">Reflection &amp; what’s next</span>
+          <h2 className="pf-csH2">What it taught me — and where it goes.</h2>
+        </div>
+        <div className="pf-csReflect">
+          <div className="pf-csReflectCol pf-reveal">
+            <h3 className="pf-csCardTitle">What I learned</h3>
+            <ul className="pf-csList">
+              {LEARNINGS.map((l) => (
+                <li key={l}>{l}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="pf-csReflectCol pf-reveal">
+            <h3 className="pf-csCardTitle">What’s next</h3>
+            <ul className="pf-csList">
+              {NEXT.map((n) => (
+                <li key={n}>{n}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
         <Link to={backTo} className="pf-csBackBig pf-reveal">
           ← Back to {backLabel}
         </Link>
