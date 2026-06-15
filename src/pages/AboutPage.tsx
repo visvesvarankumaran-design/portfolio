@@ -28,10 +28,11 @@ export function AboutPage() {
 
       <section className="pf-panel pf-aboutIntro" aria-label="Introduction">
         <p className="pf-introText">
-          Hey there, I’m Visvesvaran — a Senior Product Designer turning
-          messy problems into simple, human experiences that just click. With
-          2.5+ years of crafting, mentoring, and adding a spark of delight, I
-          design not just for screens, but for moments people remember.
+          Hey there, I’m Visvesvaran — a Product Designer turning messy
+          problems into simple, human experiences that just click. I started in
+          frontend development and moved into design; across 3 years that mix
+          has taught me to design not just for screens, but for moments people
+          remember.
         </p>
       </section>
 
