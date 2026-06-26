@@ -3197,8 +3197,9 @@
   --dep-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Menlo,
     Consolas, monospace;
   color: var(--dep-ink);
+  /* calmer, flatter canvas — softened so the bright screens read as the hero */
   background:
-    radial-gradient(125% 80% at 50% -8%, #13233f 0%, #0a1426 52%, #070e1c 100%);
+    radial-gradient(140% 95% at 50% -12%, #111c2f 0%, #0b1422 58%, #0a111d 100%);
 }
 
 /* ---- signage typography ---- */
@@ -3396,6 +3397,194 @@
     margin-left: auto;
     margin-right: auto;
     text-align: left;
+  }
+}
+
+/* ============================================================
+   FOUNDATIONS — palette, type scale, system rules, components
+   Scoped to .pf-dep so it stays on the departures-board theme.
+   ============================================================ */
+.pf-dep .pf-fnGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(18px, 2.4vw, 28px);
+  margin-top: clamp(28px, 4vh, 44px);
+}
+.pf-dep .pf-fnCard {
+  background: rgba(13, 24, 42, 0.55);
+  border: 1px solid rgba(56, 189, 248, 0.14);
+  border-radius: 18px;
+  padding: clamp(20px, 2.6vw, 30px);
+}
+.pf-dep .pf-fnCardTitle {
+  margin: 0 0 20px;
+  font-family: var(--dep-mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dep-cyan);
+}
+
+/* ---- colour swatches ---- */
+.pf-dep .pf-fnSwatches {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pf-dep .pf-fnSwatch {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.pf-dep .pf-fnChip {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.pf-dep .pf-fnSwatchMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.pf-dep .pf-fnSwatchMeta b {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #eaf2ff;
+}
+.pf-dep .pf-fnSwatchMeta code {
+  font-family: var(--dep-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--dep-cyan);
+}
+.pf-dep .pf-fnSwatchMeta small {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 12.5px;
+  color: rgba(219, 230, 245, 0.6);
+}
+
+/* ---- type scale ---- */
+.pf-dep .pf-fnType {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.pf-dep .pf-fnTypeRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.pf-dep .pf-fnTypeRow:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.pf-dep .pf-fnTypeSample {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  color: #eaf2ff;
+  line-height: 1.1;
+}
+.pf-dep .pf-fnType--display {
+  font-size: 28px;
+  font-weight: 700;
+}
+.pf-dep .pf-fnType--title {
+  font-size: 20px;
+  font-weight: 600;
+}
+.pf-dep .pf-fnType--body {
+  font-size: 15px;
+  font-weight: 500;
+}
+.pf-dep .pf-fnType--caption {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(219, 230, 245, 0.7);
+}
+.pf-dep .pf-fnTypeMeta {
+  font-family: var(--dep-mono);
+  font-size: 11.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(56, 189, 248, 0.7);
+}
+
+/* ---- system rules ---- */
+.pf-dep .pf-fnRules {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 2vw, 22px);
+  margin-top: clamp(18px, 2.4vw, 28px);
+}
+.pf-dep .pf-fnRule {
+  padding: clamp(18px, 2vw, 24px);
+  background: rgba(13, 24, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+}
+.pf-dep .pf-fnRuleTitle {
+  margin: 0 0 10px;
+  font-family: var(--dep-mono);
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--dep-amber);
+}
+.pf-dep .pf-fnRule .pf-csBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* ---- reusable components ---- */
+.pf-dep .pf-fnComponents {
+  margin-top: clamp(28px, 4vh, 40px);
+}
+.pf-dep .pf-fnComponents .pf-csEyebrow {
+  display: block;
+  margin-bottom: 16px;
+}
+.pf-dep .pf-fnChips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.pf-dep .pf-fnChips li {
+  font-family: var(--dep-mono);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: var(--dep-ink);
+  padding: 9px 16px;
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.06);
+}
+
+@media (max-width: 760px) {
+  .pf-dep .pf-fnGrid {
+    grid-template-columns: 1fr;
+  }
+  .pf-dep .pf-fnRules {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .pf-dep .pf-fnRules {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -9,13 +9,45 @@ import screenPass from '../assets/Air-ticket/fScreen-6.png'
 import screenProfile from '../assets/Air-ticket/fScreen-7.png'
 import screenNotifications from '../assets/Air-ticket/fScreen-8.png'
 
-const TAGS = ['UI/UX Design', 'Mobile App', 'Figma', 'Proof of Concept']
+const TAGS = ['UI Design', 'Visual Design', 'Mobile', 'Figma']
 
 const META = [
-  { label: 'Role', value: 'UI/UX Design' },
-  { label: 'Type', value: 'Mobile App · Proof of Concept' },
-  { label: 'Platform', value: 'iOS & Android' },
+  { label: 'Discipline', value: 'UI / Visual Design' },
+  { label: 'Type', value: 'Self-initiated exploration' },
+  { label: 'Platform', value: 'Mobile' },
   { label: 'Year', value: '2024' },
+]
+
+/** Visual foundations behind the screens — pulled from the design itself. */
+const PALETTE = [
+  { name: 'Ink Navy', hex: '#181F32', note: 'Brand · primary actions · selected' },
+  { name: 'Surface', hex: '#FFFFFF', note: 'Screen background · cards' },
+  { name: 'Subtle', hex: '#F4F3F8', note: 'Fields · inactive rows' },
+  { name: 'Text', hex: '#16181D', note: 'Headlines · key values' },
+  { name: 'Muted', hex: '#8C92A0', note: 'Labels · secondary text' },
+]
+
+const TYPE_SCALE = [
+  { role: 'Display', sample: 'Securely Book', spec: '28 · Bold' },
+  { role: 'Title', sample: 'Payment method', spec: '20 · Semibold' },
+  { role: 'Body', sample: 'United Arab Emirates', spec: '15 · Medium' },
+  { role: 'Caption', sample: 'Departure · 10 June', spec: '12 · Regular' },
+]
+
+const SYSTEM = [
+  { k: '8-pt grid', v: 'Spacing, padding and gaps step in multiples of 8 for an even, predictable rhythm.' },
+  { k: 'One radius', v: '16px on cards and fields; fully-rounded pills for the primary button and chips.' },
+  { k: 'Soft elevation', v: 'A single low, diffuse shadow lifts cards off the surface — no hard borders.' },
+  { k: 'Line icons', v: 'One consistent stroke weight across the tab bar and inline icons.' },
+]
+
+const COMPONENTS = [
+  'Primary button',
+  'Search field',
+  'Flight card',
+  'Seat tile',
+  'List row',
+  'Bottom tab bar',
 ]
 
 /**
@@ -289,14 +321,16 @@ export function AirTicketCaseStudy() {
           </ul>
           <h1 className="pf-csTitle">Air Ticket</h1>
           <p className="pf-csLede">
-            A proof-of-concept flight-booking app for mobile — built for both
-            iOS and Android. Eight key screens explore the core booking idea,
-            from first launch to boarding pass: search, seat, payment and
-            check-in.
+            A self-initiated UI exploration. I kept seeing sharp flight-booking
+            concepts on Pinterest and the Instagram design community, so I
+            rebuilt a full mobile flow myself — eight screens, start to finish —
+            to practise clean, modern product UI.
           </p>
           <p className="pf-csRole">
-            A UI/UX proof of concept — I designed the screens and visual system
-            in Figma as a complete, polished design, for both iOS and Android.
+            Pure visual / UI design, made in Figma. No client and no brief —
+            the goal was craft: a calm, consistent interface from onboarding to
+            boarding pass. Inspiration credit to the Pinterest &amp; Instagram
+            design community.
           </p>
           <div className="pf-csMetaRow">
             {META.map((m) => (
@@ -316,6 +350,24 @@ export function AirTicketCaseStudy() {
           disconnected forms.{' '}
           <span>Each screen does exactly one job</span> — and hands you cleanly
           to the next.
+        </p>
+      </section>
+
+      {/* ===================== VISUAL DIRECTION ===================== */}
+      <section className="pf-csChapter">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csEyebrow">Visual direction</span>
+          <h2 className="pf-csH2">Calm, trustworthy, and out of the way.</h2>
+        </div>
+        <p className="pf-csBody pf-csBody--lead pf-reveal">
+          Money and travel are stressful, so the interface stays quiet. A deep
+          ink-navy carries the brand and every primary action, set against clean
+          white surfaces and soft grey cards — one confident accent, no visual
+          noise. Type is a single humanist sans on a tight scale, generous
+          line-height keeps dense flight data readable, and one screen never
+          shows more than one obvious next step. The look is deliberately
+          familiar: it borrows the visual language travellers already trust, so
+          nothing has to be re-learned.
         </p>
       </section>
 
@@ -357,6 +409,74 @@ export function AirTicketCaseStudy() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* ===================== FOUNDATIONS ===================== */}
+      <section className="pf-csChapter">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csEyebrow">Foundations</span>
+          <h2 className="pf-csH2">The system that keeps it consistent.</h2>
+        </div>
+
+        <div className="pf-fnGrid">
+          {/* Colour */}
+          <div className="pf-fnCard pf-reveal">
+            <h3 className="pf-fnCardTitle">Colour</h3>
+            <ul className="pf-fnSwatches">
+              {PALETTE.map((c) => (
+                <li className="pf-fnSwatch" key={c.hex}>
+                  <span
+                    className="pf-fnChip"
+                    style={{ background: c.hex }}
+                    aria-hidden="true"
+                  />
+                  <span className="pf-fnSwatchMeta">
+                    <b>{c.name}</b>
+                    <code>{c.hex}</code>
+                    <small>{c.note}</small>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Type */}
+          <div className="pf-fnCard pf-reveal">
+            <h3 className="pf-fnCardTitle">Type scale</h3>
+            <ul className="pf-fnType">
+              {TYPE_SCALE.map((t) => (
+                <li className="pf-fnTypeRow" key={t.role}>
+                  <span className={`pf-fnTypeSample pf-fnType--${t.role.toLowerCase()}`}>
+                    {t.sample}
+                  </span>
+                  <span className="pf-fnTypeMeta">
+                    {t.role} · {t.spec}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* System rules */}
+        <div className="pf-fnRules">
+          {SYSTEM.map((r) => (
+            <div className="pf-fnRule pf-reveal" key={r.k}>
+              <h3 className="pf-fnRuleTitle">{r.k}</h3>
+              <p className="pf-csBody">{r.v}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Components */}
+        <div className="pf-fnComponents pf-reveal">
+          <span className="pf-csEyebrow">Reusable components</span>
+          <ul className="pf-fnChips">
+            {COMPONENTS.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
         </div>
       </section>
 
