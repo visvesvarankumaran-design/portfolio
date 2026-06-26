@@ -438,12 +438,245 @@
   min-width: 0;
 }
 
+.pf-workPairCard--link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.pf-workPairCard--link .pf-workPairImage {
+  transition: transform 320ms ease;
+}
+.pf-workPairCard--link:hover .pf-workPairImage {
+  transform: translateY(-6px);
+}
+.pf-workPairCard--link:hover .pf-workPairTitle {
+  color: #f2691e;
+}
+
 .pf-workPairImage {
   width: 100%;
   height: min(48vh, 480px);
   min-height: 240px;
   background: #8a8989;
   border-radius: 12px;
+}
+
+/* Air Ticket — designed boarding-pass cover */
+.pf-atCover {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    125% 145% at 50% 0%,
+    #1d2230 0%,
+    #0c0d12 58%,
+    #08090d 100%
+  );
+  border: 1px solid rgba(238, 238, 238, 0.08);
+}
+
+.pf-atCoverArc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* The boarding pass — a cream ticket floating on the dark canvas */
+.pf-atPass {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: min(86%, 460px);
+  border-radius: 16px;
+  background: #f6f5f1;
+  color: #15151a;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+  transform: rotate(-2.5deg);
+  transition: transform 320ms ease;
+}
+.pf-workPairCard--link:hover .pf-atPass {
+  transform: rotate(-2.5deg) translateY(-2px);
+}
+
+.pf-atPassMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 3vw, 26px);
+  padding: clamp(18px, 3.4vw, 28px);
+}
+
+.pf-atPassTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.pf-atPassBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Anton', Impact, Haettenschweiler, sans-serif;
+  font-size: clamp(16px, 2vw, 22px);
+  letter-spacing: 0.06em;
+  color: #15151a;
+}
+.pf-atPassPlane {
+  width: clamp(15px, 1.8vw, 19px);
+  height: auto;
+  fill: #f2691e;
+}
+.pf-atPassKicker {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(9px, 1vw, 11px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #f2691e;
+}
+
+.pf-atPassRoute {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(8px, 1.6vw, 16px);
+}
+.pf-atPassCity {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pf-atPassCity--r {
+  align-items: flex-end;
+}
+.pf-atPassCity b {
+  font-family: 'Anton', Impact, Haettenschweiler, sans-serif;
+  font-weight: 400;
+  font-size: clamp(28px, 4.4vw, 46px);
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  color: #15151a;
+}
+.pf-atPassCity small {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(9px, 1vw, 11px);
+  letter-spacing: 0.04em;
+  color: rgba(21, 21, 26, 0.5);
+}
+
+.pf-atPassMid {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.pf-atPassDash {
+  flex: 1;
+  height: 0;
+  border-top: 2px dashed rgba(21, 21, 26, 0.22);
+}
+.pf-atPassDot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(21, 21, 26, 0.35);
+}
+.pf-atPassDot--end {
+  background: #f2691e;
+}
+.pf-atPassMidPlane {
+  flex: none;
+  width: clamp(18px, 2.4vw, 24px);
+  height: auto;
+  fill: #f2691e;
+}
+
+.pf-atPassMeta {
+  display: flex;
+  gap: clamp(14px, 3vw, 30px);
+  padding-top: clamp(12px, 2vw, 16px);
+  border-top: 1px solid rgba(21, 21, 26, 0.1);
+}
+.pf-atPassMeta span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.pf-atPassMeta small {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(8px, 0.9vw, 10px);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(21, 21, 26, 0.45);
+}
+.pf-atPassMeta b {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(13px, 1.5vw, 17px);
+  color: #15151a;
+}
+
+/* Perforated tear-off stub with a barcode */
+.pf-atPassStub {
+  position: relative;
+  flex: none;
+  width: clamp(58px, 9vw, 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 0;
+  border-left: 2px dashed rgba(21, 21, 26, 0.22);
+}
+/* punched notches at the perforation ends, matching the dark canvas */
+.pf-atPassStub::before,
+.pf-atPassStub::after {
+  content: '';
+  position: absolute;
+  left: -9px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #0c0d12;
+}
+.pf-atPassStub::before {
+  top: -8px;
+}
+.pf-atPassStub::after {
+  bottom: -8px;
+}
+.pf-atPassBarcode {
+  width: clamp(26px, 4vw, 36px);
+  height: clamp(70px, 14vw, 120px);
+  background: repeating-linear-gradient(
+    to right,
+    #15151a 0,
+    #15151a 2px,
+    transparent 2px,
+    transparent 5px,
+    #15151a 5px,
+    #15151a 6px,
+    transparent 6px,
+    transparent 9px
+  );
+}
+.pf-atPassStubText {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(21, 21, 26, 0.55);
+  writing-mode: vertical-rl;
 }
 
 .pf-workPairBody {
@@ -461,6 +694,7 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #eeeeee;
+  transition: color 160ms ease;
 }
 
 .pf-workPairMeta {
@@ -2835,6 +3069,333 @@
 @media (max-width: 768px) {
   .pf-projects {
     width: calc(100% - 32px);
+  }
+}
+
+/* ============================================================
+   Air Ticket case study — screen-by-screen phone flow
+   ============================================================ */
+
+.pf-atFlow {
+  width: 100%;
+  max-width: 1300px;
+  margin: clamp(40px, 6vh, 72px) auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(72px, 12vh, 150px);
+}
+
+/* Each beat: phone on one side, the role it plays on the other. */
+.pf-atItem {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) 1fr;
+  align-items: center;
+  gap: clamp(32px, 6vw, 88px);
+}
+
+/* Alternate the phone left/right down the page. */
+.pf-atItem:nth-child(even) {
+  grid-template-columns: 1fr minmax(0, 360px);
+}
+.pf-atItem:nth-child(even) .pf-atPhone {
+  order: 2;
+}
+
+/* The iPhone 13 frame is baked into the screenshot, so we only
+   frame it lightly and let it float on the dark canvas. */
+.pf-atPhone {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+/* Inner box hugs the image exactly, so callout boxes anchor to the screen. */
+.pf-atPhoneInner {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 320px;
+}
+.pf-atPhoneImg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 28px;
+  /* True colours (no brightness/contrast filter). Depth shadow + a soft light
+     glow that follows the phone shape — this lifts the screens off the dark
+     page without an isolated ::before halo (which darkened the images). */
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 22px rgba(150, 178, 220, 0.5));
+}
+/* Dashed callout box framing an element — leaves the data visible. */
+.pf-atBox {
+  position: absolute;
+  z-index: 3;
+  border: 1.5px dashed var(--dep-cyan);
+  border-radius: 8px;
+  background: transparent;
+  pointer-events: none;
+}
+/* Small index tag riding the box's top-left corner, mapping box -> note. */
+.pf-atBoxNum {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-45%, -45%);
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--dep-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #060c18;
+  background: var(--dep-cyan);
+  border: 1.5px solid #06101f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.pf-atItemText {
+  max-width: 480px;
+}
+.pf-atItemText .pf-csNum {
+  font-size: clamp(34px, 4.5vw, 64px);
+  margin-bottom: 2px;
+}
+.pf-atItemText .pf-csH3 {
+  margin-top: 6px;
+}
+
+@media (max-width: 760px) {
+  .pf-atItem,
+  .pf-atItem:nth-child(even) {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    text-align: center;
+    justify-items: center;
+  }
+  .pf-atItem:nth-child(even) .pf-atPhone {
+    order: 0;
+  }
+  .pf-atItemText {
+    max-width: var(--cs-reading);
+  }
+}
+
+/* ============================================================
+   Air Ticket — "Departures board" theme (scoped to .pf-dep)
+   Midnight-navy canvas · cyan + amber · monospace ticker type.
+   Overrides the shared .pf-cs* palette so this case study reads
+   nothing like the BiteSplit one.
+   ============================================================ */
+.pf-dep {
+  --dep-cyan: #38bdf8;
+  --dep-amber: #fbbf24;
+  --dep-ink: #dbe6f5;
+  --dep-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Menlo,
+    Consolas, monospace;
+  color: var(--dep-ink);
+  background:
+    radial-gradient(125% 80% at 50% -8%, #13233f 0%, #0a1426 52%, #070e1c 100%);
+}
+
+/* ---- signage typography ---- */
+.pf-dep .pf-csTitle {
+  font-family: var(--dep-mono);
+  font-weight: 700;
+  font-size: clamp(46px, 11vw, 150px);
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  color: #f4f9ff;
+}
+.pf-dep .pf-csH2 {
+  font-family: var(--dep-mono);
+  font-weight: 700;
+  font-size: clamp(26px, 3.6vw, 52px);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #f4f9ff;
+}
+.pf-dep .pf-csH3 {
+  font-family: var(--dep-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: #f4f9ff;
+}
+
+/* ---- accents: orange -> cyan/amber ---- */
+.pf-dep .pf-csEyebrow {
+  font-family: var(--dep-mono);
+  letter-spacing: 3px;
+  color: var(--dep-cyan);
+}
+.pf-dep .pf-csNum {
+  font-family: var(--dep-mono);
+  color: rgba(56, 189, 248, 0.28);
+}
+.pf-dep .pf-csBack:hover,
+.pf-dep .pf-csBackBig:hover {
+  color: var(--dep-cyan);
+}
+.pf-dep .pf-csOverview span {
+  color: var(--dep-amber);
+}
+
+/* ---- tags as boarding chips ---- */
+.pf-dep .pf-csTags li {
+  font-family: var(--dep-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--dep-cyan);
+  border: 1px solid rgba(56, 189, 248, 0.32);
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.05);
+}
+
+/* ---- meta row ---- */
+.pf-dep .pf-csMetaRow {
+  border-top-color: rgba(56, 189, 248, 0.18);
+}
+.pf-dep .pf-csMetaLabel {
+  font-family: var(--dep-mono);
+  letter-spacing: 2px;
+  color: var(--dep-cyan);
+}
+.pf-dep .pf-csMetaValue {
+  font-family: var(--dep-mono);
+  color: #f4f9ff;
+}
+
+/* ---- hero ticker strip ---- */
+.pf-depTicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: clamp(20px, 3vh, 32px);
+  padding: 8px 16px;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 4px;
+  background: rgba(8, 15, 28, 0.6);
+  font-family: var(--dep-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(219, 230, 245, 0.66);
+}
+.pf-depTickerDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dep-amber);
+  box-shadow: 0 0 10px var(--dep-amber);
+  animation: pf-depBlink 1.6s ease-in-out infinite;
+}
+@keyframes pf-depBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ---- annotated callouts: notes pointed at each screen ---- */
+.pf-depAnnos {
+  list-style: none;
+  margin: clamp(20px, 3vh, 28px) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.pf-depAnno {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.pf-depAnnoNum {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--dep-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: #060c18;
+  background: var(--dep-cyan);
+}
+.pf-depAnnoText {
+  padding-top: 3px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(14px, 1.3vw, 16px);
+  line-height: 1.5;
+  color: rgba(219, 230, 245, 0.8);
+}
+
+/* ---- split-flap tile + code on each walkthrough screen ---- */
+.pf-depTag {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.pf-depFlap {
+  position: relative;
+  font-family: var(--dep-mono);
+  font-weight: 700;
+  font-size: clamp(20px, 2.4vw, 30px);
+  color: var(--dep-amber);
+  background: #060c18;
+  border: 1px solid rgba(251, 191, 36, 0.32);
+  border-radius: 6px;
+  padding: 6px 13px;
+}
+.pf-depFlap::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.55);
+}
+.pf-depTagCode {
+  font-family: var(--dep-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dep-cyan);
+}
+
+/* dashed callout bracket around the phone — the annotated-screen look */
+.pf-dep .pf-atPhoneInner::after {
+  content: '';
+  position: absolute;
+  inset: -14px -12px;
+  z-index: 0;
+  border: 1px dashed rgba(56, 189, 248, 0.32);
+  border-radius: 36px;
+  pointer-events: none;
+}
+
+/* on the centered walkthrough (mobile), centre the flap tag and left-align
+   the annotation notes so they stay readable */
+@media (max-width: 760px) {
+  .pf-dep .pf-depTag {
+    justify-content: center;
+  }
+  .pf-dep .pf-depAnnos {
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
   }
 }
 

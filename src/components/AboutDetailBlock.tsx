@@ -51,6 +51,7 @@ export function AboutDetailBlock({
             </p>
           </div>
           <div className="pf-aboutCol pf-aboutCenter">
+            
             <Carousel />
           </div>
           <div className="pf-aboutCol">
