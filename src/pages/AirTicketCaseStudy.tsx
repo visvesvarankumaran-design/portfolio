@@ -15,7 +15,7 @@ const META = [
   { label: 'Discipline', value: 'UI / Visual Design' },
   { label: 'Type', value: 'Self-initiated exploration' },
   { label: 'Platform', value: 'Mobile' },
-  { label: 'Year', value: '2024' },
+  { label: 'Year', value: '2025' },
 ]
 
 /** Visual foundations behind the screens — pulled from the design itself. */
