@@ -7,8 +7,8 @@ type Project = {
   meta: string
   /** Internal case-study route. Omit for a not-yet-linked project. */
   to?: string
-  /** 'bitesplit' uses the branded cover; 'soon' is a placeholder slot. */
-  variant: 'bitesplit' | 'soon'
+  /** 'bitesplit'/'carepay' use branded covers; 'soon' is a placeholder slot. */
+  variant: 'bitesplit' | 'carepay' | 'soon'
 }
 
 /**
@@ -24,10 +24,11 @@ const PROJECTS: Project[] = [
     variant: 'bitesplit',
   },
   {
-    id: 'next',
-    title: 'Next Project',
-    meta: 'Coming soon',
-    variant: 'soon',
+    id: 'carepay',
+    title: 'CarePay',
+    meta: 'Product / Systems | Web App',
+    to: '/work/carepay',
+    variant: 'carepay',
   },
 ]
 
@@ -57,6 +58,36 @@ function Cover({ project }: { project: Project }) {
           <span className="pf-bsWordmark">BiteSplit</span>
           <span className="pf-bsRule" aria-hidden="true" />
           <span className="pf-bsTagline">Group ordering made effortless.</span>
+        </div>
+      </div>
+    )
+  }
+  if (project.variant === 'carepay') {
+    return (
+      <div
+        className="pf-caseImage pf-caseImage--carepay"
+        role="img"
+        aria-label="CarePay — schema-driven clinical fee automation"
+      >
+        <div className="pf-cpCover">
+          <span className="pf-cpCoverBadge" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M3 3v18h18" />
+              <path d="M7 14l3-4 3 3 4-6" />
+            </svg>
+          </span>
+          <span className="pf-cpCoverWordmark">CarePay</span>
+          <span className="pf-cpCoverRule" aria-hidden="true" />
+          <span className="pf-cpCoverTagline">
+            Tiered doctor payouts, computed to the rupee.
+          </span>
         </div>
       </div>
     )

@@ -477,207 +477,28 @@
   border: 1px solid rgba(238, 238, 238, 0.08);
 }
 
-.pf-atCoverArc {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-
-/* The boarding pass — a cream ticket floating on the dark canvas */
-.pf-atPass {
+/* Air Ticket cover — one real screen. The device frame is baked into the
+   PNG (transparent surround), so we only tilt it and add a drop-shadow glow
+   that follows the phone's silhouette — no second frame, no extra notch. */
+.pf-atMock {
   position: relative;
   z-index: 1;
   display: flex;
-  width: min(86%, 460px);
-  border-radius: 16px;
-  background: #f6f5f1;
-  color: #15151a;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
-  transform: rotate(-2.5deg);
+  transform: rotate(-4deg);
   transition: transform 320ms ease;
 }
-.pf-workPairCard--link:hover .pf-atPass {
-  transform: rotate(-2.5deg) translateY(-2px);
+.pf-workPairCard--link:hover .pf-atMock {
+  transform: rotate(-4deg) translateY(-6px);
+}
+.pf-atMockImg {
+  display: block;
+  height: min(44vh, 440px);
+  width: auto;
+  filter:
+    drop-shadow(0 24px 50px rgba(0, 0, 0, 0.6))
+    drop-shadow(0 0 30px rgba(56, 189, 248, 0.22));
 }
 
-.pf-atPassMain {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(16px, 3vw, 26px);
-  padding: clamp(18px, 3.4vw, 28px);
-}
-
-.pf-atPassTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-.pf-atPassBrand {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Anton', Impact, Haettenschweiler, sans-serif;
-  font-size: clamp(16px, 2vw, 22px);
-  letter-spacing: 0.06em;
-  color: #15151a;
-}
-.pf-atPassPlane {
-  width: clamp(15px, 1.8vw, 19px);
-  height: auto;
-  fill: #f2691e;
-}
-.pf-atPassKicker {
-  font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(9px, 1vw, 11px);
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #f2691e;
-}
-
-.pf-atPassRoute {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: clamp(8px, 1.6vw, 16px);
-}
-.pf-atPassCity {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.pf-atPassCity--r {
-  align-items: flex-end;
-}
-.pf-atPassCity b {
-  font-family: 'Anton', Impact, Haettenschweiler, sans-serif;
-  font-weight: 400;
-  font-size: clamp(28px, 4.4vw, 46px);
-  line-height: 0.9;
-  letter-spacing: 0.04em;
-  color: #15151a;
-}
-.pf-atPassCity small {
-  font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(9px, 1vw, 11px);
-  letter-spacing: 0.04em;
-  color: rgba(21, 21, 26, 0.5);
-}
-
-.pf-atPassMid {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.pf-atPassDash {
-  flex: 1;
-  height: 0;
-  border-top: 2px dashed rgba(21, 21, 26, 0.22);
-}
-.pf-atPassDot {
-  flex: none;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(21, 21, 26, 0.35);
-}
-.pf-atPassDot--end {
-  background: #f2691e;
-}
-.pf-atPassMidPlane {
-  flex: none;
-  width: clamp(18px, 2.4vw, 24px);
-  height: auto;
-  fill: #f2691e;
-}
-
-.pf-atPassMeta {
-  display: flex;
-  gap: clamp(14px, 3vw, 30px);
-  padding-top: clamp(12px, 2vw, 16px);
-  border-top: 1px solid rgba(21, 21, 26, 0.1);
-}
-.pf-atPassMeta span {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.pf-atPassMeta small {
-  font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(8px, 0.9vw, 10px);
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: rgba(21, 21, 26, 0.45);
-}
-.pf-atPassMeta b {
-  font-family: 'Open Sans', system-ui, sans-serif;
-  font-weight: 700;
-  font-size: clamp(13px, 1.5vw, 17px);
-  color: #15151a;
-}
-
-/* Perforated tear-off stub with a barcode */
-.pf-atPassStub {
-  position: relative;
-  flex: none;
-  width: clamp(58px, 9vw, 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 16px 0;
-  border-left: 2px dashed rgba(21, 21, 26, 0.22);
-}
-/* punched notches at the perforation ends, matching the dark canvas */
-.pf-atPassStub::before,
-.pf-atPassStub::after {
-  content: '';
-  position: absolute;
-  left: -9px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #0c0d12;
-}
-.pf-atPassStub::before {
-  top: -8px;
-}
-.pf-atPassStub::after {
-  bottom: -8px;
-}
-.pf-atPassBarcode {
-  width: clamp(26px, 4vw, 36px);
-  height: clamp(70px, 14vw, 120px);
-  background: repeating-linear-gradient(
-    to right,
-    #15151a 0,
-    #15151a 2px,
-    transparent 2px,
-    transparent 5px,
-    #15151a 5px,
-    #15151a 6px,
-    transparent 6px,
-    transparent 9px
-  );
-}
-.pf-atPassStubText {
-  font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(21, 21, 26, 0.55);
-  writing-mode: vertical-rl;
-}
 
 .pf-workPairBody {
   padding: 18px 4px 0 0;
@@ -4106,5 +3927,715 @@
   .pf-bs .pf-csSplitTable td {
     padding: 10px 9px;
     font-size: 13px;
+  }
+}
+
+/* ============================================================
+   CarePay case study — "Clinical ledger" theme (scoped to .pf-cp)
+   Graphite canvas · emerald accent · monospace tabular figures.
+   Overrides the shared .pf-cs* orange palette so this reads as a
+   precise, audit-grade back-office tool — nothing like BiteSplit
+   or the Air Ticket departures board.
+   ============================================================ */
+.pf-cp {
+  --cp-emerald: #34d399;
+  --cp-emerald-deep: #10b981;
+  --cp-ink: #e7efe9;
+  --cp-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Menlo,
+    Consolas, monospace;
+  color: var(--cp-ink);
+  background:
+    radial-gradient(140% 95% at 50% -10%, #0e1a16 0%, #0b1310 55%, #0a0f0d 100%);
+}
+
+/* Faint ledger grid behind the whole page — the spreadsheet it replaces. */
+.pf-cp::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(52, 211, 153, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(52, 211, 153, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(120% 80% at 50% 0%, #000 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(120% 80% at 50% 0%, #000 0%, transparent 78%);
+}
+
+/* ---- recolour the shared accent (orange -> emerald) ---- */
+.pf-cp .pf-csBack:hover,
+.pf-cp .pf-csBackBig:hover {
+  color: var(--cp-emerald);
+}
+.pf-cp .pf-csEyebrow {
+  color: var(--cp-emerald);
+}
+.pf-cp .pf-csNum {
+  color: rgba(52, 211, 153, 0.26);
+}
+.pf-cp .pf-csOverview span {
+  color: var(--cp-ink);
+}
+.pf-cp .pf-csNeedItem {
+  border-top-color: rgba(52, 211, 153, 0.5);
+}
+.pf-cp .pf-csScrollCue i {
+  background: linear-gradient(to bottom, var(--cp-emerald), transparent);
+}
+.pf-cp .pf-csFlowNum {
+  background: rgba(52, 211, 153, 0.16);
+  color: var(--cp-emerald);
+}
+.pf-cp .pf-csList li::marker {
+  color: var(--cp-emerald);
+}
+.pf-cp .pf-csMetricFigure {
+  color: var(--cp-emerald);
+  font-family: var(--cp-mono);
+  font-weight: 700;
+  font-size: clamp(24px, 3vw, 40px);
+  letter-spacing: -0.02em;
+}
+.pf-cp .pf-csTags li {
+  border-color: rgba(52, 211, 153, 0.22);
+}
+
+/* ---- hero title: precise, monospace, ledger-like ---- */
+.pf-cp .pf-csTitle {
+  font-family: var(--cp-mono);
+  font-weight: 700;
+  font-size: clamp(56px, 13vw, 190px);
+  letter-spacing: -0.04em;
+  color: var(--cp-ink);
+}
+.pf-cp .pf-csTitle::after {
+  content: '_';
+  color: var(--cp-emerald);
+  animation: pf-cpCaret 1.4s steps(1) infinite;
+}
+@keyframes pf-cpCaret {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* ---- emerald-tinted financial-rigor band ---- */
+.pf-cp .pf-csRigor {
+  background: linear-gradient(
+    180deg,
+    rgba(16, 185, 129, 0.09) 0%,
+    rgba(16, 185, 129, 0.02) 100%
+  );
+  border-top-color: rgba(52, 211, 153, 0.22);
+  border-bottom-color: rgba(52, 211, 153, 0.22);
+}
+
+/* hero CTA cluster (only renders if a demo/video URL is set) */
+.pf-cp .pf-csCtas {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.pf-cp .pf-csCta {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--cp-emerald);
+  padding: 10px 20px;
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  border-radius: 999px;
+  transition: background 160ms ease, color 160ms ease;
+}
+.pf-cp .pf-csCta:hover {
+  background: var(--cp-emerald);
+  color: #06120d;
+}
+.pf-cp .pf-csCta--primary {
+  color: #06120d;
+  background: var(--cp-emerald);
+  border-color: var(--cp-emerald);
+}
+
+/* ============================================================
+   CarePay — pipeline diagram (the signature stage)
+   ============================================================ */
+.pf-cpPipe {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pf-cpPipeRow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pf-cpPipeCard {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 28px);
+  padding: clamp(20px, 2.6vw, 30px) clamp(22px, 3vw, 34px);
+  background: rgba(12, 20, 16, 0.72);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  border-left: 3px solid var(--cp-emerald);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+.pf-cpPipeNum {
+  flex: none;
+  font-family: var(--cp-mono);
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 700;
+  color: rgba(52, 211, 153, 0.4);
+  letter-spacing: -0.03em;
+}
+.pf-cpPipeTitle {
+  margin: 0 0 12px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 700;
+  color: var(--cp-ink);
+}
+.pf-cpPipeChips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pf-cpPipeChips li {
+  font-family: var(--cp-mono);
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  color: rgba(231, 239, 233, 0.78);
+  padding: 5px 11px;
+  border: 1px solid rgba(52, 211, 153, 0.18);
+  border-radius: 7px;
+  background: rgba(52, 211, 153, 0.05);
+}
+.pf-cpPipeArrow {
+  display: block;
+  font-size: 22px;
+  line-height: 1;
+  color: rgba(52, 211, 153, 0.55);
+  margin: 10px 0;
+}
+
+/* ============================================================
+   CarePay — core modules (numbered rows)
+   ============================================================ */
+.pf-cpModules {
+  display: grid;
+  gap: clamp(14px, 1.8vw, 20px);
+}
+.pf-cpModule {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(18px, 2.4vw, 30px);
+  align-items: start;
+  padding: clamp(22px, 2.6vw, 30px);
+  background: rgba(12, 20, 16, 0.6);
+  border: 1px solid rgba(238, 238, 238, 0.08);
+  border-radius: 14px;
+}
+.pf-cpModuleNum {
+  font-family: var(--cp-mono);
+  font-size: clamp(20px, 2.6vw, 30px);
+  font-weight: 700;
+  color: rgba(52, 211, 153, 0.42);
+  letter-spacing: -0.02em;
+}
+.pf-cpModuleTitle {
+  margin: 0 0 10px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(17px, 1.7vw, 21px);
+  font-weight: 700;
+  color: var(--cp-ink);
+}
+
+/* ============================================================
+   CarePay — rule engine chain (3 ordered, connected steps)
+   ============================================================ */
+.pf-cpRuleChain {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+}
+.pf-cpRule {
+  position: relative;
+  padding: clamp(24px, 2.6vw, 34px);
+  padding-top: clamp(34px, 3.4vw, 48px);
+  background: rgba(12, 20, 16, 0.6);
+  border: 1px solid rgba(238, 238, 238, 0.08);
+  border-top: 2px solid rgba(52, 211, 153, 0.5);
+  border-radius: 14px;
+}
+.pf-cpRuleStep {
+  position: absolute;
+  top: clamp(16px, 2vw, 22px);
+  right: clamp(18px, 2vw, 24px);
+  font-family: var(--cp-mono);
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(52, 211, 153, 0.2);
+}
+
+/* ============================================================
+   CarePay — marginal-slab worked example table
+   ============================================================ */
+.pf-cpSlab {
+  margin-top: clamp(34px, 5vh, 56px);
+  background: rgba(8, 14, 11, 0.6);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.pf-cpSlabTop {
+  padding: clamp(22px, 2.6vw, 32px);
+  border-bottom: 1px solid rgba(52, 211, 153, 0.16);
+}
+.pf-cpSlabTop .pf-csEyebrow {
+  margin-bottom: 10px;
+}
+.pf-cpSlabTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.pf-cpSlabTable th,
+.pf-cpSlabTable td {
+  padding: 15px clamp(16px, 2.2vw, 28px);
+  text-align: left;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(13.5px, 1.4vw, 16px);
+  border-bottom: 1px solid rgba(238, 238, 238, 0.07);
+}
+.pf-cpSlabTable thead th {
+  font-family: var(--cp-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: rgba(231, 239, 233, 0.55);
+  background: rgba(52, 211, 153, 0.05);
+}
+.pf-cpSlabTable tbody th {
+  font-weight: 600;
+  color: var(--cp-ink);
+}
+.pf-cpNum {
+  font-family: var(--cp-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  color: rgba(231, 239, 233, 0.82);
+}
+.pf-cpNum--accent {
+  color: var(--cp-emerald);
+  font-weight: 700;
+}
+.pf-cpSlabTable tfoot th,
+.pf-cpSlabTable tfoot td {
+  border-bottom: none;
+  border-top: 2px solid rgba(52, 211, 153, 0.3);
+  font-weight: 700;
+  color: var(--cp-ink);
+  background: rgba(52, 211, 153, 0.04);
+}
+.pf-cpSlabNote {
+  margin: 0;
+  padding: clamp(18px, 2.2vw, 26px) clamp(22px, 2.6vw, 32px);
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(13.5px, 1.3vw, 15.5px);
+  line-height: 1.6;
+  color: rgba(231, 239, 233, 0.66);
+  background: rgba(8, 14, 11, 0.5);
+  border-top: 1px solid rgba(238, 238, 238, 0.07);
+}
+.pf-cpSlabNote b {
+  color: var(--cp-emerald);
+}
+
+/* ============================================================
+   CarePay — net-settlement waterfall (ordered steps)
+   ============================================================ */
+.pf-cpWaterfall {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(12px, 1.6vw, 18px);
+  counter-reset: cp-water;
+}
+.pf-cpWaterStep {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(18px, 2.4vw, 30px);
+  align-items: start;
+  padding: clamp(22px, 2.6vw, 30px);
+  background: rgba(12, 20, 16, 0.6);
+  border: 1px solid rgba(238, 238, 238, 0.08);
+  border-radius: 14px;
+  /* staircase the steps to read as a descending waterfall on wide screens */
+  margin-left: 0;
+}
+.pf-cpWaterNum {
+  font-family: var(--cp-mono);
+  font-size: clamp(20px, 2.6vw, 30px);
+  font-weight: 700;
+  color: rgba(52, 211, 153, 0.42);
+}
+@media (min-width: 901px) {
+  .pf-cpWaterStep:nth-child(2) { margin-left: 7%; }
+  .pf-cpWaterStep:nth-child(3) { margin-left: 14%; }
+  .pf-cpWaterStep:nth-child(4) { margin-left: 21%; }
+}
+
+/* ---- responsive ---- */
+@media (max-width: 900px) {
+  .pf-cpRuleChain {
+    grid-template-columns: 1fr;
+  }
+  .pf-cpPipeCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+@media (max-width: 560px) {
+  .pf-cpSlabTable th,
+  .pf-cpSlabTable td {
+    padding: 11px 12px;
+    font-size: 12.5px;
+  }
+}
+
+/* ============================================================
+   CarePay carousel cover — dark graphite + emerald ledger
+   (mirrors the case study's .pf-cp theme; distinct from BiteSplit)
+   ============================================================ */
+.pf-caseImage--carepay {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(420px, 64svh, 760px);
+  background: radial-gradient(130% 110% at 50% 0%, #11201a 0%, #0b1310 55%, #080d0b 100%);
+}
+.pf-caseImage--carepay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(52, 211, 153, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(52, 211, 153, 0.08) 1px, transparent 1px);
+  background-size: clamp(40px, 5vw, 72px) clamp(40px, 5vw, 72px);
+  -webkit-mask-image: radial-gradient(120% 120% at 50% 35%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(120% 120% at 50% 35%, #000 30%, transparent 78%);
+}
+.pf-cpCover {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(14px, 2vw, 22px);
+  padding: 24px;
+}
+.pf-cpCoverBadge {
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 7.5vw, 96px);
+  aspect-ratio: 1;
+  border-radius: clamp(16px, 1.8vw, 24px);
+  background: rgba(52, 211, 153, 0.08);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+.pf-cpCoverBadge svg {
+  width: 52%;
+  height: 52%;
+}
+.pf-cpCoverWordmark {
+  font-family: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Menlo,
+    Consolas, monospace;
+  font-weight: 700;
+  font-size: clamp(38px, 5.6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #e7efe9;
+}
+.pf-cpCoverRule {
+  width: clamp(40px, 5vw, 64px);
+  height: 3px;
+  border-radius: 3px;
+  background: #34d399;
+}
+.pf-cpCoverTagline {
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.7vw, 21px);
+  letter-spacing: 0.01em;
+  color: rgba(231, 239, 233, 0.6);
+}
+.pf-case--link .pf-caseImage--carepay {
+  transition: box-shadow 220ms ease;
+}
+.pf-case--link:hover .pf-caseImage--carepay {
+  box-shadow: 0 26px 64px rgba(0, 0, 0, 0.5);
+}
+.pf-projects .pf-case--link:hover .pf-caseImage--carepay {
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.45);
+}
+
+/* ============================================================
+   CarePay — navigation & user-flow map (SVG) + persona paths
+   ============================================================ */
+.pf-cpUfScroll {
+  width: 100%;
+  margin: clamp(28px, 4vh, 48px) 0 0;
+  overflow-x: auto;
+  /* keep faint scroll affordance subtle */
+  scrollbar-width: thin;
+}
+.pf-cpUfSvg {
+  display: block;
+  width: 100%;
+  min-width: 680px;
+  max-width: 980px;
+  margin: 0 auto;
+  height: auto;
+}
+
+/* node shapes */
+.pf-cpUfBox {
+  stroke-width: 1.4;
+}
+.pf-cpUf-terminal {
+  fill: rgba(52, 211, 153, 0.1);
+  stroke: rgba(52, 211, 153, 0.55);
+}
+.pf-cpUf-screen {
+  fill: rgba(13, 22, 18, 0.92);
+  stroke: rgba(52, 211, 153, 0.28);
+}
+.pf-cpUf-spine {
+  fill: rgba(16, 185, 129, 0.13);
+  stroke: #34d399;
+  stroke-width: 2;
+}
+.pf-cpUf-action {
+  fill: #34d399;
+  stroke: none;
+}
+.pf-cpUf-output {
+  fill: rgba(13, 22, 18, 0.92);
+  stroke: rgba(52, 211, 153, 0.5);
+  stroke-dasharray: 4 3;
+}
+
+/* node text */
+.pf-cpUfLabel {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  fill: #e7efe9;
+}
+.pf-cpUfLabel--on {
+  fill: #06120d;
+}
+.pf-cpUfSub {
+  font-family: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Menlo,
+    Consolas, monospace;
+  font-size: 11px;
+  fill: rgba(231, 239, 233, 0.5);
+}
+.pf-cpUfSub--on {
+  fill: rgba(6, 18, 13, 0.7);
+}
+
+/* edges */
+.pf-cpUfEdge {
+  fill: none;
+  stroke: rgba(52, 211, 153, 0.42);
+  stroke-width: 1.6;
+}
+.pf-cpUfEdge--spine {
+  stroke: #34d399;
+  stroke-width: 2.2;
+}
+.pf-cpUfLoop {
+  fill: none;
+  stroke: rgba(52, 211, 153, 0.55);
+  stroke-width: 1.4;
+  stroke-dasharray: 4 4;
+}
+.pf-cpUfLoopText {
+  font-family: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Menlo,
+    Consolas, monospace;
+  font-size: 11px;
+  fill: rgba(231, 239, 233, 0.55);
+}
+
+/* legend */
+.pf-cpUfLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-top: clamp(18px, 2.4vh, 28px);
+}
+.pf-cpUfKey {
+  position: relative;
+  padding-left: 22px;
+  font-family: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Menlo,
+    Consolas, monospace;
+  font-size: 12px;
+  color: rgba(231, 239, 233, 0.62);
+}
+.pf-cpUfKey::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+.pf-cpUfKey--terminal::before {
+  background: rgba(52, 211, 153, 0.1);
+  border: 1.4px solid rgba(52, 211, 153, 0.55);
+}
+.pf-cpUfKey--screen::before {
+  background: rgba(13, 22, 18, 0.92);
+  border: 1.4px solid rgba(52, 211, 153, 0.28);
+}
+.pf-cpUfKey--spine::before {
+  background: rgba(16, 185, 129, 0.13);
+  border: 2px solid #34d399;
+}
+.pf-cpUfKey--action::before {
+  background: #34d399;
+}
+.pf-cpUfKey--output::before {
+  background: rgba(13, 22, 18, 0.92);
+  border: 1.4px dashed rgba(52, 211, 153, 0.5);
+}
+
+/* persona pathways */
+.pf-cpUfPersonasHead {
+  max-width: var(--cs-reading);
+  margin: clamp(56px, 9vh, 110px) 0 clamp(24px, 3.5vh, 40px);
+}
+.pf-cpUfPersonasHead .pf-csH3 {
+  margin-top: 6px;
+}
+.pf-cpPersonas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 2vw, 24px);
+  align-items: start;
+}
+.pf-cpPersona {
+  padding: clamp(24px, 2.8vw, 36px);
+  background: rgba(12, 20, 16, 0.6);
+  border: 1px solid rgba(238, 238, 238, 0.08);
+  border-top: 2px solid rgba(52, 211, 153, 0.5);
+  border-radius: 14px;
+}
+.pf-cpPersonaTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 14px;
+}
+.pf-cpPersonaRole {
+  margin: 0;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(18px, 1.9vw, 23px);
+  font-weight: 700;
+  color: var(--cp-ink);
+}
+.pf-cpPersonaTag {
+  font-family: var(--cp-mono);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--cp-emerald);
+  padding: 5px 11px;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.pf-cpPersonaGoal {
+  margin: 12px 0 0;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(14px, 1.35vw, 16px);
+  line-height: 1.55;
+  color: rgba(231, 239, 233, 0.62);
+}
+.pf-cpPersonaSteps {
+  margin: clamp(18px, 2.4vh, 26px) 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: cp-step;
+  display: grid;
+  gap: 12px;
+}
+.pf-cpPersonaSteps li {
+  counter-increment: cp-step;
+  position: relative;
+  padding-left: 40px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(14px, 1.35vw, 16px);
+  line-height: 1.45;
+  color: rgba(231, 239, 233, 0.82);
+}
+.pf-cpPersonaSteps li::before {
+  content: counter(cp-step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  font-family: var(--cp-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cp-emerald);
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.22);
+}
+/* connect the steps with a faint rail */
+.pf-cpPersonaSteps li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 27px;
+  width: 1px;
+  height: calc(100% - 15px);
+  background: rgba(52, 211, 153, 0.18);
+}
+
+@media (max-width: 900px) {
+  .pf-cpPersonas {
+    grid-template-columns: 1fr;
   }
 }
