@@ -3588,3 +3588,523 @@
   }
 }
 
+
+/* ============================================================
+   BITESPLIT (.pf-bs) — honesty note, hero CTAs, and Foundations.
+   Scoped to .pf-bs so none of this touches the Air Ticket (.pf-dep)
+   case study, which carries its own foundations styling.
+   ============================================================ */
+
+/* ---- honesty / assumption note ---- */
+.pf-bs .pf-csNote {
+  max-width: var(--cs-reading);
+  margin: clamp(20px, 3vh, 30px) 0 0;
+  padding: 16px 20px;
+  border-left: 2px solid rgba(242, 105, 30, 0.55);
+  background: rgba(242, 105, 30, 0.05);
+  border-radius: 0 10px 10px 0;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(13.5px, 1.3vw, 15px);
+  line-height: 1.6;
+  font-style: italic;
+  color: rgba(238, 238, 238, 0.7);
+}
+
+/* ---- hero CTA cluster (demo / video / pdf) ---- */
+.pf-bs .pf-csCtas {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.pf-bs .pf-csCtas .pf-csPdf {
+  margin-left: 0;
+}
+.pf-bs .pf-csCta {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #f2691e;
+  padding: 10px 20px;
+  border: 1px solid rgba(242, 105, 30, 0.5);
+  border-radius: 999px;
+  transition: background 160ms ease, color 160ms ease;
+}
+.pf-bs .pf-csCta:hover {
+  background: #f2691e;
+  color: #fff;
+}
+.pf-bs .pf-csCta--primary {
+  color: #fff;
+  background: #f2691e;
+  border-color: #f2691e;
+}
+.pf-bs .pf-csCta--primary:hover {
+  background: #d8550f;
+  border-color: #d8550f;
+}
+
+/* ---- Foundations: palette, type scale, system rules, components ---- */
+.pf-bs .pf-fnGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(18px, 2.4vw, 28px);
+  max-width: 1100px;
+  margin: clamp(28px, 4vh, 44px) auto 0;
+}
+.pf-bs .pf-fnCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(238, 238, 238, 0.1);
+  border-radius: 18px;
+  padding: clamp(20px, 2.6vw, 30px);
+}
+.pf-bs .pf-fnCardTitle {
+  margin: 0 0 20px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #f2691e;
+}
+
+/* colour swatches */
+.pf-bs .pf-fnSwatches {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pf-bs .pf-fnSwatch {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.pf-bs .pf-fnChip {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+.pf-bs .pf-fnSwatchMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.pf-bs .pf-fnSwatchMeta b {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #eee;
+}
+.pf-bs .pf-fnSwatchMeta code {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #f2691e;
+}
+.pf-bs .pf-fnSwatchMeta small {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 12.5px;
+  color: rgba(238, 238, 238, 0.55);
+}
+
+/* type scale */
+.pf-bs .pf-fnType {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.pf-bs .pf-fnTypeRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.08);
+}
+.pf-bs .pf-fnTypeRow:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.pf-bs .pf-fnTypeSample {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  color: #eee;
+  line-height: 1.1;
+}
+.pf-bs .pf-fnType--display {
+  font-size: 30px;
+  font-weight: 700;
+}
+.pf-bs .pf-fnType--title {
+  font-size: 20px;
+  font-weight: 600;
+}
+.pf-bs .pf-fnType--body {
+  font-size: 15px;
+  font-weight: 400;
+}
+.pf-bs .pf-fnType--price {
+  font-size: 18px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #f2691e;
+}
+.pf-bs .pf-fnType--label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #48c479;
+}
+.pf-bs .pf-fnTypeMeta {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 11.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(238, 238, 238, 0.4);
+}
+
+/* system rules */
+.pf-bs .pf-fnRules {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 2vw, 22px);
+  max-width: 1100px;
+  margin: clamp(18px, 2.4vw, 28px) auto 0;
+}
+.pf-bs .pf-fnRule {
+  padding: clamp(18px, 2vw, 24px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(238, 238, 238, 0.08);
+  border-radius: 14px;
+}
+.pf-bs .pf-fnRuleTitle {
+  margin: 0 0 10px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #eee;
+}
+.pf-bs .pf-fnRule .pf-csBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* reusable components */
+.pf-bs .pf-fnComponents {
+  max-width: 1100px;
+  margin: clamp(28px, 4vh, 40px) auto 0;
+}
+.pf-bs .pf-fnComponents .pf-csEyebrow {
+  display: block;
+  margin-bottom: 16px;
+}
+.pf-bs .pf-fnChips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.pf-bs .pf-fnChips li {
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(238, 238, 238, 0.85);
+  padding: 9px 16px;
+  border: 1px solid rgba(242, 105, 30, 0.3);
+  border-radius: 999px;
+  background: rgba(242, 105, 30, 0.06);
+}
+
+@media (max-width: 760px) {
+  .pf-bs .pf-fnGrid {
+    grid-template-columns: 1fr;
+  }
+  .pf-bs .pf-fnRules {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .pf-bs .pf-fnRules {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   BITESPLIT user-flow diagram (.pf-uf) — vertical flowchart.
+   Rounded terminals, rectangular steps, diamond decisions, with
+   a host/guest branch and an "all approved?" loop. Scoped to .pf-bs.
+   ============================================================ */
+.pf-bs .pf-ufWrap {
+  max-width: var(--cs-reading);
+  margin: clamp(56px, 9vh, 110px) 0 0;
+}
+.pf-bs .pf-ufWrap .pf-csBody {
+  margin-top: 14px;
+}
+/* two role columns side by side, joined by a "same live cart" badge */
+.pf-bs .pf-ufCols {
+  margin: clamp(26px, 4vh, 40px) 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 40px);
+}
+.pf-bs .pf-ufCol {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+}
+.pf-bs .pf-ufColTitle {
+  margin: 0 0 14px;
+  text-align: center;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #f2691e;
+}
+.pf-bs .pf-ufCol svg {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto;
+}
+/* connective tissue: both flows meet on one shared cart */
+.pf-bs .pf-ufJoin {
+  align-self: center;
+  flex: none;
+  max-width: 88px;
+  text-align: center;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  color: rgba(238, 238, 238, 0.6);
+  padding: 8px 10px;
+  border: 1px dashed rgba(72, 196, 121, 0.5);
+  border-radius: 10px;
+}
+
+/* connectors */
+.pf-ufEdge {
+  fill: none;
+  stroke: rgba(242, 105, 30, 0.6);
+  stroke-width: 2;
+}
+
+/* terminals (start = orange, end = green) */
+.pf-ufTermStart {
+  fill: #f2691e;
+}
+.pf-ufTermEnd {
+  fill: #48c479;
+}
+.pf-ufTermText {
+  fill: #fff;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.pf-ufTermText--end {
+  fill: #07140d;
+}
+
+/* process steps */
+.pf-ufNode {
+  fill: #141418;
+  stroke: rgba(242, 105, 30, 0.45);
+  stroke-width: 1.5;
+}
+.pf-ufNodeText {
+  fill: #eee;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* decision diamonds */
+.pf-ufDecision {
+  fill: rgba(255, 255, 255, 0.05);
+  stroke: #9aa0aa;
+  stroke-width: 1.5;
+}
+.pf-ufDecText {
+  fill: #eee;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* branch / yes-no labels, with a dark halo so they read over lines */
+.pf-ufBranch {
+  fill: #f2691e;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  dominant-baseline: middle;
+  paint-order: stroke;
+  stroke: #070707;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+/* legend under the diagram */
+.pf-bs .pf-ufLegend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  margin-top: clamp(20px, 3vh, 28px);
+}
+.pf-bs .pf-ufKey {
+  position: relative;
+  padding-left: 22px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: rgba(238, 238, 238, 0.7);
+}
+.pf-bs .pf-ufKey::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-50%);
+  border: 1.5px solid transparent;
+}
+.pf-bs .pf-ufKey--start::before {
+  background: #f2691e;
+  border-radius: 7px;
+}
+.pf-bs .pf-ufKey--step::before {
+  background: #141418;
+  border-color: rgba(242, 105, 30, 0.55);
+  border-radius: 3px;
+}
+.pf-bs .pf-ufKey--decision::before {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #9aa0aa;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* stack the two flows on narrow screens; the join badge becomes a divider */
+@media (max-width: 680px) {
+  .pf-bs .pf-ufCols {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+  .pf-bs .pf-ufCol svg {
+    max-width: 360px;
+  }
+  .pf-bs .pf-ufJoin {
+    align-self: center;
+    max-width: none;
+  }
+}
+
+/* ============================================================
+   BITESPLIT worked split example (.pf-csSplit) — concrete proof
+   that the split engine reconciles to the paise. Scoped to .pf-bs.
+   ============================================================ */
+.pf-bs .pf-csSplit {
+  max-width: var(--cs-reading);
+  margin: clamp(34px, 5vh, 56px) auto 0;
+  text-align: left;
+}
+.pf-bs .pf-csSplitTop {
+  margin-bottom: 20px;
+}
+.pf-bs .pf-csSplitTop .pf-csBody {
+  margin-top: 10px;
+}
+.pf-bs .pf-csSplitTop b {
+  color: #f2691e;
+}
+.pf-bs .pf-csSplitTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(238, 238, 238, 0.12);
+}
+.pf-bs .pf-csSplitTable th,
+.pf-bs .pf-csSplitTable td {
+  padding: 13px 16px;
+  text-align: right;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.08);
+}
+.pf-bs .pf-csSplitTable thead th {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(238, 238, 238, 0.5);
+  background: rgba(255, 255, 255, 0.02);
+}
+.pf-bs .pf-csSplitTable th[scope='row'] {
+  text-align: left;
+  font-weight: 600;
+  color: #eee;
+}
+.pf-bs .pf-csSplitTable thead th:first-child {
+  text-align: left;
+}
+.pf-bs .pf-csNum2 {
+  font-variant-numeric: tabular-nums;
+  color: rgba(238, 238, 238, 0.82);
+}
+/* the proportional column is the headline — tint it */
+.pf-bs .pf-csSplitTable td:nth-child(3),
+.pf-bs .pf-csSplitTable thead th:nth-child(3) {
+  color: #f2691e;
+  background: rgba(242, 105, 30, 0.05);
+}
+.pf-bs .pf-csSplitTable tfoot th,
+.pf-bs .pf-csSplitTable tfoot td {
+  border-bottom: none;
+  border-top: 1.5px solid rgba(238, 238, 238, 0.2);
+  font-weight: 700;
+  color: #fff;
+}
+.pf-bs .pf-csSplitTable tfoot td:nth-child(3) {
+  color: #f2691e;
+}
+.pf-bs .pf-csSplitNote {
+  margin-top: 16px;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(238, 238, 238, 0.62);
+}
+
+@media (max-width: 520px) {
+  .pf-bs .pf-csSplitTable th,
+  .pf-bs .pf-csSplitTable td {
+    padding: 10px 9px;
+    font-size: 13px;
+  }
+}

@@ -12,10 +12,19 @@ const TAGS = ['UI/UX Design', 'React', 'TypeScript', 'Socket.io', 'Framer Motion
 
 const META = [
   { label: 'Role', value: 'UI/UX & Frontend' },
-  { label: 'Type', value: 'Web App · POC' },
+  { label: 'Type', value: 'Responsive web · POC' },
   { label: 'Timeline', value: '1-week sprint' },
   { label: 'Year', value: '2026' },
 ]
+
+/**
+ * Optional links. Fill these in to light up the hero CTAs:
+ *   DEMO_URL  — a live, playable build (Vercel/Netlify/etc.)
+ *   VIDEO_URL — a 20–30s screen-recording of two devices syncing live
+ * Left empty, the buttons simply don't render — nothing dead ships.
+ */
+const DEMO_URL = ''
+const VIDEO_URL = ''
 
 const NEED = [
   {
@@ -32,10 +41,15 @@ const NEED = [
   },
 ]
 
+/**
+ * Design guarantees, not usage metrics. This is a proof of concept with no
+ * production users, so these are verifiable properties of what I designed and
+ * built — never invented outcome numbers.
+ */
 const METRICS = [
-  { figure: '₹0', label: 'Every split reconciles to the invoice total — down to the paise' },
-  { figure: '1 week', label: 'Designed & built solo, with AI pair-programming' },
-  { figure: 'Minutes → seconds', label: 'The group coordination the flow is designed to remove' },
+  { figure: 'To the paise', label: 'Every split reconciles exactly to the invoice total — a property of the split engine, not an estimate.' },
+  { figure: 'Zero install', label: 'Anyone joins a room from a phone or laptop with just a link and a name.' },
+  { figure: 'Live', label: 'Every add, remove and approval syncs across all devices in real time.' },
 ]
 
 const PERSONAS = [
@@ -97,14 +111,74 @@ const LEARNINGS = [
   'In a multiplayer product, the shared state is the product — most of the design effort went into making “what is everyone doing right now” obvious and trustworthy.',
   'Trust lives in the details that don’t demo well: the disabled pay button, the per-person grouping, the rupee that always reconciles.',
   'Holding both the design and the build let me move fast without losing intent — AI handled boilerplate while I owned the product calls.',
+  'Building from my own assumptions got me to a working POC fast, but it’s also the honest limit of this piece: until real groups use it, the problem framing stays a hypothesis I believe rather than one I’ve proven.',
 ]
 
 const NEXT = [
+  'Validate the assumptions: put the prototype in front of real groups at lunch and watch where coordination still breaks.',
   'In-app payments with automatic settlement, so members pay their share directly instead of the host fronting it.',
   'Saved groups and one-tap reorder (“same as last Friday”).',
   'Dietary tags and allergen filters surfaced right in the shared cart.',
   'Light persistence so a session survives a closed tab, not just a refresh.',
 ]
+
+/* ---- Foundations: the visual system behind the screens ---- */
+const PALETTE = [
+  { name: 'Spice Orange', hex: '#FC8019', note: 'Brand · primary actions · price' },
+  { name: 'Ink', hex: '#232533', note: 'Headlines · key values' },
+  { name: 'Slate', hex: '#686B78', note: 'Labels · secondary text' },
+  { name: 'Veg Green', hex: '#48C479', note: 'Veg dot · approved · success' },
+  { name: 'Surface', hex: '#FFFFFF', note: 'Cards · menu · cart' },
+  { name: 'Cloud', hex: '#F5F5F6', note: 'Page background · inactive rows' },
+]
+
+const TYPE_SCALE = [
+  { role: 'Display', sample: 'Split the bill', spec: '32 · Bold' },
+  { role: 'Title', sample: 'Your shared cart', spec: '20 · Semibold' },
+  { role: 'Body', sample: 'Paneer Tikka · No onions', spec: '15 · Regular' },
+  { role: 'Price', sample: '₹2,756', spec: '16 · Semibold · tabular' },
+  { role: 'Label', sample: 'WAITING FOR APPROVAL', spec: '12 · Medium · caps' },
+]
+
+const SYSTEM = [
+  { k: '8-pt grid', v: 'Spacing, padding and gaps step in multiples of 8 for an even, predictable rhythm.' },
+  { k: 'Tabular numerals', v: 'Money is always set in tabular figures so columns of rupees line up and stay scannable.' },
+  { k: 'One radius', v: '12px on cards and fields; fully-rounded pills for the primary button and status chips.' },
+  { k: 'State, not just colour', v: 'Status reads through an icon and a label as well as colour, so meaning never rests on hue alone.' },
+]
+
+const COMPONENTS = [
+  'Restaurant card',
+  'Menu item row',
+  'Veg / non-veg dot',
+  'Shared-cart line',
+  'Per-person split card',
+  'Approval status chip',
+  'Locked pay button',
+  'Room-code field',
+  'Proportional / Equal toggle',
+]
+
+/* ---- Accessibility: considerations I designed to (and would enforce) ---- */
+const A11Y = [
+  {
+    k: 'Meaning beyond colour',
+    v: 'Veg / non-veg uses a dot shape plus a label, and approval status carries an icon and text — colour-blind users never lose information.',
+  },
+  {
+    k: 'An honest disabled state',
+    v: 'The locked pay button spells its state out in words, not just a greyed-out fill, so the reason it’s blocked is explained rather than only felt.',
+  },
+  {
+    k: 'Contrast, used honestly',
+    v: 'Ink #232533 on white carries all body text at ~15:1, well past WCAG AA. Spice Orange is treated as an accent and fill — I keep small text off it, since white-on-orange is a known contrast trap.',
+  },
+  {
+    k: 'Keyboard & live updates',
+    v: 'Join, add, remove and approve are standard focusable controls, and cart changes are designed to announce through a polite live region rather than only appearing.',
+  },
+]
+
 
 /** A desktop screenshot dressed in browser chrome so the light UI pops on the dark canvas. */
 function Shot({
@@ -125,6 +199,215 @@ function Shot({
       </div>
       <img className="pf-shotImg" src={src} alt={alt} loading="lazy" />
       {caption ? <figcaption className="pf-shotCap">{caption}</figcaption> : null}
+    </figure>
+  )
+}
+
+/**
+ * A worked split, to make the engine concrete. A 3-person cart of ₹1,214 in
+ * items + ₹122 fees = ₹1,336.00, shown both ways. Both reconcile to the paise:
+ *  · Proportional — share of the total in the ratio of what each person ordered.
+ *    Rounding to whole paise leaves two over; a fixed "largest remainder" rule
+ *    hands them to Meera and Dev, so the column still sums to ₹1,336.00.
+ *  · Equal — ₹1,336 ÷ 3 = ₹445.33̅; the one stray paisa goes to the first joiner.
+ */
+const SPLIT_TOTAL = '₹1,336.00'
+const SPLIT_SUB = '₹1,214 in items + ₹122 delivery, taxes & charges'
+const SPLIT_ROWS = [
+  { name: 'Aarav', items: '₹575', prop: '₹632.78', equal: '₹445.34' },
+  { name: 'Meera', items: '₹399', prop: '₹439.10', equal: '₹445.33' },
+  { name: 'Dev', items: '₹240', prop: '₹264.12', equal: '₹445.33' },
+]
+
+/**
+ * Two role-specific user flows — Host and Guest — each a vertical flowchart
+ * with rounded terminals, rectangular steps and a diamond decision that loops.
+ * Rendered from a data model by <FlowColumn/> so both stay consistent.
+ */
+type FlowNode =
+  | { kind: 'start' | 'end'; label: string }
+  | { kind: 'step'; label: string }
+  | { kind: 'decision'; label: string; loopTo: number; noLabel?: string }
+
+const HOST_FLOW: FlowNode[] = [
+  { kind: 'start', label: 'Open the link' },
+  { kind: 'step', label: 'Create a room' },
+  { kind: 'step', label: 'Share the code' },
+  { kind: 'step', label: 'Pick a restaurant' },
+  { kind: 'step', label: 'Build the shared cart' },
+  { kind: 'step', label: 'Lock the cart' },
+  { kind: 'step', label: 'Wait for approvals' },
+  { kind: 'decision', label: 'Everyone approved?', loopTo: 6, noLabel: 'No · keep waiting' },
+  { kind: 'step', label: 'Pay the bill' },
+  { kind: 'end', label: 'Track together' },
+]
+
+const GUEST_FLOW: FlowNode[] = [
+  { kind: 'start', label: 'Open the link' },
+  { kind: 'step', label: 'Enter the code' },
+  { kind: 'step', label: 'Join the room' },
+  { kind: 'step', label: 'Add your items' },
+  { kind: 'step', label: 'Review your order' },
+  { kind: 'decision', label: 'Order look good?', loopTo: 3, noLabel: 'No · edit items' },
+  // Cart locks here (host action) → the bill auto-splits → share now exists.
+  { kind: 'step', label: 'See your share' },
+  { kind: 'step', label: 'Approve your share' },
+  { kind: 'step', label: 'Wait for everyone' },
+  { kind: 'end', label: 'Track together' },
+]
+
+// SVG layout constants (one narrow column).
+const CX = 175
+const GAP = 116
+const TOP = 44
+const COL_W = 350
+const halfH = (n: FlowNode) =>
+  n.kind === 'decision' ? 52 : n.kind === 'step' ? 27 : 25
+const cyOf = (i: number) => TOP + i * GAP
+
+/** One role's flow as a self-contained, scalable SVG flowchart. */
+function FlowColumn({
+  title,
+  accent,
+  nodes,
+}: {
+  title: string
+  accent: string
+  nodes: FlowNode[]
+}) {
+  const arrowId = `ufArrow-${accent}`
+  const totalH = cyOf(nodes.length - 1) + halfH(nodes[nodes.length - 1]) + 24
+  const desc = nodes.map((n) => n.label).join(' → ')
+  return (
+    <figure className="pf-ufCol pf-reveal">
+      <figcaption className="pf-ufColTitle">{title}</figcaption>
+      <svg
+        viewBox={`0 0 ${COL_W} ${totalH}`}
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label={`${title}: ${desc}`}
+      >
+        <defs>
+          <marker
+            id={arrowId}
+            markerWidth="9"
+            markerHeight="8"
+            refX="7"
+            refY="3"
+            orient="auto"
+            markerUnits="userSpaceOnUse"
+          >
+            <path d="M0,0 L7,3 L0,6 Z" fill="#f2691e" />
+          </marker>
+        </defs>
+
+        {/* connectors between consecutive nodes (drawn under the nodes) */}
+        {nodes.slice(0, -1).map((n, i) => {
+          const fromY = cyOf(i) + halfH(n)
+          const toY = cyOf(i + 1) - halfH(nodes[i + 1])
+          return (
+            <g key={`edge-${i}`}>
+              <path
+                className="pf-ufEdge"
+                d={`M${CX},${fromY} L${CX},${toY}`}
+                markerEnd={`url(#${arrowId})`}
+              />
+              {n.kind === 'decision' ? (
+                <text
+                  className="pf-ufBranch"
+                  x={CX + 12}
+                  y={(fromY + toY) / 2}
+                  textAnchor="start"
+                >
+                  Yes
+                </text>
+              ) : null}
+            </g>
+          )
+        })}
+
+        {/* "No" loops back up from each decision to its target step */}
+        {nodes.map((n, i) =>
+          n.kind === 'decision' ? (
+            <g key={`loop-${i}`}>
+              <path
+                className="pf-ufEdge"
+                d={`M${CX - 95},${cyOf(i)} L40,${cyOf(i)} L40,${cyOf(
+                  n.loopTo,
+                )} L${CX - 120},${cyOf(n.loopTo)}`}
+                markerEnd={`url(#${arrowId})`}
+              />
+              <text
+                className="pf-ufBranch"
+                x={24}
+                y={(cyOf(i) + cyOf(n.loopTo)) / 2}
+                textAnchor="middle"
+                transform={`rotate(-90 24 ${(cyOf(i) + cyOf(n.loopTo)) / 2})`}
+              >
+                {n.noLabel ?? 'No'}
+              </text>
+            </g>
+          ) : null,
+        )}
+
+        {/* nodes */}
+        {nodes.map((n, i) => {
+          const cy = cyOf(i)
+          if (n.kind === 'decision') {
+            return (
+              <g key={`node-${i}`}>
+                <polygon
+                  className="pf-ufDecision"
+                  points={`${CX},${cy - 52} ${CX + 95},${cy} ${CX},${cy + 52} ${
+                    CX - 95
+                  },${cy}`}
+                />
+                <text className="pf-ufDecText" x={CX} y={cy + 1}>
+                  {n.label}
+                </text>
+              </g>
+            )
+          }
+          if (n.kind === 'start' || n.kind === 'end') {
+            return (
+              <g key={`node-${i}`}>
+                <rect
+                  className={n.kind === 'start' ? 'pf-ufTermStart' : 'pf-ufTermEnd'}
+                  x={CX - 100}
+                  y={cy - 25}
+                  width={200}
+                  height={50}
+                  rx={25}
+                />
+                <text
+                  className={`pf-ufTermText${
+                    n.kind === 'end' ? ' pf-ufTermText--end' : ''
+                  }`}
+                  x={CX}
+                  y={cy + 1}
+                >
+                  {n.label}
+                </text>
+              </g>
+            )
+          }
+          return (
+            <g key={`node-${i}`}>
+              <rect
+                className="pf-ufNode"
+                x={CX - 120}
+                y={cy - 27}
+                width={240}
+                height={54}
+                rx={12}
+              />
+              <text className="pf-ufNodeText" x={CX} y={cy + 1}>
+                {n.label}
+              </text>
+            </g>
+          )
+        })}
+      </svg>
     </figure>
   )
 }
@@ -169,7 +452,7 @@ export function BiteSplitCaseStudy() {
   }, [])
 
   return (
-    <main className="pf-cs" ref={rootRef}>
+    <main className="pf-cs pf-bs" ref={rootRef}>
       {/* ===================== HERO ===================== */}
       <header className="pf-csHero">
         <div className="pf-csHeroInner">
@@ -190,7 +473,9 @@ export function BiteSplitCaseStudy() {
           <p className="pf-csRole">
             A solo project — I led the UI/UX and product design and built the
             frontend, directing the full-stack work (real-time sync and the
-            split engine) with AI as a pair-programmer.
+            split engine) with AI as a pair-programmer. It’s a responsive web
+            app: everyone joins from their own device — phone or laptop — with
+            just a link, and the frames here show the desktop layout.
           </p>
           <div className="pf-csMetaRow">
             {META.map((m) => (
@@ -199,14 +484,36 @@ export function BiteSplitCaseStudy() {
                 <span className="pf-csMetaValue">{m.value}</span>
               </div>
             ))}
-            <a
-              className="pf-csPdf"
-              href="/BiteSplit-Case-Study.pdf"
-              target="_blank"
-              rel="noreferrer"
-            >
-              ↓ PDF
-            </a>
+            <div className="pf-csCtas">
+              {VIDEO_URL ? (
+                <a
+                  className="pf-csCta pf-csCta--primary"
+                  href={VIDEO_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  ▶ Watch it sync (30s)
+                </a>
+              ) : null}
+              {DEMO_URL ? (
+                <a
+                  className="pf-csCta"
+                  href={DEMO_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  ↗ Live demo
+                </a>
+              ) : null}
+              <a
+                className="pf-csPdf"
+                href="/BiteSplit-Case-Study.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                ↓ PDF
+              </a>
+            </div>
           </div>
         </div>
         <div className="pf-csScrollCue" aria-hidden="true">
@@ -252,6 +559,12 @@ export function BiteSplitCaseStudy() {
         <p className="pf-csBody pf-csBody--lead pf-reveal">
           Anyone who’s been the host — stuck passing a phone around, fronting the
           whole bill, and chasing reimbursements days later.
+        </p>
+        <p className="pf-csNote pf-reveal">
+          A note on honesty: this is a self-initiated concept, born from a problem
+          I keep living, not a researched brief. The groups above are the
+          assumptions I designed against — not validated segments. Putting the
+          prototype in front of real groups is the first item under “What’s next.”
         </p>
       </section>
 
@@ -316,6 +629,31 @@ export function BiteSplitCaseStudy() {
             </li>
           ))}
         </ol>
+
+        <div className="pf-ufWrap pf-reveal">
+          <span className="pf-csEyebrow">User flow</span>
+          <h3 className="pf-csH3">Two roles, one shared session.</h3>
+          <p className="pf-csBody">
+            The host and a guest take different paths, so each gets its own flow.
+            They’re not separate apps, though — both meet on the same live cart,
+            and neither reaches checkout until everyone has approved. Each flow
+            carries a decision that loops: the host waits until all approve, the
+            guest can edit until their order looks right, then approves the
+            share once the cart locks.
+          </p>
+          <div className="pf-ufCols">
+            <FlowColumn title="Host journey" accent="host" nodes={HOST_FLOW} />
+            <span className="pf-ufJoin" aria-hidden="true">
+              same live cart
+            </span>
+            <FlowColumn title="Guest journey" accent="guest" nodes={GUEST_FLOW} />
+          </div>
+          <div className="pf-ufLegend" aria-hidden="true">
+            <span className="pf-ufKey pf-ufKey--start">Start / End</span>
+            <span className="pf-ufKey pf-ufKey--step">Step</span>
+            <span className="pf-ufKey pf-ufKey--decision">Decision</span>
+          </div>
+        </div>
       </section>
 
       {/* ===================== SCENE: JOIN ===================== */}
@@ -392,6 +730,51 @@ export function BiteSplitCaseStudy() {
             <span className="pf-csEqOp">+</span>
             <span className="pf-csEqPart">₹2,266</span>
           </div>
+
+          <div className="pf-csSplit">
+            <div className="pf-csSplitTop">
+              <span className="pf-csEyebrow">Worked example · 3-person cart</span>
+              <p className="pf-csBody">
+                {SPLIT_SUB} = <b>{SPLIT_TOTAL}</b>. The same bill, split two ways
+                — both reconcile to the paise.
+              </p>
+            </div>
+            <table className="pf-csSplitTable">
+              <thead>
+                <tr>
+                  <th scope="col">Person</th>
+                  <th scope="col">Ordered</th>
+                  <th scope="col">Proportional</th>
+                  <th scope="col">Equal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {SPLIT_ROWS.map((r) => (
+                  <tr key={r.name}>
+                    <th scope="row">{r.name}</th>
+                    <td className="pf-csNum2">{r.items}</td>
+                    <td className="pf-csNum2">{r.prop}</td>
+                    <td className="pf-csNum2">{r.equal}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="row">Total</th>
+                  <td className="pf-csNum2">₹1,214</td>
+                  <td className="pf-csNum2">{SPLIT_TOTAL}</td>
+                  <td className="pf-csNum2">{SPLIT_TOTAL}</td>
+                </tr>
+              </tfoot>
+            </table>
+            <p className="pf-csSplitNote">
+              Every share is computed in integer paise, never floats.
+              Proportional rounding leaves two stray paise; a fixed
+              “largest-remainder” rule hands them to Meera and Dev, so each
+              column sums to exactly {SPLIT_TOTAL} — the host never eats the
+              difference.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -444,10 +827,100 @@ export function BiteSplitCaseStudy() {
         </div>
       </section>
 
+      {/* ===================== FOUNDATIONS ===================== */}
+      <section className="pf-csChapter">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csNum">06</span>
+          <span className="pf-csEyebrow">Foundations</span>
+          <h2 className="pf-csH2">The visual system that keeps it consistent.</h2>
+        </div>
+
+        <div className="pf-fnGrid">
+          {/* Colour */}
+          <div className="pf-fnCard pf-reveal">
+            <h3 className="pf-fnCardTitle">Colour</h3>
+            <ul className="pf-fnSwatches">
+              {PALETTE.map((c) => (
+                <li className="pf-fnSwatch" key={c.hex}>
+                  <span
+                    className="pf-fnChip"
+                    style={{ background: c.hex }}
+                    aria-hidden="true"
+                  />
+                  <span className="pf-fnSwatchMeta">
+                    <b>{c.name}</b>
+                    <code>{c.hex}</code>
+                    <small>{c.note}</small>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Type */}
+          <div className="pf-fnCard pf-reveal">
+            <h3 className="pf-fnCardTitle">Type scale</h3>
+            <ul className="pf-fnType">
+              {TYPE_SCALE.map((t) => (
+                <li className="pf-fnTypeRow" key={t.role}>
+                  <span
+                    className={`pf-fnTypeSample pf-fnType--${t.role.toLowerCase()}`}
+                  >
+                    {t.sample}
+                  </span>
+                  <span className="pf-fnTypeMeta">
+                    {t.role} · {t.spec}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* System rules */}
+        <div className="pf-fnRules">
+          {SYSTEM.map((r) => (
+            <div className="pf-fnRule pf-reveal" key={r.k}>
+              <h3 className="pf-fnRuleTitle">{r.k}</h3>
+              <p className="pf-csBody">{r.v}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Components */}
+        <div className="pf-fnComponents pf-reveal">
+          <span className="pf-csEyebrow">Reusable components</span>
+          <ul className="pf-fnChips">
+            {COMPONENTS.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ===================== ACCESSIBILITY ===================== */}
+      <section className="pf-csChapter">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csNum">07</span>
+          <span className="pf-csEyebrow">Accessibility</span>
+          <h2 className="pf-csH2">
+            Money and groups raise the stakes — so does getting access right.
+          </h2>
+        </div>
+        <div className="pf-csCards">
+          {A11Y.map((a) => (
+            <div className="pf-csCard pf-reveal" key={a.k}>
+              <h3 className="pf-csCardTitle">{a.k}</h3>
+              <p className="pf-csBody">{a.v}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ===================== OUTCOME ===================== */}
       <section className="pf-csImpact">
         <div className="pf-csChapterHead pf-reveal">
-          <span className="pf-csNum">06</span>
+          <span className="pf-csNum">08</span>
           <span className="pf-csEyebrow">Outcome</span>
           <h2 className="pf-csH2">From a logistical headache to a calm, social ritual.</h2>
         </div>
@@ -469,7 +942,7 @@ export function BiteSplitCaseStudy() {
       {/* ===================== REFLECTION ===================== */}
       <section className="pf-csImpact">
         <div className="pf-csChapterHead pf-reveal">
-          <span className="pf-csNum">07</span>
+          <span className="pf-csNum">09</span>
           <span className="pf-csEyebrow">Reflection &amp; what’s next</span>
           <h2 className="pf-csH2">What it taught me — and where it goes.</h2>
         </div>
