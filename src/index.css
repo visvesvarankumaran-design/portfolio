@@ -6,10 +6,20 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Shared rhythm — keeps copy and spacing consistent across routes */
-  --pf-copy-body: clamp(16px, 1.45vw, 20px);
-  --pf-copy-intro: clamp(17px, 2.1vw, 24px);
-  --pf-copy-lead: clamp(17px, 1.75vw, 22px);
-  --pf-kicker: clamp(13px, 1.35vw, 18px);
+  --pf-copy-body: clamp(16px, 1.45vw, 22px);
+  --pf-copy-intro: clamp(17px, 2.1vw, 26px);
+  --pf-copy-lead: clamp(17px, 1.75vw, 24px);
+  --pf-kicker: clamp(13px, 1.35vw, 19px);
+  /* Repeated roles — consolidated so shared sizes stay in lockstep */
+  --pf-copy-md: clamp(16px, 2vw, 24px);
+  --pf-label: clamp(14px, 1.3vw, 18px);
+  --pf-about-headline: clamp(22px, 3.1vw, 40px);
+  --pf-about-subline: clamp(20px, 2.85vw, 37px);
+  --pf-case-wordmark: clamp(38px, 5.6vw, 79px);
+  --pf-case-tagline: clamp(14px, 1.7vw, 23px);
+  --pf-card-title: clamp(17px, 1.7vw, 23px);
+  /* Hero-name scale — shared by the big section titles across pages */
+  --pf-title-xl: clamp(48px, 13.5vw, 320px);
   --pf-space-y: clamp(56px, 7vh, 96px);
   --pf-space-y-lg: clamp(72px, 10vh, 120px);
 }

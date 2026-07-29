@@ -5,6 +5,11 @@
   /* Large script (Petemoss) — caps like About Approach hero */
   --pf-script-large: clamp(40px, 14vw, 270px);
 
+  /* Adaptive content shells — fluid width so large screens fill in,
+     with consistent side gutters instead of hard-stopping at ~1500px */
+  --pf-shell-wide: min(94vw, 2160px);
+  --pf-shell: min(92vw, 1880px);
+
   --pf-grid-line: rgba(238, 238, 238, 0.12);
   --pf-grid-vertical: linear-gradient(
     to right,
@@ -209,7 +214,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 124px;
+  padding-top: clamp(64px, 8vw, 124px);
 }
 
 .pf-titleWrap {
@@ -226,7 +231,10 @@
     sans-serif;
   font-weight: 400;
   margin: 0;
-  font-size: 205px;
+  /* Fluid like the Work title so it fills the width on large screens
+     instead of sitting small in the middle. Tuned to ~13.5vw because
+     "VISVESVARAN K" is far longer than "WORK" — 22vw would overflow. */
+  font-size: var(--pf-title-xl);
   line-height: 0.92;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -258,7 +266,7 @@
 
 .pf-introText {
   margin: 0;
-  max-width: min(1280px, 100%);
+  max-width: min(1600px, 92vw);
   padding: 0 clamp(4px, 2vw, 16px);
   text-align: center;
   color: #eeeeee;
@@ -296,7 +304,7 @@
 
 .pf-workProjectInner {
   width: 100%;
-  max-width: 1600px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
   padding-left: 0;
   padding-right: 0;
@@ -305,7 +313,7 @@
 .pf-case.pf-case--workEnd {
   margin-top: 0;
   width: calc(100% - 120px);
-  max-width: 1600px;
+  max-width: var(--pf-shell-wide);
 }
 
 /* Work page — closing typographic block (last) */
@@ -320,7 +328,7 @@
 
 .pf-workReimagineInner {
   width: 100%;
-  max-width: 1600px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
   padding-left: var(--work-left);
   padding-right: var(--work-left);
@@ -344,7 +352,7 @@
   margin: 0;
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: 270px;
+  font-size: var(--pf-script-large);
   line-height: 0.9;
   color: #eeeeee;
   transform: rotate(-4deg);
@@ -361,7 +369,7 @@
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
     sans-serif;
   font-weight: 400;
-  font-size: 205px;
+  font-size: var(--pf-title-xl);
   line-height: 1;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -400,7 +408,7 @@
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
     sans-serif;
   font-weight: 400;
-  font-size: 205px;
+  font-size: var(--pf-title-xl);
   line-height: 0.95;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -419,7 +427,7 @@
 
 .pf-workPairInner {
   width: 100%;
-  max-width: 1600px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
   padding-left: var(--work-left);
   padding-right: var(--work-left);
@@ -510,7 +518,7 @@
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
     sans-serif;
   font-weight: 400;
-  font-size: clamp(28px, 3.2vw, 42px);
+  font-size: clamp(28px, 3.2vw, 46px);
   line-height: 1.1;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -523,7 +531,7 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 400;
-  font-size: clamp(18px, 2vw, 28px);
+  font-size: clamp(18px, 2vw, 31px);
   line-height: 1.3;
   color: rgba(238, 238, 238, 0.75);
 }
@@ -603,7 +611,7 @@
   display: block;
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.25em;
   color: #eeeeee;
@@ -615,7 +623,7 @@
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
     sans-serif;
   font-weight: 400;
-  font-size: clamp(40px, 5.5vw, 72px);
+  font-size: clamp(40px, 5.5vw, 79px);
   line-height: 0.95;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -627,7 +635,7 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 400;
-  font-size: clamp(14px, 1.35vw, 17px);
+  font-size: clamp(14px, 1.35vw, 20px);
   line-height: 1.6;
   color: rgba(238, 238, 238, 0.9);
 }
@@ -656,7 +664,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 1600px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
 }
 
@@ -699,7 +707,7 @@
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
     sans-serif;
   font-weight: 400;
-  font-size: clamp(28px, 10vw, 150px);
+  font-size: clamp(40px, 11vw, 210px);
   line-height: 1;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -739,7 +747,7 @@
   flex-direction: column;
   align-items: stretch;
   gap: 0;
-  max-width: 1400px;
+  max-width: var(--pf-shell);
   width: 100%;
   margin: 0 auto;
   padding-left: max(0px, calc(var(--about-gutter, 80px) - 24px));
@@ -776,7 +784,7 @@
   z-index: 2;
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: 270px;
+  font-size: var(--pf-script-large);
   line-height: 0.85;
   color: #eeeeee;
   pointer-events: none;
@@ -791,7 +799,7 @@
   width: max-content;
   max-width: 100%;
   /* ~script cap height minus small tuck (overlap) */
-  padding-top: clamp(100px, 22vw, 198px);
+  padding-top: calc(var(--pf-script-large) * 0.73);
 }
 
 .pf-aboutTimelineOutline span {
@@ -804,7 +812,7 @@
   line-height: 0.95;
   color: transparent;
   -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
-  font-size: 205px;
+  font-size: var(--pf-title-xl);
 }
 
 @media (min-width: 1200px) {
@@ -814,7 +822,7 @@
 
   .pf-aboutTimelineOutline {
     /* 270px × 0.85 line-height ≈ 230px; tuck ~32px into script tail */
-    padding-top: 198px;
+    padding-top: calc(var(--pf-script-large) * 0.73);
   }
 }
 
@@ -842,7 +850,7 @@
 }
 
 .pf-aboutExperienceInner {
-  max-width: 1400px;
+  max-width: var(--pf-shell);
   margin: 0 auto;
   width: 100%;
   padding-left: max(0px, calc(var(--about-gutter, 80px) - 24px));
@@ -870,7 +878,7 @@
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
     sans-serif;
   font-weight: 400;
-  font-size: clamp(18px, 2.8vw, 28px);
+  font-size: clamp(18px, 2.8vw, 31px);
   letter-spacing: 0.04em;
   line-height: 1.15;
   text-transform: uppercase;
@@ -882,7 +890,7 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 600;
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: var(--pf-copy-md);
   line-height: 1.55;
   color: #eeeeee;
   max-width: 42em;
@@ -913,7 +921,7 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 600;
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: var(--pf-copy-md);
   color: #eeeeee;
 }
 
@@ -922,7 +930,7 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 600;
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: var(--pf-copy-md);
   letter-spacing: 0.04em;
   color: #eeeeee;
   background: rgba(40, 40, 40, 0.95);
@@ -960,7 +968,7 @@
   flex-direction: column;
   align-items: center;
   gap: clamp(32px, 5vh, 56px);
-  max-width: 1400px;
+  max-width: var(--pf-shell);
   width: 100%;
   margin: 0 auto;
   padding-left: max(0px, calc(var(--about-gutter, 80px) - 24px));
@@ -971,7 +979,7 @@
 .pf-aboutApproachStage {
   position: relative;
   width: 100%;
-  max-width: min(1200px, 100%);
+  max-width: min(1500px, 92vw);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -985,7 +993,7 @@
   z-index: 2;
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: 270px;
+  font-size: var(--pf-script-large);
   line-height: 0.85;
   color: #eeeeee;
   pointer-events: none;
@@ -1002,7 +1010,7 @@
   width: max-content;
   max-width: 100%;
   margin: 0 auto;
-  padding-top: clamp(100px, 22vw, 198px);
+  padding-top: calc(var(--pf-script-large) * 0.73);
 }
 
 .pf-aboutApproachOutline span {
@@ -1016,7 +1024,7 @@
   line-height: 0.95;
   color: transparent;
   -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
-  font-size: 205px;
+  font-size: var(--pf-title-xl);
 }
 
 @media (min-width: 1200px) {
@@ -1025,7 +1033,7 @@
   }
 
   .pf-aboutApproachOutline {
-    padding-top: 198px;
+    padding-top: calc(var(--pf-script-large) * 0.73);
   }
 }
 
@@ -1082,7 +1090,7 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 700;
-  font-size: clamp(17px, 2.35vw, 28px);
+  font-size: clamp(17px, 2.35vw, 31px);
   line-height: 1.4;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1106,7 +1114,7 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 400;
-  font-size: clamp(16px, 1.55vw, 19px);
+  font-size: clamp(16px, 1.55vw, 21px);
   line-height: 1.75;
   color: rgba(238, 238, 238, 0.9);
 }
@@ -1132,7 +1140,7 @@
   z-index: 2;
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: 270px;
+  font-size: var(--pf-script-large);
   line-height: 0.95;
   color: #eeeeee;
   transform: rotate(-8deg);
@@ -1160,7 +1168,7 @@
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
     sans-serif;
   font-weight: 400;
-  font-size: clamp(120px, 22vw, 280px);
+  font-size: clamp(120px, 22vw, 308px);
   line-height: 1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1169,7 +1177,7 @@
 
 .pf-workInner {
   width: 100%;
-  max-width: 1500px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
   position: relative;
   padding: var(--pf-space-y-lg) 0 var(--pf-space-y-lg);
@@ -1209,7 +1217,7 @@
   position: relative;
   margin: 120px auto 0; /* push below headline to avoid overlap */
   width: calc(100% - 120px);
-  max-width: 1600px;
+  max-width: var(--pf-shell-wide);
 }
 
 .pf-caseImage {
@@ -1288,7 +1296,7 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 700;
-  font-size: clamp(38px, 5.6vw, 72px);
+  font-size: var(--pf-case-wordmark);
   line-height: 1;
   letter-spacing: -0.02em;
   color: #15151a;
@@ -1305,7 +1313,7 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 500;
-  font-size: clamp(14px, 1.7vw, 21px);
+  font-size: var(--pf-case-tagline);
   letter-spacing: 0.01em;
   color: rgba(21, 21, 26, 0.6);
 }
@@ -1350,7 +1358,7 @@
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
     sans-serif;
   font-weight: 400;
-  font-size: clamp(24px, 3.5vw, 40px);
+  font-size: clamp(24px, 3.5vw, 44px);
   color: #eeeeee;
 }
 
@@ -1358,7 +1366,7 @@
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 400;
-  font-size: clamp(16px, 2.2vw, 28px);
+  font-size: clamp(16px, 2.2vw, 31px);
   color: rgba(238, 238, 238, 0.75);
 }
 
@@ -1373,7 +1381,7 @@
 
 .pf-playInner {
   width: 100%;
-  max-width: 1500px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
   text-align: center;
 }
@@ -1381,7 +1389,7 @@
 .pf-playScript {
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: 270px;
+  font-size: var(--pf-script-large);
   color: #eeeeee;
   line-height: 1;
   margin-bottom: 18px;
@@ -1433,11 +1441,11 @@
   }
 
   .pf-aboutHeroWord {
-    font-size: clamp(22px, 7.5vw, 96px);
+    font-size: clamp(22px, 7.5vw, 106px);
   }
 
   .pf-aboutClosingHead {
-    font-size: clamp(13px, 3.8vw, 20px);
+    font-size: clamp(13px, 3.8vw, 22px);
     letter-spacing: 0.05em;
   }
 
@@ -1466,7 +1474,7 @@
   }
 
   .pf-aboutTimelineScript {
-    font-size: 270px;
+    font-size: var(--pf-script-large);
     transform: rotate(-6deg);
   }
 
@@ -1485,7 +1493,7 @@
 
   .pf-heroTitle {
     white-space: normal;
-    font-size: 205px;
+    font-size: clamp(40px, 13vw, 88px);
   }
 
   .pf-titleWrap {
@@ -1504,7 +1512,7 @@
   }
 
   .pf-workLandingTitle {
-    font-size: clamp(88px, 26vw, 220px);
+    font-size: clamp(88px, 26vw, 242px);
     letter-spacing: 0.06em;
   }
 
@@ -1519,7 +1527,7 @@
 
   .pf-panelWork--onHome .pf-workScript {
     top: clamp(18px, 5vw, 56px);
-    font-size: 270px;
+    font-size: var(--pf-script-large);
   }
 
   .pf-workKicker { font-size: 14px; }
@@ -1661,18 +1669,18 @@
 
 .pf-brandsInner {
   width: 100%;
-  max-width: 1500px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
   position: relative;
 }
 
 .pf-brandsScript {
   position: absolute;
-  top: -40px;
+  top: -0.15em;
   left: var(--brands-left);
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: clamp(72px, 18vw, 205px);
+  font-size: clamp(72px, 18vw, 226px);
   color: #eeeeee;
   transform: rotate(-8deg);
   transform-origin: left bottom;
@@ -1681,7 +1689,7 @@
 /* Home + About — script “Brands” matches Work / Play / About scale */
 .pf-hero:not(.pf-main--about) .pf-brandsScript,
 .pf-main--about .pf-brandsScript {
-  font-size: 270px;
+  font-size: var(--pf-script-large);
 }
 
 .pf-brandsTitle {
@@ -1735,7 +1743,7 @@
 
 .pf-lifeUnplugInner {
   width: 100%;
-  max-width: 1500px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
 }
 
@@ -1747,7 +1755,7 @@
 .pf-lifeUnplugScript {
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: 270px;
+  font-size: var(--pf-script-large);
   color: #eeeeee;
   line-height: 1;
   margin: 0 0 12px;
@@ -1821,15 +1829,16 @@
 }
 
 .pf-narrative {
-  max-width: min(1100px, 100%);
+  /* Match the home intro paragraph — same size & feel */
+  max-width: min(1600px, 92vw);
   width: 100%;
   color: #eeeeee;
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
   font-weight: 600;
-  font-size: var(--pf-copy-lead);
-  line-height: 1.5;
-  text-align: left;
+  font-size: var(--pf-copy-intro);
+  line-height: 1.35;
+  text-align: center;
   margin: 0 auto;
   padding: 0 clamp(4px, 2vw, 16px);
   box-sizing: border-box;
@@ -1843,16 +1852,16 @@
   padding-top: var(--pf-space-y-lg);
   padding-bottom: var(--pf-space-y);
 }
-.pf-aboutInner { width: 100%; max-width: 1500px; margin: 0 auto; position: relative; text-align: center; }
+.pf-aboutInner { width: 100%; max-width: var(--pf-shell-wide); margin: 0 auto; position: relative; text-align: center; }
 .pf-aboutScript {
   position: absolute;
-  top: -109px;
+  top: -0.4em;
   left: 50%;
   transform: translateX(-50%) rotate(-8deg);
   transform-origin: center bottom;
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: 270px;
+  font-size: var(--pf-script-large);
   color: #eeeeee;
 }
 .pf-aboutTitle { margin: 120px auto 0; width: max-content; display: flex; flex-direction: column; gap: 18px; padding-bottom: 24px; }
@@ -1877,7 +1886,7 @@
   padding-bottom: var(--pf-space-y-lg);
 }
 .pf-aboutDetailInner {
-  max-width: 1400px;
+  max-width: var(--pf-shell);
   margin: 0 auto;
   padding-left: max(0px, calc(var(--work-left, 80px) - 24px));
   padding-right: max(0px, calc(var(--work-left, 80px) - 24px));
@@ -1889,8 +1898,8 @@
   padding-right: max(0px, calc(var(--about-gutter, 80px) - 24px));
 }
 .pf-aboutHead { text-align: center; color: #eeeeee; font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-.pf-aboutHead > div:first-child { font-size: 38px; margin-bottom: 14px; }
-.pf-aboutHead > div:last-child { font-size: 34px; }
+.pf-aboutHead > div:first-child { font-size: var(--pf-about-headline); margin-bottom: 14px; }
+.pf-aboutHead > div:last-child { font-size: var(--pf-about-subline); }
 
 .pf-aboutHead--interfaces > div {
   margin-left: auto;
@@ -1900,12 +1909,12 @@
 }
 
 .pf-aboutHead--interfaces > div:first-child {
-  font-size: clamp(22px, 3.1vw, 36px);
+  font-size: var(--pf-about-headline);
   margin-bottom: 14px;
 }
 
 .pf-aboutHead--interfaces > div:last-child {
-  font-size: clamp(20px, 2.85vw, 34px);
+  font-size: var(--pf-about-subline);
 }
 .pf-aboutGrid { margin-top: 48px; display: grid; grid-template-columns: 1fr 280px 1fr; gap: 80px; align-items: start; }
 .pf-aboutGrid > .pf-aboutCol:first-child { align-self: start; }
@@ -1956,11 +1965,11 @@
   .pf-aboutHead > div:first-child { font-size: 28px; }
   .pf-aboutHead > div:last-child { font-size: 24px; }
   .pf-aboutHead--interfaces > div:first-child {
-    font-size: clamp(18px, 4.2vw, 28px);
+    font-size: clamp(18px, 4.2vw, 31px);
   }
 
   .pf-aboutHead--interfaces > div:last-child {
-    font-size: clamp(16px, 3.8vw, 24px);
+    font-size: clamp(16px, 3.8vw, 26px);
   }
   .pf-aboutGrid { grid-template-columns: 1fr; gap: 28px; }
   .pf-aboutGrid > .pf-aboutCol:last-child {
@@ -1980,7 +1989,7 @@
   padding: var(--pf-space-y-lg) 24px 0;
   text-align: center;
 }
-.pf-ctaInner { width: 100%; max-width: 1400px; margin: 0 auto; }
+.pf-ctaInner { width: 100%; max-width: var(--pf-shell); margin: 0 auto; }
 .pf-ctaHead {
   margin: 0 0 28px;
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
@@ -1988,7 +1997,7 @@
   color: #eeeeee;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-size: clamp(48px, 8vw, 180px);
+  font-size: clamp(48px, 8vw, 198px);
   line-height: 1;
   white-space: nowrap;
 }
@@ -2009,13 +2018,13 @@
   -webkit-text-stroke: 1px #eeeeee;
   -webkit-text-fill-color: transparent;
   text-shadow: none;
-  font-size: 205px;
+  font-size: var(--pf-display-outline);
   line-height: 1;
 }
 
 .pf-ctaOutline {
   margin-bottom: 24px;
-  font-size: 120px;
+  font-size: var(--pf-display-outline);
   -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
 }
 
@@ -2038,6 +2047,20 @@
 
 .pf-lifeUnplugged .pf-lifeUnplugTitle {
   -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
+  font-size: var(--pf-title-xl);
+}
+
+/* Home section titles — match the hero name "VISVESVARAN K" scale (home only) */
+.pf-hero:not(.pf-main--work):not(.pf-main--about) .pf-workTitle span,
+.pf-hero:not(.pf-main--work):not(.pf-main--about) .pf-playTitle,
+.pf-hero:not(.pf-main--work):not(.pf-main--about) .pf-brandsTitle span,
+.pf-hero:not(.pf-main--work):not(.pf-main--about) .pf-aboutTitle span {
+  font-size: var(--pf-title-xl);
+}
+
+/* About-page Brands title at hero-name scale */
+.pf-main--about .pf-brandsTitle span {
+  font-size: var(--pf-title-xl);
 }
 
 .pf-ctaSub {
@@ -2050,7 +2073,7 @@
   text-transform: uppercase;
   opacity: 0.9;
 }
-.pf-ctaRule { margin: 36px auto 0; height: 2px; width: 100%; max-width: 1400px; background: #eeeeee; opacity: 0.2; }
+.pf-ctaRule { margin: 36px auto 0; height: 2px; width: 100%; max-width: var(--pf-shell); background: #eeeeee; opacity: 0.2; }
 
 /* Footer */
 .pf-footer {
@@ -2058,7 +2081,7 @@
   position: relative;
   overflow: visible;
 }
-.pf-footerInner { max-width: 1400px; margin: 0 auto; position: relative; }
+.pf-footerInner { max-width: var(--pf-shell); margin: 0 auto; position: relative; }
 .pf-footerRows {
   display: flex;
   flex-direction: column;
@@ -2127,7 +2150,7 @@
 .pf-footerHeading {
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
     sans-serif;
-  font-size: clamp(28px, 4.5vw, 44px);
+  font-size: clamp(28px, 4.5vw, 48px);
   letter-spacing: 2px;
   margin: 0;
   flex-shrink: 0;
@@ -2137,7 +2160,7 @@
 .pf-footerLink {
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: var(--pf-copy-md);
   color: #baff2b;
   text-decoration: none;
 }
@@ -2170,11 +2193,11 @@
   width: max-content;
   max-width: min(100%, 100vw - 48px);
   font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 205px;
+  font-size: var(--pf-title-xl);
   line-height: 1;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: rgba(238, 238, 238, 0.1);
+  color: rgba(238, 238, 238, 0.18);
   text-align: center;
   white-space: nowrap;
 }
@@ -2188,7 +2211,7 @@
   opacity: 1;
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
     sans-serif;
-  font-size: var(--pf-copy-body);
+  font-size: clamp(12px, 1vw, 14px);
 }
 
 /* ============================================================
@@ -2228,14 +2251,14 @@
 }
 .pf-csHeroInner {
   width: 100%;
-  max-width: 1500px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
 }
 .pf-csBack {
   display: inline-block;
   margin-bottom: clamp(28px, 5vh, 56px);
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -2268,7 +2291,7 @@
   margin: 0;
   font-family: 'Anton', Impact, sans-serif;
   font-weight: 400;
-  font-size: clamp(72px, 18vw, 280px);
+  font-size: clamp(72px, 18vw, 308px);
   line-height: 0.86;
   letter-spacing: 1px;
   color: #eeeeee;
@@ -2277,7 +2300,7 @@
   margin: clamp(22px, 3vh, 36px) 0 0;
   max-width: 720px;
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(18px, 2vw, 26px);
+  font-size: clamp(18px, 2vw, 29px);
   line-height: 1.5;
   color: rgba(238, 238, 238, 0.82);
 }
@@ -2285,7 +2308,7 @@
   margin: clamp(14px, 2vh, 22px) 0 0;
   max-width: 620px;
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(14px, 1.3vw, 16px);
+  font-size: var(--pf-label);
   line-height: 1.55;
   color: rgba(238, 238, 238, 0.55);
 }
@@ -2305,7 +2328,7 @@
 }
 .pf-csMetaLabel {
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -2313,14 +2336,14 @@
 }
 .pf-csMetaValue {
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(14px, 1.4vw, 18px);
+  font-size: clamp(14px, 1.4vw, 20px);
   font-weight: 600;
   color: #eeeeee;
 }
 .pf-csPdf {
   margin-left: auto;
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1.5px;
   color: #f2691e;
@@ -2418,7 +2441,7 @@
 /* ---------- STAGE: large/edge image ---------- */
 .pf-csStage {
   width: 100%;
-  max-width: 1500px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
   padding: clamp(48px, 8vh, 96px) var(--cs-pad) 0;
 }
@@ -2433,7 +2456,7 @@
 /* ---------- CHAPTER (text beats) ---------- */
 .pf-csChapter {
   width: 100%;
-  max-width: 1500px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
   padding: clamp(72px, 13vh, 168px) var(--cs-pad) 0;
 }
@@ -2447,7 +2470,7 @@
 .pf-csNum {
   display: block;
   font-family: 'Anton', Impact, sans-serif;
-  font-size: clamp(40px, 6vw, 88px);
+  font-size: clamp(40px, 6vw, 97px);
   line-height: 1;
   color: rgba(242, 105, 30, 0.28);
   margin-bottom: 6px;
@@ -2466,19 +2489,19 @@
   margin: 0;
   font-family: 'Anton', Impact, sans-serif;
   font-weight: 400;
-  font-size: clamp(32px, 5vw, 72px);
+  font-size: clamp(32px, 5vw, 79px);
   line-height: 1.02;
   letter-spacing: 0.5px;
   color: #eeeeee;
 }
 .pf-csH2--big {
-  font-size: clamp(36px, 6vw, 90px);
+  font-size: clamp(36px, 6vw, 99px);
 }
 .pf-csH3 {
   margin: 0 0 16px;
   font-family: 'Anton', Impact, sans-serif;
   font-weight: 400;
-  font-size: clamp(28px, 3.6vw, 52px);
+  font-size: clamp(28px, 3.6vw, 57px);
   line-height: 1.04;
   letter-spacing: 0.5px;
   color: #eeeeee;
@@ -2486,13 +2509,13 @@
 .pf-csBody {
   margin: 0;
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(16px, 1.4vw, 19px);
+  font-size: clamp(16px, 1.4vw, 22px);
   line-height: 1.68;
   color: rgba(238, 238, 238, 0.74);
 }
 .pf-csBody--lead {
   max-width: var(--cs-reading);
-  font-size: clamp(18px, 1.7vw, 23px);
+  font-size: clamp(18px, 1.7vw, 25px);
   color: rgba(238, 238, 238, 0.82);
 }
 
@@ -2500,7 +2523,7 @@
   max-width: 1100px;
   margin: 0 auto;
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(24px, 3.4vw, 46px);
+  font-size: clamp(24px, 3.4vw, 51px);
   line-height: 1.4;
   font-weight: 600;
   color: rgba(238, 238, 238, 0.55);
@@ -2522,7 +2545,7 @@
 .pf-csNeedTitle {
   margin: 0 0 12px;
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(18px, 1.8vw, 23px);
+  font-size: clamp(18px, 1.8vw, 25px);
   font-weight: 700;
   color: #eeeeee;
 }
@@ -2530,7 +2553,7 @@
 /* ---------- SCENE: full-width text + image ---------- */
 .pf-csScene {
   width: 100%;
-  max-width: 1500px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
   padding: clamp(72px, 13vh, 168px) var(--cs-pad) 0;
   display: grid;
@@ -2583,11 +2606,11 @@
   font-family: 'Anton', Impact, sans-serif;
 }
 .pf-csEqPart {
-  font-size: clamp(22px, 3vw, 36px);
+  font-size: clamp(22px, 3vw, 40px);
   color: #eeeeee;
 }
 .pf-csEqTotal {
-  font-size: clamp(28px, 4vw, 50px);
+  font-size: clamp(28px, 4vw, 55px);
   color: #f2691e;
 }
 .pf-csEqOp {
@@ -2602,7 +2625,7 @@
 /* ---------- IMPACT ---------- */
 .pf-csImpact {
   width: 100%;
-  max-width: 1500px;
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
   padding: clamp(72px, 13vh, 168px) var(--cs-pad) clamp(96px, 16vh, 200px);
 }
@@ -2621,7 +2644,7 @@
 .pf-csMetricFigure {
   font-family: 'Anton', Impact, sans-serif;
   font-weight: 400;
-  font-size: clamp(30px, 3.8vw, 52px);
+  font-size: clamp(30px, 3.8vw, 57px);
   line-height: 1.02;
   color: #f2691e;
   margin-bottom: 12px;
@@ -2636,7 +2659,7 @@
   display: inline-block;
   margin-top: clamp(40px, 7vh, 72px);
   font-family: 'Anton', Impact, sans-serif;
-  font-size: clamp(22px, 2.8vw, 38px);
+  font-size: clamp(22px, 2.8vw, 42px);
   letter-spacing: 0.5px;
   color: #eeeeee;
   transition: color 160ms ease;
@@ -2682,7 +2705,7 @@
 }
 .pf-csPersona {
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(14px, 1.3vw, 16px);
+  font-size: var(--pf-label);
   font-weight: 600;
   color: rgba(238, 238, 238, 0.82);
   padding: 10px 18px;
@@ -2720,11 +2743,11 @@
   color: #f2691e;
   font-family: 'Open Sans', system-ui, sans-serif;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
 }
 .pf-csFlowLabel {
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(14px, 1.3vw, 16px);
+  font-size: var(--pf-label);
   font-weight: 600;
   color: #eeeeee;
   white-space: nowrap;
@@ -2746,7 +2769,7 @@
   margin: 0 0 12px;
   font-family: 'Open Sans', system-ui, sans-serif;
   font-weight: 700;
-  font-size: clamp(17px, 1.7vw, 21px);
+  font-size: var(--pf-card-title);
   line-height: 1.25;
   color: #eeeeee;
 }
@@ -2789,7 +2812,7 @@
 .pf-projects {
   position: relative;
   width: calc(100% - 120px);
-  max-width: 1600px;
+  max-width: var(--pf-shell-wide);
   margin: 120px auto 0;
 }
 .pf-projects--workEnd {
@@ -2834,7 +2857,7 @@
 }
 .pf-soonText {
   font-family: 'Anton', Impact, sans-serif;
-  font-size: clamp(28px, 4vw, 56px);
+  font-size: clamp(28px, 4vw, 62px);
   line-height: 1.05;
   text-align: center;
   letter-spacing: 0.5px;
@@ -2899,7 +2922,7 @@
 
 .pf-atFlow {
   width: 100%;
-  max-width: 1300px;
+  max-width: var(--pf-shell);
   margin: clamp(40px, 6vh, 72px) auto 0;
   display: flex;
   flex-direction: column;
@@ -2982,7 +3005,7 @@
   max-width: 480px;
 }
 .pf-atItemText .pf-csNum {
-  font-size: clamp(34px, 4.5vw, 64px);
+  font-size: clamp(34px, 4.5vw, 70px);
   margin-bottom: 2px;
 }
 .pf-atItemText .pf-csH3 {
@@ -3027,7 +3050,7 @@
 .pf-dep .pf-csTitle {
   font-family: var(--dep-mono);
   font-weight: 700;
-  font-size: clamp(46px, 11vw, 150px);
+  font-size: clamp(46px, 11vw, 165px);
   letter-spacing: -0.03em;
   line-height: 0.92;
   text-transform: uppercase;
@@ -3036,7 +3059,7 @@
 .pf-dep .pf-csH2 {
   font-family: var(--dep-mono);
   font-weight: 700;
-  font-size: clamp(26px, 3.6vw, 52px);
+  font-size: clamp(26px, 3.6vw, 57px);
   letter-spacing: -0.01em;
   text-transform: uppercase;
   color: #f4f9ff;
@@ -3172,7 +3195,7 @@
   position: relative;
   font-family: var(--dep-mono);
   font-weight: 700;
-  font-size: clamp(20px, 2.4vw, 30px);
+  font-size: clamp(20px, 2.4vw, 33px);
   color: var(--dep-amber);
   background: #060c18;
   border: 1px solid rgba(251, 191, 36, 0.32);
@@ -3994,7 +4017,7 @@
   color: var(--cp-emerald);
   font-family: var(--cp-mono);
   font-weight: 700;
-  font-size: clamp(24px, 3vw, 40px);
+  font-size: clamp(24px, 3vw, 44px);
   letter-spacing: -0.02em;
 }
 .pf-cp .pf-csTags li {
@@ -4005,7 +4028,7 @@
 .pf-cp .pf-csTitle {
   font-family: var(--cp-mono);
   font-weight: 700;
-  font-size: clamp(56px, 13vw, 190px);
+  font-size: clamp(56px, 13vw, 209px);
   letter-spacing: -0.04em;
   color: var(--cp-ink);
 }
@@ -4093,7 +4116,7 @@
 .pf-cpPipeNum {
   flex: none;
   font-family: var(--cp-mono);
-  font-size: clamp(22px, 3vw, 34px);
+  font-size: clamp(22px, 3vw, 37px);
   font-weight: 700;
   color: rgba(52, 211, 153, 0.4);
   letter-spacing: -0.03em;
@@ -4101,7 +4124,7 @@
 .pf-cpPipeTitle {
   margin: 0 0 12px;
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(17px, 1.8vw, 22px);
+  font-size: clamp(17px, 1.8vw, 24px);
   font-weight: 700;
   color: var(--cp-ink);
 }
@@ -4150,7 +4173,7 @@
 }
 .pf-cpModuleNum {
   font-family: var(--cp-mono);
-  font-size: clamp(20px, 2.6vw, 30px);
+  font-size: clamp(20px, 2.6vw, 33px);
   font-weight: 700;
   color: rgba(52, 211, 153, 0.42);
   letter-spacing: -0.02em;
@@ -4158,7 +4181,7 @@
 .pf-cpModuleTitle {
   margin: 0 0 10px;
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(17px, 1.7vw, 21px);
+  font-size: var(--pf-card-title);
   font-weight: 700;
   color: var(--cp-ink);
 }
@@ -4185,7 +4208,7 @@
   top: clamp(16px, 2vw, 22px);
   right: clamp(18px, 2vw, 24px);
   font-family: var(--cp-mono);
-  font-size: clamp(26px, 3vw, 40px);
+  font-size: clamp(26px, 3vw, 44px);
   font-weight: 700;
   line-height: 1;
   color: rgba(52, 211, 153, 0.2);
@@ -4290,7 +4313,7 @@
 }
 .pf-cpWaterNum {
   font-family: var(--cp-mono);
-  font-size: clamp(20px, 2.6vw, 30px);
+  font-size: clamp(20px, 2.6vw, 33px);
   font-weight: 700;
   color: rgba(52, 211, 153, 0.42);
 }
@@ -4374,7 +4397,7 @@
   font-family: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Menlo,
     Consolas, monospace;
   font-weight: 700;
-  font-size: clamp(38px, 5.6vw, 72px);
+  font-size: var(--pf-case-wordmark);
   line-height: 1;
   letter-spacing: -0.04em;
   color: #e7efe9;
@@ -4388,7 +4411,7 @@
 .pf-cpCoverTagline {
   font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   font-weight: 500;
-  font-size: clamp(14px, 1.7vw, 21px);
+  font-size: var(--pf-case-tagline);
   letter-spacing: 0.01em;
   color: rgba(231, 239, 233, 0.6);
 }
@@ -4567,7 +4590,7 @@
 .pf-cpPersonaRole {
   margin: 0;
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: clamp(18px, 1.9vw, 23px);
+  font-size: clamp(18px, 1.9vw, 25px);
   font-weight: 700;
   color: var(--cp-ink);
 }
