@@ -5,6 +5,8 @@ import { WorkProcessSection } from '../components/WorkProcessSection'
 import { BrandsHeroSection } from '../components/BrandsHeroSection'
 import { LifeUnpluggedSection } from '../components/LifeUnpluggedSection'
 import { ContactCtaFooter } from '../components/ContactCtaFooter'
+import { StatsBand } from '../components/StatsBand'
+import { SkillsSection } from '../components/SkillsSection'
 
 export function AboutPage() {
   return (
@@ -28,13 +30,15 @@ export function AboutPage() {
 
       <section className="pf-panel pf-aboutIntro" aria-label="Introduction">
         <p className="pf-introText">
-          Hey there, I’m Visvesvaran — a Product Designer turning messy
+          Hey there, I’m Visvesvaran — a UI/UX Designer turning messy
           problems into simple, human experiences that just click. I started in
           frontend development and moved into design; across 3 years that mix
           has taught me to design not just for screens, but for moments people
           remember.
         </p>
       </section>
+
+      <StatsBand />
 
       <section className="pf-panel pf-aboutClosing" aria-label="Philosophy">
         <div className="pf-aboutClosingInner">
@@ -83,6 +87,8 @@ export function AboutPage() {
       </section>
 
       <AboutExperienceRows />
+
+      <SkillsSection />
 
       <AboutApproachBanner />
 

@@ -4662,3 +4662,125 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Skills & Toolkit ---------- */
+.pf-skills {
+  min-height: auto;
+  padding-top: var(--pf-space-y);
+  padding-bottom: var(--pf-space-y-lg);
+}
+
+.pf-skillsInner {
+  width: 100%;
+  max-width: var(--pf-shell);
+  margin: 0 auto;
+}
+
+.pf-skillsKicker {
+  margin: 0;
+  color: #baff2b;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: var(--pf-kicker);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.pf-skillsHead {
+  margin: clamp(8px, 1.2vw, 16px) 0 clamp(28px, 4vh, 48px);
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: #eeeeee;
+  font-size: clamp(34px, 6vw, 88px);
+}
+
+.pf-skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 3.5vw, 56px);
+}
+
+.pf-skillsGroupTitle {
+  margin: 0 0 clamp(12px, 1.4vw, 18px);
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.16);
+  color: #eeeeee;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(16px, 1.6vw, 20px);
+  letter-spacing: 0.02em;
+}
+
+.pf-skillsChips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pf-skillsChip {
+  padding: 8px 14px;
+  border: 1px solid rgba(238, 238, 238, 0.2);
+  border-radius: 999px;
+  color: rgba(238, 238, 238, 0.86);
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: clamp(13px, 1.15vw, 15px);
+  line-height: 1.2;
+}
+
+@media (max-width: 720px) {
+  .pf-skillsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Impact stats band ---------- */
+.pf-stats {
+  min-height: auto;
+  padding-top: var(--pf-space-y);
+  padding-bottom: var(--pf-space-y);
+}
+
+.pf-statsInner {
+  width: 100%;
+  max-width: var(--pf-shell);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 48px);
+  border-top: 1px solid rgba(238, 238, 238, 0.16);
+  border-bottom: 1px solid rgba(238, 238, 238, 0.16);
+  padding-top: clamp(28px, 4vh, 48px);
+  padding-bottom: clamp(28px, 4vh, 48px);
+}
+
+.pf-statFigure {
+  margin: 0;
+  color: #baff2b;
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  font-size: clamp(32px, 4.5vw, 72px);
+}
+
+.pf-statLabel {
+  margin: clamp(8px, 1vw, 14px) 0 0;
+  color: rgba(238, 238, 238, 0.78);
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: clamp(13px, 1.2vw, 16px);
+  line-height: 1.35;
+}
+
+@media (max-width: 720px) {
+  .pf-statsInner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(24px, 6vw, 36px);
+  }
+}

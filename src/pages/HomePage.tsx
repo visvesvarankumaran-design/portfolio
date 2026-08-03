@@ -12,14 +12,14 @@ export function HomePage() {
         </div>
 
         <div className="pf-tagline">
-          <div>PRODUCT DESIGNER --- SHAPING HOW PEOPLE</div>
+          <div>UI/UX DESIGNER --- SHAPING HOW PEOPLE</div>
           <div>EXPERIENCE TECHNOLOGY: SIMPLE, HUMAN, IMPACTFUL</div>
         </div>
       </section>
 
       <section id="about" className="pf-panel pf-panelIntro">
         <p className="pf-introText">
-          Hey there, I'm Visvesvaran -- a Product Designer turning messy
+          Hey there, I'm Visvesvaran -- a UI/UX Designer turning messy
           problems into simple, human experiences that just click. Over 3 years
           I've grown from frontend development into design, so I shape not just
           screens, but how they're built -- designing for moments people
