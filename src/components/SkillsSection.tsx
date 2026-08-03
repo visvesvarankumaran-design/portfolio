@@ -45,8 +45,17 @@ export function SkillsSection() {
   return (
     <section className="pf-panel pf-skills" aria-label="Skills and toolkit">
       <div className="pf-skillsInner">
-        <p className="pf-skillsKicker">SKILLS &amp; TOOLKIT</p>
-        <h2 className="pf-skillsHead">WHAT I WORK WITH</h2>
+        <div className="pf-skillsHead">
+          <div className="pf-skillsScript">Skills</div>
+          <h2 className="pf-skillsTitle">
+            <span>TOOLS OF</span>
+            <span>THE TRADE</span>
+          </h2>
+          <div className="pf-skillsKicker">
+            FROM FIGMA SYSTEMS TO<br />
+            BUILD-READY FRONTEND
+          </div>
+        </div>
         <div className="pf-skillsGrid">
           {SKILL_GROUPS.map((group) => (
             <div className="pf-skillsGroup" key={group.label}>

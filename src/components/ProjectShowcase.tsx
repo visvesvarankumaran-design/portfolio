@@ -17,18 +17,18 @@ type Project = {
  */
 const PROJECTS: Project[] = [
   {
-    id: 'bitesplit',
-    title: 'BiteSplit',
-    meta: 'UI /UX | Web App',
-    to: '/work/bitesplit',
-    variant: 'bitesplit',
-  },
-  {
     id: 'carepay',
-    title: 'CarePay',
-    meta: 'Product / Systems | Web App',
+    title: 'Doctor Payroll System',
+    meta: 'UI/UX · Systems Design | Web App',
     to: '/work/carepay',
     variant: 'carepay',
+  },
+  {
+    id: 'bitesplit',
+    title: 'BiteSplit',
+    meta: 'UI/UX · Passion Project | Web App',
+    to: '/work/bitesplit',
+    variant: 'bitesplit',
   },
 ]
 
@@ -67,7 +67,7 @@ function Cover({ project }: { project: Project }) {
       <div
         className="pf-caseImage pf-caseImage--carepay"
         role="img"
-        aria-label="CarePay — schema-driven clinical fee automation"
+        aria-label="Doctor Payroll System — schema-driven clinical fee automation"
       >
         <div className="pf-cpCover">
           <span className="pf-cpCoverBadge" aria-hidden="true">
@@ -83,7 +83,7 @@ function Cover({ project }: { project: Project }) {
               <path d="M7 14l3-4 3 3 4-6" />
             </svg>
           </span>
-          <span className="pf-cpCoverWordmark">CarePay</span>
+          <span className="pf-cpCoverWordmark">Doctor Payroll System</span>
           <span className="pf-cpCoverRule" aria-hidden="true" />
           <span className="pf-cpCoverTagline">
             Tiered doctor payouts, computed to the rupee.

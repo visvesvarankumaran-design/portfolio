@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { ContactCtaFooter } from '../components/ContactCtaFooter'
 import imgStart from '../assets/img-1.png'
 import imgRestaurants from '../assets/img-2.png'
 import imgJoin from '../assets/img-4.png'
@@ -76,7 +77,7 @@ const DECISIONS = [
   },
   {
     k: 'Borrow a visual language people trust',
-    v: 'Money and other people are involved — novelty would cost trust. Clean surfaces, a confident orange accent and green veg-dots echo the delivery apps everyone already knows.',
+    v: 'Money and other people are involved — novelty would cost trust. So I deliberately leaned on the conventions people already read fluently from mainstream delivery apps — clean surfaces, a confident orange accent, green veg-dots — as an intentional homage rather than a new brand to learn. The layout, shared-cart model and split flow are my own.',
   },
   {
     k: 'The host is a referee, not a gatekeeper',
@@ -505,20 +506,8 @@ export function BiteSplitCaseStudy() {
                   ↗ Live demo
                 </a>
               ) : null}
-              <a
-                className="pf-csPdf"
-                href="/BiteSplit-Case-Study.pdf"
-                target="_blank"
-                rel="noreferrer"
-              >
-                ↓ PDF
-              </a>
             </div>
           </div>
-        </div>
-        <div className="pf-csScrollCue" aria-hidden="true">
-          <span>Scroll</span>
-          <i />
         </div>
       </header>
 
@@ -722,13 +711,15 @@ export function BiteSplitCaseStudy() {
             is never left covering a gap.
           </p>
           <div className="pf-csEquation">
-            <span className="pf-csEqPart">₹3,758 cart</span>
+            <span className="pf-csEqPart">₹1,214 cart</span>
             <span className="pf-csEqOp">+ fees &amp; tax →</span>
-            <span className="pf-csEqTotal">₹5,022</span>
+            <span className="pf-csEqTotal">₹1,336</span>
             <span className="pf-csEqOp">splits cleanly into</span>
-            <span className="pf-csEqPart">₹2,756</span>
+            <span className="pf-csEqPart">₹632.78</span>
             <span className="pf-csEqOp">+</span>
-            <span className="pf-csEqPart">₹2,266</span>
+            <span className="pf-csEqPart">₹439.10</span>
+            <span className="pf-csEqOp">+</span>
+            <span className="pf-csEqPart">₹264.12</span>
           </div>
 
           <div className="pf-csSplit">
@@ -968,6 +959,9 @@ export function BiteSplitCaseStudy() {
           ← Back to {backLabel}
         </Link>
       </section>
+
+      {/* ===================== CONTACT ===================== */}
+      <ContactCtaFooter />
     </main>
   )
 }

@@ -2,6 +2,8 @@ import { AboutDetailBlock } from '../components/AboutDetailBlock'
 import { BrandsHeroSection } from '../components/BrandsHeroSection'
 import { ContactCtaFooter } from '../components/ContactCtaFooter.tsx'
 import { ProjectShowcase } from '../components/ProjectShowcase'
+import { StatsBand } from '../components/StatsBand'
+import { SkillsSection } from '../components/SkillsSection'
 
 export function HomePage() {
   return (
@@ -27,6 +29,8 @@ export function HomePage() {
         </p>
       </section>
 
+      <StatsBand />
+
       <section
         id="featured-work"
         className="pf-panel pf-panelWork pf-panelWork--onHome"
@@ -47,6 +51,8 @@ export function HomePage() {
           <ProjectShowcase from="/" fromLabel="Home" />
         </div>
       </section>
+
+      <SkillsSection />
 
       <section id="playground" className="pf-panel pf-panelPlay">
         <div className="pf-playInner">

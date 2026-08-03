@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { ContactCtaFooter } from '../components/ContactCtaFooter'
 
-const TAGS = ['Product Design', 'Systems Design', 'Schema-driven', 'React', 'Fintech · Healthcare']
+const TAGS = ['UI/UX Design', 'Systems Design', 'Schema-driven', 'React', 'Fintech · Healthcare']
 
 const META = [
-  { label: 'Role', value: 'Product & systems design' },
+  { label: 'Role', value: 'UI/UX & systems design' },
   { label: 'Type', value: 'Enterprise web platform' },
   { label: 'Domain', value: 'Clinical revenue · payouts' },
-  { label: 'Year', value: '2026' },
+  { label: 'Year', value: '2024–25' },
 ]
 
 /**
@@ -182,6 +183,42 @@ const VALIDATION = [
   },
 ]
 
+/* ---- Research & usability: the Rule Builder rework (drafted from résumé — verify) ---- */
+const RESEARCH = [
+  {
+    k: 'The blocker: it spoke the engine’s language',
+    v: 'In usability testing across the core flows, non-technical finance officers stalled at the payout Rule Builder — its vocabulary was the system’s (conditions, profiles, rule trees), not theirs.',
+  },
+  {
+    k: 'The insight: they already think in Excel',
+    v: 'These users model the same fee rules every month in spreadsheets. Their mental model is columns, cells and IF-formulas — not an abstract rule engine.',
+  },
+  {
+    k: 'The redesign: mirror the spreadsheet',
+    v: 'I reworked the Rule Builder’s language and layout to match how they’d express a rule in Excel — familiar terms, a sheet-like structure — so configuring a payout reads the way they already think.',
+  },
+  {
+    k: 'The result: configured unaided',
+    v: 'That removed the primary usability blocker — non-technical finance staff could set up and adjust payout rules themselves, without waiting on a developer.',
+  },
+]
+
+/* ---- Accessibility considerations (drafted from résumé WCAG line — verify) ---- */
+const A11Y = [
+  {
+    k: 'Numbers built to be scanned',
+    v: 'Payout figures use tabular numerals and high-contrast text on the ledger, so long columns of rupees stay aligned and legible for the auditors who read them for hours.',
+  },
+  {
+    k: 'Status never rests on colour alone',
+    v: 'A flagged row, a passed check, a frozen period each carry an icon and a text label as well as colour — so meaning survives colour-blindness and poor displays.',
+  },
+  {
+    k: 'Held to WCAG',
+    v: 'Contrast, visible focus states and keyboard operability across the data-entry and configuration screens were held to WCAG AA — this is a tool used every settlement cycle, not a one-off.',
+  },
+]
+
 /* ---- Outcome ---- */
 const METRICS = [
   { figure: '12 days → < 1 hr', label: 'Monthly settlement cycles collapse from a 10–15 day manual grind to a single processing run.' },
@@ -238,7 +275,7 @@ const UF_PERSONAS = [
     tag: 'Operator',
     goal: 'Ingest raw billing, clear errors, and release verified payouts.',
     steps: [
-      'Log in to the CarePay portal',
+      'Log in to the Doctor Payroll System',
       'Select the assigned clinical unit',
       'Open Fee Processing → pick the period',
       'Download the schema-compliant CSV template',
@@ -264,13 +301,14 @@ const UF_PERSONAS = [
 /** The whole application as a single branching flow: one entry, two fan-outs. */
 function UserFlowMap() {
   return (
+    <>
     <div className="pf-cpUfScroll pf-reveal">
       <svg
         className="pf-cpUfSvg"
         viewBox="0 0 1000 930"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
-        aria-label="CarePay navigation map: Login leads to the Home Dashboard, which branches to Master Data, the Fee Processing Console, and Settings. Fee Processing leads to selecting a period, the Input Data Workspace, then Process Payout, which produces the Output Ledger, the Visual Report, and the Email Dispatch."
+        aria-label="Doctor Payroll System navigation map: Login leads to the Home Dashboard, which branches to Master Data, the Fee Processing Console, and Settings. Fee Processing leads to selecting a period, the Input Data Workspace, then Process Payout, which produces the Output Ledger, the Visual Report, and the Email Dispatch."
       >
         <defs>
           <marker
@@ -351,6 +389,10 @@ function UserFlowMap() {
         })}
       </svg>
     </div>
+      <p className="pf-cpUfHint" aria-hidden="true">
+        Scroll horizontally to explore the full map →
+      </p>
+    </>
   )
 }
 
@@ -433,7 +475,7 @@ export function CarePayCaseStudy() {
               <li key={t}>{t}</li>
             ))}
           </ul>
-          <h1 className="pf-csTitle">CarePay</h1>
+          <h1 className="pf-csTitle">Doctor Payroll System</h1>
           <p className="pf-csLede">
             Doctor payouts, computed not by spreadsheet. A schema-driven engine
             that turns tiered fee-sharing contracts, messy billing exports and
@@ -441,12 +483,15 @@ export function CarePayCaseStudy() {
             fortnight.
           </p>
           <p className="pf-csRole">
-            A systems and product design case study. I modelled the contract
-            domain, designed the schema-driven architecture and the multi-pass
-            calculation engine, and the operator-facing console finance teams run
-            the monthly cycle from. The visuals here are the system’s own
-            architecture and worked math — this is a back-office platform, so the
-            diagrams, not screenshots, are the product.
+            My role was UI/UX &amp; systems design. I led the end-to-end UX — user
+            flows, wireframes and high-fidelity prototypes — for the full payroll
+            journey, designed the no-code Rule Builder and the operator-facing
+            console finance teams run the monthly cycle from, and modelled the
+            contract domain the schema-driven engine executes (built with the
+            engineering team, and I contributed to the React frontend). The
+            interface itself is client-confidential, so the diagrams and worked
+            math here stand in for the screens — they show the system thinking
+            behind them.
           </p>
           <div className="pf-csMetaRow">
             {META.map((m) => (
@@ -479,10 +524,6 @@ export function CarePayCaseStudy() {
             </div>
           </div>
         </div>
-        <div className="pf-csScrollCue" aria-hidden="true">
-          <span>Scroll</span>
-          <i />
-        </div>
       </header>
 
       {/* ===================== SIGNATURE STAGE — the pipeline ===================== */}
@@ -505,7 +546,8 @@ export function CarePayCaseStudy() {
           In a multi-speciality hospital group, doctor pay is one of the hardest
           numbers to get right.{' '}
           <span>
-            CarePay replaces the nested-Excel ritual with a schema-driven engine
+            The Doctor Payroll System replaces the nested-Excel ritual with a
+            schema-driven engine
           </span>{' '}
           — one that ingests any billing format, validates it, and computes every
           tiered share to the rupee.
@@ -549,7 +591,8 @@ export function CarePayCaseStudy() {
         </div>
         <p className="pf-csBody pf-csBody--lead pf-reveal">
           Rather than hardcode each hospital’s formats and each doctor’s
-          agreement, CarePay is built on configurable metadata profiles. Schemas,
+          agreement, the Doctor Payroll System is built on configurable metadata
+          profiles. Schemas,
           validation gates and payout templates are all editable data — so a new
           billing format or a bespoke contract is a configuration, not a code
           change. That single decision is what lets one engine serve every unit in
@@ -634,6 +677,30 @@ export function CarePayCaseStudy() {
         </div>
       </section>
 
+      {/* ===================== RESEARCH & USABILITY ===================== */}
+      <section className="pf-csChapter">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csNum">06</span>
+          <span className="pf-csEyebrow">Research &amp; usability</span>
+          <h2 className="pf-csH2">
+            Built for finance staff who think in spreadsheets — not schemas.
+          </h2>
+        </div>
+        <p className="pf-csBody pf-csBody--lead pf-reveal">
+          The engine is only as strong as the people who can configure it. Its
+          users are non-technical finance officers, so I usability-tested the core
+          flows — and the payout Rule Builder was where they got stuck.
+        </p>
+        <div className="pf-csCards">
+          {RESEARCH.map((r) => (
+            <div className="pf-csCard pf-reveal" key={r.k}>
+              <h3 className="pf-csCardTitle">{r.k}</h3>
+              <p className="pf-csBody">{r.v}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ===================== FINANCIAL RIGOR — marginal slabs ===================== */}
       <section className="pf-csRigor pf-reveal">
         <div className="pf-csRigorInner">
@@ -698,7 +765,7 @@ export function CarePayCaseStudy() {
       {/* ===================== NET SETTLEMENT — waterfall ===================== */}
       <section className="pf-csChapter">
         <div className="pf-csChapterHead pf-reveal">
-          <span className="pf-csNum">06</span>
+          <span className="pf-csNum">07</span>
           <span className="pf-csEyebrow">Net settlement</span>
           <h2 className="pf-csH2">
             From gross share to net payable, in defensible steps.
@@ -724,7 +791,7 @@ export function CarePayCaseStudy() {
       {/* ===================== WORKFLOW ===================== */}
       <section className="pf-csChapter">
         <div className="pf-csChapterHead pf-reveal">
-          <span className="pf-csNum">07</span>
+          <span className="pf-csNum">08</span>
           <span className="pf-csEyebrow">End-to-end workflow</span>
           <h2 className="pf-csH2">How a finance team runs a month.</h2>
         </div>
@@ -747,7 +814,7 @@ export function CarePayCaseStudy() {
       {/* ===================== USER FLOW ===================== */}
       <section className="pf-csChapter">
         <div className="pf-csChapterHead pf-reveal">
-          <span className="pf-csNum">08</span>
+          <span className="pf-csNum">09</span>
           <span className="pf-csEyebrow">User flow</span>
           <h2 className="pf-csH2">
             One entry, two fan-outs — and never a dead end.
@@ -802,7 +869,7 @@ export function CarePayCaseStudy() {
       {/* ===================== DESIGN DECISIONS ===================== */}
       <section className="pf-csChapter">
         <div className="pf-csChapterHead pf-reveal">
-          <span className="pf-csNum">09</span>
+          <span className="pf-csNum">10</span>
           <span className="pf-csEyebrow">Design decisions</span>
           <h2 className="pf-csH2">The calls that shaped the engine.</h2>
         </div>
@@ -816,10 +883,29 @@ export function CarePayCaseStudy() {
         </div>
       </section>
 
+      {/* ===================== ACCESSIBILITY ===================== */}
+      <section className="pf-csChapter">
+        <div className="pf-csChapterHead pf-reveal">
+          <span className="pf-csNum">11</span>
+          <span className="pf-csEyebrow">Accessibility</span>
+          <h2 className="pf-csH2">
+            A tool people run for hours has to stay legible and operable.
+          </h2>
+        </div>
+        <div className="pf-csCards">
+          {A11Y.map((a) => (
+            <div className="pf-csCard pf-reveal" key={a.k}>
+              <h3 className="pf-csCardTitle">{a.k}</h3>
+              <p className="pf-csBody">{a.v}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ===================== OUTCOME ===================== */}
       <section className="pf-csImpact">
         <div className="pf-csChapterHead pf-reveal">
-          <span className="pf-csNum">10</span>
+          <span className="pf-csNum">12</span>
           <span className="pf-csEyebrow">Outcome</span>
           <h2 className="pf-csH2">From a 12-day grind to a one-hour, auditable run.</h2>
         </div>
@@ -837,12 +923,19 @@ export function CarePayCaseStudy() {
           while every doctor gets a transparent breakdown that ends disputes
           before they start.
         </p>
+        <p className="pf-csNote pf-reveal">
+          On the numbers: the cycle-time figure reflects the redesigned single
+          processing run against the prior 10–15-day manual close. The 2–4%
+          leakage range is the overpayment band the marginal-slab logic removes
+          versus the flat-rate spreadsheet shortcut — a modelled range, not an
+          independently audited metric.
+        </p>
       </section>
 
       {/* ===================== REFLECTION ===================== */}
       <section className="pf-csImpact">
         <div className="pf-csChapterHead pf-reveal">
-          <span className="pf-csNum">11</span>
+          <span className="pf-csNum">13</span>
           <span className="pf-csEyebrow">Reflection &amp; what’s next</span>
           <h2 className="pf-csH2">What it taught me — and where it goes.</h2>
         </div>
@@ -868,6 +961,9 @@ export function CarePayCaseStudy() {
           ← Back to {backLabel}
         </Link>
       </section>
+
+      {/* ===================== CONTACT ===================== */}
+      <ContactCtaFooter />
     </main>
   )
 }

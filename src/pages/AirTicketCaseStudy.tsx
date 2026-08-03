@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { ContactCtaFooter } from '../components/ContactCtaFooter'
 import screenOnboarding from '../assets/Air-ticket/fScreen-1.png'
 import screenHome from '../assets/Air-ticket/fScreen-2.png'
 import screenTickets from '../assets/Air-ticket/fScreen-3.png'
@@ -485,6 +486,9 @@ export function AirTicketCaseStudy() {
           ← Back to {backLabel}
         </Link>
       </section>
+
+      {/* ===================== CONTACT ===================== */}
+      <ContactCtaFooter />
     </main>
   )
 }

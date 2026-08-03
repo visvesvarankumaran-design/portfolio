@@ -2282,7 +2282,7 @@
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: rgba(238, 238, 238, 0.66);
+  color: rgba(238, 238, 238, 0.8);
   padding: 6px 13px;
   border: 1px solid rgba(238, 238, 238, 0.18);
   border-radius: 999px;
@@ -2310,7 +2310,7 @@
   font-family: 'Open Sans', system-ui, sans-serif;
   font-size: var(--pf-label);
   line-height: 1.55;
-  color: rgba(238, 238, 238, 0.55);
+  color: rgba(238, 238, 238, 0.7);
 }
 .pf-csMetaRow {
   display: flex;
@@ -2332,7 +2332,7 @@
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(238, 238, 238, 0.45);
+  color: rgba(238, 238, 238, 0.72);
 }
 .pf-csMetaValue {
   font-family: 'Open Sans', system-ui, sans-serif;
@@ -2340,58 +2340,6 @@
   font-weight: 600;
   color: #eeeeee;
 }
-.pf-csPdf {
-  margin-left: auto;
-  font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  color: #f2691e;
-  padding: 10px 20px;
-  border: 1px solid rgba(242, 105, 30, 0.5);
-  border-radius: 999px;
-  transition: background 160ms ease, color 160ms ease;
-}
-.pf-csPdf:hover {
-  background: #f2691e;
-  color: #fff;
-}
-.pf-csScrollCue {
-  position: absolute;
-  left: 50%;
-  bottom: clamp(18px, 3vh, 34px);
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Open Sans', system-ui, sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(238, 238, 238, 0.45);
-}
-.pf-csScrollCue i {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, #f2691e, transparent);
-  animation: pf-cue 1.8s ease-in-out infinite;
-}
-@keyframes pf-cue {
-  0%,
-  100% {
-    transform: scaleY(0.4);
-    transform-origin: top;
-    opacity: 0.4;
-  }
-  50% {
-    transform: scaleY(1);
-    transform-origin: top;
-    opacity: 1;
-  }
-}
-
 /* ---------- Browser-framed screenshot ---------- */
 .pf-shot {
   margin: 0;
@@ -2619,7 +2567,7 @@
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: rgba(238, 238, 238, 0.5);
+  color: rgba(238, 238, 238, 0.7);
 }
 
 /* ---------- IMPACT ---------- */
@@ -2922,7 +2870,7 @@
 
 .pf-atFlow {
   width: 100%;
-  max-width: var(--pf-shell);
+  max-width: 1080px;
   margin: clamp(40px, 6vh, 72px) auto 0;
   display: flex;
   flex-direction: column;
@@ -3046,6 +2994,12 @@
     radial-gradient(140% 95% at 50% -12%, #111c2f 0%, #0b1422 58%, #0a111d 100%);
 }
 
+/* Unified content column — matches BiteSplit & CarePay. */
+.pf-dep .pf-csChapter,
+.pf-dep .pf-csImpact {
+  max-width: 1180px;
+}
+
 /* ---- signage typography ---- */
 .pf-dep .pf-csTitle {
   font-family: var(--dep-mono);
@@ -3129,7 +3083,7 @@
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(219, 230, 245, 0.66);
+  color: rgba(219, 230, 245, 0.8);
 }
 .pf-depTickerDot {
   width: 8px;
@@ -3312,7 +3266,7 @@
 .pf-dep .pf-fnSwatchMeta small {
   font-family: 'Open Sans', system-ui, sans-serif;
   font-size: 12.5px;
-  color: rgba(219, 230, 245, 0.6);
+  color: rgba(219, 230, 245, 0.78);
 }
 
 /* ---- type scale ---- */
@@ -3440,12 +3394,34 @@
    ============================================================ */
 
 /* ---- honesty / assumption note ---- */
+/* Unified content column for text/card beats — matches CarePay.
+   Image stages & scenes deliberately stay full-width (constrained text,
+   full-bleed media rhythm). */
+.pf-bs .pf-csChapter,
+.pf-bs .pf-csImpact {
+  max-width: 1180px;
+}
+
 .pf-bs .pf-csNote {
   max-width: var(--cs-reading);
   margin: clamp(20px, 3vh, 30px) 0 0;
   padding: 16px 20px;
   border-left: 2px solid rgba(242, 105, 30, 0.55);
   background: rgba(242, 105, 30, 0.05);
+  border-radius: 0 10px 10px 0;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-size: clamp(13.5px, 1.3vw, 15px);
+  line-height: 1.6;
+  font-style: italic;
+  color: rgba(238, 238, 238, 0.7);
+}
+
+.pf-cp .pf-csNote {
+  max-width: var(--cs-reading);
+  margin: clamp(20px, 3vh, 30px) 0 0;
+  padding: 16px 20px;
+  border-left: 2px solid rgba(52, 211, 153, 0.55);
+  background: rgba(52, 211, 153, 0.05);
   border-radius: 0 10px 10px 0;
   font-family: 'Open Sans', system-ui, sans-serif;
   font-size: clamp(13.5px, 1.3vw, 15px);
@@ -3461,9 +3437,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-}
-.pf-bs .pf-csCtas .pf-csPdf {
-  margin-left: 0;
 }
 .pf-bs .pf-csCta {
   font-family: 'Open Sans', system-ui, sans-serif;
@@ -3557,7 +3530,7 @@
 .pf-bs .pf-fnSwatchMeta small {
   font-family: 'Open Sans', system-ui, sans-serif;
   font-size: 12.5px;
-  color: rgba(238, 238, 238, 0.55);
+  color: rgba(238, 238, 238, 0.72);
 }
 
 /* type scale */
@@ -3614,7 +3587,7 @@
   font-size: 11.5px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: rgba(238, 238, 238, 0.4);
+  color: rgba(238, 238, 238, 0.68);
 }
 
 /* system rules */
@@ -3906,7 +3879,7 @@
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: rgba(238, 238, 238, 0.5);
+  color: rgba(238, 238, 238, 0.72);
   background: rgba(255, 255, 255, 0.02);
 }
 .pf-bs .pf-csSplitTable th[scope='row'] {
@@ -4003,9 +3976,6 @@
 .pf-cp .pf-csNeedItem {
   border-top-color: rgba(52, 211, 153, 0.5);
 }
-.pf-cp .pf-csScrollCue i {
-  background: linear-gradient(to bottom, var(--cp-emerald), transparent);
-}
 .pf-cp .pf-csFlowNum {
   background: rgba(52, 211, 153, 0.16);
   color: var(--cp-emerald);
@@ -4028,18 +3998,10 @@
 .pf-cp .pf-csTitle {
   font-family: var(--cp-mono);
   font-weight: 700;
-  font-size: clamp(56px, 13vw, 209px);
-  letter-spacing: -0.04em;
+  font-size: clamp(44px, 8.5vw, 150px);
+  letter-spacing: -0.03em;
+  line-height: 1.04;
   color: var(--cp-ink);
-}
-.pf-cp .pf-csTitle::after {
-  content: '_';
-  color: var(--cp-emerald);
-  animation: pf-cpCaret 1.4s steps(1) infinite;
-}
-@keyframes pf-cpCaret {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
 }
 
 /* ---- emerald-tinted financial-rigor band ---- */
@@ -4051,6 +4013,14 @@
   );
   border-top-color: rgba(52, 211, 153, 0.22);
   border-bottom-color: rgba(52, 211, 153, 0.22);
+}
+
+/* Unified content column: without full-bleed images, the wide shell left the
+   text narrow and the card grids very wide. Cap them to one shared measure. */
+.pf-cp .pf-csChapter,
+.pf-cp .pf-csImpact,
+.pf-cp .pf-csStage {
+  max-width: 1180px;
 }
 
 /* hero CTA cluster (only renders if a demo/video URL is set) */
@@ -4249,7 +4219,7 @@
   font-weight: 600;
   letter-spacing: 0.6px;
   text-transform: uppercase;
-  color: rgba(231, 239, 233, 0.55);
+  color: rgba(231, 239, 233, 0.75);
   background: rgba(52, 211, 153, 0.05);
 }
 .pf-cpSlabTable tbody th {
@@ -4442,6 +4412,22 @@
   max-width: 980px;
   margin: 0 auto;
   height: auto;
+}
+
+.pf-cpUfHint {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .pf-cpUfHint {
+    display: block;
+    margin: 10px 0 0;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(238, 238, 238, 0.5);
+  }
 }
 
 /* node shapes */
@@ -4664,43 +4650,92 @@
 }
 
 /* ---------- Skills & Toolkit ---------- */
+/* Header mirrors the Brands section: rotated script overlapping a left-stacked
+   outline title, with the kicker pinned bottom-right. */
 .pf-skills {
   min-height: auto;
-  padding-top: var(--pf-space-y);
-  padding-bottom: var(--pf-space-y-lg);
+  display: flex;
+  align-items: center;
+  padding-top: var(--pf-space-y-lg);
+  padding-bottom: var(--pf-space-y);
+  --skills-left: 80px;
 }
 
 .pf-skillsInner {
   width: 100%;
-  max-width: var(--pf-shell);
+  max-width: var(--pf-shell-wide);
   margin: 0 auto;
 }
 
-.pf-skillsKicker {
-  margin: 0;
-  color: #baff2b;
-  font-family: 'Open Sans', system-ui, sans-serif;
-  font-weight: 600;
-  font-size: var(--pf-kicker);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+.pf-skillsHead {
+  position: relative;
+  padding-bottom: 56px;
 }
 
-.pf-skillsHead {
-  margin: clamp(8px, 1.2vw, 16px) 0 clamp(28px, 4vh, 48px);
-  font-family: 'Anton', Impact, sans-serif;
+.pf-skillsScript {
+  position: absolute;
+  top: -0.65em;
+  left: var(--skills-left);
+  font-family: 'Petemoss', 'Dancing Script', cursive;
+  font-weight: 400;
+  font-size: var(--pf-script-large);
+  color: #eeeeee;
+  transform: rotate(-8deg);
+  transform-origin: left bottom;
+}
+
+.pf-skillsTitle {
+  margin: 120px 0 0 var(--skills-left);
+  width: max-content;
+  max-width: calc(100% - var(--skills-left));
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.pf-skillsTitle span {
+  display: block;
+  font-family: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  color: transparent;
+  -webkit-text-stroke: clamp(1.5px, 0.15vw, 3px) #eeeeee;
+  -webkit-text-fill-color: transparent;
+  font-size: var(--pf-title-xl);
   line-height: 1;
-  color: #eeeeee;
-  font-size: clamp(34px, 6vw, 88px);
+}
+
+.pf-skillsKicker {
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  text-align: right;
+  color: #baff2b;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: var(--pf-kicker);
 }
 
 .pf-skillsGrid {
+  margin: clamp(44px, 7vh, 88px) var(--skills-left) 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(28px, 3.5vw, 56px);
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .pf-skills {
+    --skills-left: 24px;
+    padding-top: 72px;
+  }
+  .pf-skillsKicker {
+    font-size: 14px;
+    right: 16px;
+  }
 }
 
 .pf-skillsGroupTitle {
