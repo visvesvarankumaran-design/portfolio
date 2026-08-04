@@ -4739,6 +4739,9 @@
 }
 
 .pf-skillsGroupTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 0 0 clamp(12px, 1.4vw, 18px);
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(238, 238, 238, 0.16);
@@ -4747,6 +4750,13 @@
   font-weight: 700;
   font-size: clamp(16px, 1.6vw, 20px);
   letter-spacing: 0.02em;
+}
+
+.pf-skillsHeadIcon {
+  flex: none;
+  width: clamp(19px, 1.9vw, 23px);
+  height: clamp(19px, 1.9vw, 23px);
+  color: rgba(238, 238, 238, 0.92);
 }
 
 .pf-skillsChips {
@@ -4759,18 +4769,100 @@
 }
 
 .pf-skillsChip {
-  padding: 8px 14px;
-  border: 1px solid rgba(238, 238, 238, 0.2);
+  padding: 10px 16px;
+  border: 1px solid rgba(238, 238, 238, 0.18);
   border-radius: 999px;
-  color: rgba(238, 238, 238, 0.86);
+  background: rgba(238, 238, 238, 0.025);
+  color: rgba(238, 238, 238, 0.92);
   font-family: 'Open Sans', system-ui, sans-serif;
-  font-weight: 500;
-  font-size: clamp(13px, 1.15vw, 15px);
-  line-height: 1.2;
+  font-weight: 600;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1;
+  transition: border-color 0.18s ease, background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.pf-skillsChip:hover {
+  border-color: rgba(238, 238, 238, 0.42);
+  background: rgba(238, 238, 238, 0.05);
+  transform: translateY(-2px);
+}
+
+/* ---------- Tool & AI logo tiles ---------- */
+.pf-skillsTools {
+  margin: clamp(28px, 3.5vw, 48px) var(--skills-left) 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 3.5vw, 56px);
+}
+
+.pf-skillsTiles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pf-skillsTile {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 17px 9px 11px;
+  border: 1px solid rgba(238, 238, 238, 0.18);
+  border-radius: 999px;
+  background: rgba(238, 238, 238, 0.025);
+  transition: border-color 0.18s ease, background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.pf-skillsTile:hover {
+  border-color: rgba(238, 238, 238, 0.42);
+  background: rgba(238, 238, 238, 0.05);
+  transform: translateY(-2px);
+}
+
+.pf-skillsTileIcon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  color: rgba(238, 238, 238, 0.92);
+}
+
+.pf-skillsTileIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.pf-skillsTileMono {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid currentColor;
+  border-radius: 7px;
+  color: rgba(238, 238, 238, 0.92);
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.pf-skillsTileName {
+  color: rgba(238, 238, 238, 0.92);
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1;
 }
 
 @media (max-width: 720px) {
-  .pf-skillsGrid {
+  .pf-skillsGrid,
+  .pf-skillsTools {
     grid-template-columns: 1fr;
   }
 }
