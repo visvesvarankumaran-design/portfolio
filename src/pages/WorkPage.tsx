@@ -36,7 +36,7 @@ export function WorkPage() {
             <p className="pf-workReimagineIdeas">IDEAS</p>
             <p className="pf-workReimagineKicker">
               <span className="pf-workReimagineKickerLine1">
-                RETHINKING WHAT WORKS --- AND&nbsp;WHAT
+                RETHINKING WHAT WORKS — AND&nbsp;WHAT
               </span>
               <br />
               COULD WORK BETTER

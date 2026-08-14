@@ -56,7 +56,7 @@ export function ContactCtaFooter() {
             <div className="pf-footerWatermarkSlot" aria-hidden="true">
               <p className="pf-footerSignature">Visvesvaran K</p>
             </div>
-            <div className="pf-footerCopy">2026 Visvesvaran K All rights reserved</div>
+            <div className="pf-footerCopy">© 2026 Visvesvaran K. All rights reserved.</div>
           </div>
         </div>
       </footer>

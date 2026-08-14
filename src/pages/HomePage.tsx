@@ -14,7 +14,7 @@ export function HomePage() {
         </div>
 
         <div className="pf-tagline">
-          <div>UI/UX DESIGNER --- SHAPING HOW PEOPLE</div>
+          <div>UI/UX DESIGNER — SHAPING HOW PEOPLE</div>
           <div>EXPERIENCE TECHNOLOGY: SIMPLE, HUMAN, IMPACTFUL</div>
         </div>
       </section>

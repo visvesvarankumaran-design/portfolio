@@ -44,7 +44,7 @@ export function AboutPage() {
         <div className="pf-aboutClosingInner">
           <h2 className="pf-aboutClosingHead">
             <span>
-              {`IT'S NOT JUST A PROFESSION --- IT'S A WAY OF THINKING.`}
+              {`IT'S NOT JUST A PROFESSION — IT'S A WAY OF THINKING.`}
             </span>
             <span>{`IT'S HOW I SEE THE WORLD.`}</span>
           </h2>

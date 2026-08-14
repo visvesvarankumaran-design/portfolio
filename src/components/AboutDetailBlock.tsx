@@ -17,7 +17,7 @@ export function AboutDetailBlock({
 }: AboutDetailBlockProps) {
   const headDefault = (
     <div className="pf-aboutHead">
-      <div>IT&apos;S NOT JUST A PROFESSION --- IT&apos;S A WAY OF THINKING.</div>
+      <div>IT&apos;S NOT JUST A PROFESSION — IT&apos;S A WAY OF THINKING.</div>
       <div>
         IT&apos;S HOW I SEE THE WORLD: IN PATTERNS, INTERACTIONS, AND THE
         DETAILS.

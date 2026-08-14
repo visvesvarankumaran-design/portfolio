@@ -4674,14 +4674,19 @@
 
 .pf-skillsScript {
   position: absolute;
-  top: -0.65em;
+  top: -0.62em;
   left: var(--skills-left);
   font-family: 'Petemoss', 'Dancing Script', cursive;
   font-weight: 400;
-  font-size: var(--pf-script-large);
+  font-size: clamp(72px, 18vw, 226px);
   color: #eeeeee;
   transform: rotate(-8deg);
   transform-origin: left bottom;
+}
+
+/* About — script “Skills” matches the smaller Brands scale used there */
+.pf-main--about .pf-skillsScript {
+  font-size: var(--pf-script-large);
 }
 
 .pf-skillsTitle {
