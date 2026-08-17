@@ -7,6 +7,7 @@ import { AboutPage } from './pages/AboutPage'
 import { BiteSplitCaseStudy } from './pages/BiteSplitCaseStudy'
 import { CarePayCaseStudy } from './pages/CarePayCaseStudy'
 import { AirTicketCaseStudy } from './pages/AirTicketCaseStudy'
+import { DailyDiaryCaseStudy } from './pages/DailyDiaryCaseStudy'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/work/bitesplit" element={<BiteSplitCaseStudy />} />
           <Route path="/work/carepay" element={<CarePayCaseStudy />} />
           <Route path="/work/air-ticket" element={<AirTicketCaseStudy />} />
+          <Route path="/work/daily-diary" element={<DailyDiaryCaseStudy />} />
           <Route path="/about" element={<AboutPage />} />
         </Route>
       </Routes>

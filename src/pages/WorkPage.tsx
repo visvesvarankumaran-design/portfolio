@@ -4,6 +4,7 @@ import { AboutApproachBanner } from '../components/AboutApproachBanner'
 import { WorkProcessSection } from '../components/WorkProcessSection'
 import { ContactCtaFooter } from '../components/ContactCtaFooter'
 import airTicketCover from '../assets/Air-ticket/fScreen-2.png'
+import dailyDiaryCover from '../assets/Daily-Diary/daily_diary-01.png'
 
 export function WorkPage() {
   return (
@@ -76,13 +77,30 @@ export function WorkPage() {
                 <p className="pf-workPairMeta">UI/UX | Mobile App</p>
               </div>
             </Link>
-            <article className="pf-workPairCard">
-              <div className="pf-workPairImage" aria-hidden="true" />
-              <div className="pf-workPairBody">
-                <h2 className="pf-workPairTitle">USED CARS</h2>
-                <p className="pf-workPairMeta">UI/UX | Web App</p>
+            <Link
+              to="/work/daily-diary"
+              state={{ from: '/work', fromLabel: 'Work' }}
+              className="pf-workPairCard pf-workPairCard--link"
+            >
+              <div
+                className="pf-workPairImage pf-ddCover"
+                role="img"
+                aria-label="Daily Diary — a digital journaling experience"
+              >
+                <div className="pf-ddMock">
+                  <img
+                    className="pf-ddMockImg"
+                    src={dailyDiaryCover}
+                    alt=""
+                    loading="lazy"
+                  />
+                </div>
               </div>
-            </article>
+              <div className="pf-workPairBody">
+                <h2 className="pf-workPairTitle">DAILY DIARY</h2>
+                <p className="pf-workPairMeta">UI/UX · Concept | Web App</p>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
