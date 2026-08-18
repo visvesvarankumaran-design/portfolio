@@ -5,7 +5,6 @@ import { WorkProcessSection } from '../components/WorkProcessSection'
 import { BrandsHeroSection } from '../components/BrandsHeroSection'
 import { LifeUnpluggedSection } from '../components/LifeUnpluggedSection'
 import { ContactCtaFooter } from '../components/ContactCtaFooter'
-import { StatsBand } from '../components/StatsBand'
 import { SkillsSection } from '../components/SkillsSection'
 import profilePhoto from '../assets/about-section/profile.jpg'
 
@@ -44,8 +43,6 @@ export function AboutPage() {
           remember.
         </p>
       </section>
-
-      <StatsBand />
 
       <section className="pf-panel pf-aboutClosing" aria-label="Philosophy">
         <div className="pf-aboutClosingInner">

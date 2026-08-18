@@ -2,7 +2,6 @@ import { AboutDetailBlock } from '../components/AboutDetailBlock'
 import { BrandsHeroSection } from '../components/BrandsHeroSection'
 import { ContactCtaFooter } from '../components/ContactCtaFooter.tsx'
 import { ProjectShowcase } from '../components/ProjectShowcase'
-import { StatsBand } from '../components/StatsBand'
 import { SkillsSection } from '../components/SkillsSection'
 
 export function HomePage() {
@@ -28,8 +27,6 @@ export function HomePage() {
           remember.
         </p>
       </section>
-
-      <StatsBand />
 
       <section
         id="featured-work"

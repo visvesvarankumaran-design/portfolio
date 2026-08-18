@@ -4929,51 +4929,6 @@
   }
 }
 
-/* ---------- Impact stats band ---------- */
-.pf-stats {
-  min-height: auto;
-  padding-top: var(--pf-space-y);
-  padding-bottom: var(--pf-space-y);
-}
-
-.pf-statsInner {
-  width: 100%;
-  max-width: var(--pf-shell);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(20px, 3vw, 48px);
-  border-top: 1px solid rgba(238, 238, 238, 0.16);
-  border-bottom: 1px solid rgba(238, 238, 238, 0.16);
-  padding-top: clamp(28px, 4vh, 48px);
-  padding-bottom: clamp(28px, 4vh, 48px);
-}
-
-.pf-statFigure {
-  margin: 0;
-  color: #baff2b;
-  font-family: 'Anton', Impact, sans-serif;
-  font-weight: 400;
-  line-height: 1;
-  font-size: clamp(32px, 4.5vw, 72px);
-}
-
-.pf-statLabel {
-  margin: clamp(8px, 1vw, 14px) 0 0;
-  color: rgba(238, 238, 238, 0.78);
-  font-family: 'Open Sans', system-ui, sans-serif;
-  font-weight: 500;
-  font-size: clamp(13px, 1.2vw, 16px);
-  line-height: 1.35;
-}
-
-@media (max-width: 720px) {
-  .pf-statsInner {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(24px, 6vw, 36px);
-  }
-}
-
 /* ============================================================
    Daily Diary — "midnight journal" case study (scope: .pf-dd)
    Indigo/violet on dark so the bright web screens read as hero.
