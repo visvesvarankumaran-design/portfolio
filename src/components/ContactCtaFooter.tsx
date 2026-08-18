@@ -20,7 +20,12 @@ export function ContactCtaFooter() {
             <div className="pf-footerRow">
               <div className="pf-footerHeading">CONTACT</div>
               <div className="pf-footerRowRight">
-                <span className="pf-footerItem">+919344838740</span>
+                <a
+                  className="pf-footerItem pf-footerItemLink"
+                  href="tel:+919344838740"
+                >
+                  +91 93448 38740
+                </a>
                 <a
                   className="pf-footerItem pf-footerItemLink"
                   href="mailto:visvesvarankumaran@gmail.com"

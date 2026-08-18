@@ -1,5 +1,5 @@
 import './portfolio.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { SiteLayout } from './SiteLayout'
 import { HomePage } from './pages/HomePage'
 import { WorkPage } from './pages/WorkPage'
@@ -21,6 +21,7 @@ export default function App() {
           <Route path="/work/air-ticket" element={<AirTicketCaseStudy />} />
           <Route path="/work/daily-diary" element={<DailyDiaryCaseStudy />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -708,7 +708,7 @@
 .pf-aboutHeroCompose {
   position: relative;
   width: 100%;
-  min-height: min(62vh, 560px);
+  min-height: min(82vh, 760px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -722,17 +722,37 @@
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  width: min(400px, 36vw);
-  height: min(62vh, 560px);
-  min-height: 280px;
+  width: min(460px, 40vw);
+  height: min(76vh, 700px);
+  min-height: 340px;
   border-radius: 16px;
-  background: #8a8989;
+  background: transparent;
+  overflow: hidden;
   z-index: 0;
+}
+
+.pf-aboutHeroPhotoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  /* dissolve the lower portion into the page so the headline overlaps
+     dark pixels (legible) instead of the light studio backdrop */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 52%,
+    transparent 94%
+  );
+  mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 94%);
 }
 
 .pf-aboutHeroWords {
   position: relative;
   z-index: 1;
+  margin: 0;
+  font-weight: inherit;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: baseline;
@@ -1467,14 +1487,14 @@
   }
 
   .pf-aboutHeroCompose {
-    min-height: min(52vh, 480px);
+    min-height: min(64vh, 560px);
     padding-bottom: 16px;
   }
 
   .pf-aboutHeroPhoto {
-    width: min(100%, 340px);
-    height: min(48vh, 420px);
-    min-height: 240px;
+    width: min(100%, 380px);
+    height: min(60vh, 520px);
+    min-height: 300px;
   }
 
   .pf-aboutHeroWord {
@@ -1802,50 +1822,50 @@
   margin: 0;
 }
 
+/* Full-width gallery: columns weighted to each photo's shape (landscape
+   wider, portrait narrower) so the row spans the page and the cards grow. */
 .pf-lifeUnplugRow {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 33fr 20fr 33fr 20fr;
   align-items: center;
-  justify-content: center;
-  gap: clamp(12px, 2vw, 24px);
+  gap: clamp(16px, 2vw, 34px);
   width: 100%;
 }
 
 .pf-lifeUnplugCard {
   box-sizing: border-box;
-  border-radius: 12px;
-  background: #bdbdbd;
-  flex-shrink: 0;
+  border-radius: 14px;
+  background: #1c1c1c;
+  overflow: hidden;
   min-height: 0;
 }
 
-/* Landscape slots: 330 × 170 */
-.pf-lifeUnplugCard--landscape {
-  width: 330px;
-  height: 170px;
+.pf-lifeUnplugImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-/* Portrait slots: 200 × 260 */
+/* Shapes held by aspect-ratio, so width drives the (now larger) height */
+.pf-lifeUnplugCard--landscape {
+  aspect-ratio: 330 / 170;
+}
+
 .pf-lifeUnplugCard--portrait {
-  width: 200px;
-  height: 260px;
+  aspect-ratio: 200 / 260;
 }
 
 @media (max-width: 900px) {
   .pf-lifeUnplugRow {
-    max-width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(14px, 3vw, 24px);
   }
 }
 
-@media (max-width: 480px) {
-  .pf-lifeUnplugCard--landscape {
-    width: min(330px, calc(50vw - 20px));
-    height: calc(min(330px, calc(50vw - 20px)) * 170 / 330);
-  }
-
-  .pf-lifeUnplugCard--portrait {
-    width: min(200px, calc(50vw - 20px));
-    height: calc(min(200px, calc(50vw - 20px)) * 260 / 200);
+@media (max-width: 520px) {
+  .pf-lifeUnplugRow {
+    grid-template-columns: 1fr;
   }
 }
 

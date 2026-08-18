@@ -7,6 +7,7 @@ import { LifeUnpluggedSection } from '../components/LifeUnpluggedSection'
 import { ContactCtaFooter } from '../components/ContactCtaFooter'
 import { StatsBand } from '../components/StatsBand'
 import { SkillsSection } from '../components/SkillsSection'
+import profilePhoto from '../assets/about-section/profile.jpg'
 
 export function AboutPage() {
   return (
@@ -14,8 +15,14 @@ export function AboutPage() {
       <section className="pf-panel pf-aboutHero" aria-label="About">
         <div className="pf-aboutHeroStage">
           <div className="pf-aboutHeroCompose">
-            <div className="pf-aboutHeroPhoto" aria-hidden="true" />
-            <div className="pf-aboutHeroWords">
+            <div className="pf-aboutHeroPhoto">
+              <img
+                className="pf-aboutHeroPhotoImg"
+                src={profilePhoto}
+                alt="Visvesvaran K"
+              />
+            </div>
+            <h1 className="pf-aboutHeroWords">
               <span className="pf-aboutHeroWord pf-aboutHeroWord--behind">
                 BEHIND
               </span>
@@ -23,7 +30,7 @@ export function AboutPage() {
               <span className="pf-aboutHeroWord pf-aboutHeroWord--canvas">
                 CANVAS
               </span>
-            </div>
+            </h1>
           </div>
         </div>
       </section>
