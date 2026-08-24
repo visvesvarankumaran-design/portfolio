@@ -440,13 +440,13 @@ export function BiteSplitCaseStudy() {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting || entry.boundingClientRect.top < 1) {
             entry.target.classList.add('is-in')
             io.unobserve(entry.target)
           }
         })
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+      { threshold: 0.1, rootMargin: '0px' },
     )
     targets.forEach((el) => io.observe(el))
     return () => io.disconnect()

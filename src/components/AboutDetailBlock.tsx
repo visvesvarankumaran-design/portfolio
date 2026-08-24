@@ -1,5 +1,8 @@
+import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { Carousel } from './Carousel'
+
+const d = (ms: number) => ({ ['--rvd']: `${ms}ms` }) as CSSProperties
 
 type AboutDetailBlockProps = {
   /** Anchor id (e.g. `about-detail` on Home). Omit on About route to avoid duplicate ids. */
@@ -16,7 +19,7 @@ export function AboutDetailBlock({
   headlineVariant = 'default',
 }: AboutDetailBlockProps) {
   const headDefault = (
-    <div className="pf-aboutHead">
+    <div className="pf-aboutHead pf-reveal">
       <div>IT&apos;S NOT JUST A PROFESSION — IT&apos;S A WAY OF THINKING.</div>
       <div>
         IT&apos;S HOW I SEE THE WORLD: IN PATTERNS, INTERACTIONS, AND THE
@@ -26,7 +29,7 @@ export function AboutDetailBlock({
   )
 
   const headInterfaces = (
-    <div className="pf-aboutHead pf-aboutHead--interfaces">
+    <div className="pf-aboutHead pf-aboutHead--interfaces pf-reveal">
       <div>GOOD INTERFACES GO BEYOND AESTHETICS; THEY EVOKE</div>
       <div>CONNECTION AND FEELINGS</div>
     </div>
@@ -41,7 +44,7 @@ export function AboutDetailBlock({
       <div className="pf-aboutDetailInner">
         {headlineVariant === 'interfaces' ? headInterfaces : headDefault}
         <div className="pf-aboutGrid">
-          <div className="pf-aboutCol">
+          <div className="pf-aboutCol pf-reveal" style={d(80)}>
             <p>
               Over 3 years I&apos;ve gone from building front-ends to designing
               them — collaborating across teams and shipping real products end
@@ -50,11 +53,10 @@ export function AboutDetailBlock({
               remember.
             </p>
           </div>
-          <div className="pf-aboutCol pf-aboutCenter">
-            
+          <div className="pf-aboutCol pf-aboutCenter pf-reveal" style={d(180)}>
             <Carousel />
           </div>
-          <div className="pf-aboutCol">
+          <div className="pf-aboutCol pf-reveal" style={d(280)}>
             <p>
               Off the screen, I wander, click the beauty in mundane moments, and
               explore places and perspectives that spark curiosity—drawing

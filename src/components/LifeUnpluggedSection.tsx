@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import life1 from '../assets/life-unplugged/life-1.jpeg'
 import life2 from '../assets/life-unplugged/life-2.jpeg'
 import life3 from '../assets/life-unplugged/life-3.jpeg'
@@ -17,14 +18,15 @@ export function LifeUnpluggedSection() {
       aria-label="Life unplugged"
     >
       <div className="pf-lifeUnplugInner">
-        <header className="pf-lifeUnplugHead">
+        <header className="pf-lifeUnplugHead pf-reveal-fade">
           <div className="pf-lifeUnplugScript">Life</div>
           <h2 className="pf-lifeUnplugTitle">UNPLUGGED</h2>
         </header>
         <div className="pf-lifeUnplugRow">
           {PHOTOS.map((photo, i) => (
             <div
-              className={`pf-lifeUnplugCard pf-lifeUnplugCard--${photo.shape}`}
+              className={`pf-lifeUnplugCard pf-lifeUnplugCard--${photo.shape} pf-reveal-img`}
+              style={{ ['--rvd']: `${i * 90}ms` } as CSSProperties}
               key={i}
             >
               <img

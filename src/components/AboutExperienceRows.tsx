@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 const ROWS = [
   {
     titleLine1: 'UI/UX',
@@ -22,7 +24,11 @@ export function AboutExperienceRows() {
     <section className="pf-panel pf-aboutExperience" aria-label="Experience">
       <div className="pf-aboutExperienceInner">
         {ROWS.map((row, i) => (
-          <article key={i} className="pf-aboutExperienceRow">
+          <article
+            key={i}
+            className="pf-aboutExperienceRow pf-reveal"
+            style={{ ['--rvd']: `${i * 110}ms` } as CSSProperties}
+          >
             <div className="pf-aboutExperienceRole">
               <span className="pf-aboutExperienceRoleLine">
                 {row.titleLine1}

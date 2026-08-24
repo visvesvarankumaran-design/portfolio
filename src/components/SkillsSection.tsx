@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 // Monochrome brand marks (Simple Icons, viewBox 0 0 24 24). Rendered with
 // fill="currentColor" so they inherit the tile color — no logo-soup.
 const ICONS: Record<string, string> = {
@@ -130,20 +132,30 @@ export function SkillsSection() {
     <section className="pf-panel pf-skills" aria-label="Skills and toolkit">
       <div className="pf-skillsInner">
         <div className="pf-skillsHead">
-          <div className="pf-skillsScript">Skills</div>
-          <h2 className="pf-skillsTitle">
+          <div className="pf-skillsScript pf-reveal-fade">Skills</div>
+          <h2
+            className="pf-skillsTitle pf-reveal"
+            style={{ ['--rvd']: '80ms' } as CSSProperties}
+          >
             <span>TOOLS OF</span>
             <span>THE TRADE</span>
           </h2>
-          <div className="pf-skillsKicker">
+          <div
+            className="pf-skillsKicker pf-reveal"
+            style={{ ['--rvd']: '220ms' } as CSSProperties}
+          >
             FROM FIGMA SYSTEMS TO<br />
             BUILD-READY FRONTEND
           </div>
         </div>
 
         <div className="pf-skillsGrid">
-          {METHOD_GROUPS.map((group) => (
-            <div className="pf-skillsGroup" key={group.label}>
+          {METHOD_GROUPS.map((group, i) => (
+            <div
+              className="pf-skillsGroup pf-reveal"
+              style={{ ['--rvd']: `${i * 90}ms` } as CSSProperties}
+              key={group.label}
+            >
               <h3 className="pf-skillsGroupTitle">
                 <LineIcon name={group.icon} />
                 {group.label}
@@ -160,9 +172,10 @@ export function SkillsSection() {
         </div>
 
         <div className="pf-skillsTools">
-          {TOOL_GROUPS.map((group) => (
+          {TOOL_GROUPS.map((group, i) => (
             <div
-              className={`pf-skillsGroup${group.ai ? ' pf-skillsAi' : ''}`}
+              className={`pf-skillsGroup pf-reveal${group.ai ? ' pf-skillsAi' : ''}`}
+              style={{ ['--rvd']: `${i * 90}ms` } as CSSProperties}
               key={group.label}
             >
               <h3 className="pf-skillsGroupTitle">{group.label}</h3>

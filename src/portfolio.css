@@ -5156,3 +5156,151 @@
     grid-column: auto;
   }
 }
+
+/* ============================================================
+   Scroll reveal — main pages (Home / Work / About)
+   Smooth & editorial: fade + rise, soft ease-out, gentle stagger.
+   Scoped to .pf-hero so the case-study (.pf-cs) reveal is untouched.
+   Visible by default; hidden only once JS marks the root ready.
+   ============================================================ */
+.pf-hero.is-reveal-ready .pf-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rvd, 0ms);
+  will-change: opacity, transform;
+}
+.pf-hero.is-reveal-ready .pf-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero titles: a touch more travel for a confident load entrance */
+.pf-hero.is-reveal-ready .pf-reveal--hero {
+  transform: translateY(40px);
+}
+
+/* Fade-only variant — safe for elements that carry their own transform
+   (rotated cursive scripts etc.), which a translateY reveal would clobber. */
+.pf-hero.is-reveal-ready .pf-reveal-fade {
+  opacity: 0;
+  transition: opacity 760ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rvd, 0ms);
+  will-change: opacity;
+}
+.pf-hero.is-reveal-ready .pf-reveal-fade.is-in {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-hero.is-reveal-ready .pf-reveal,
+  .pf-hero.is-reveal-ready .pf-reveal--hero,
+  .pf-hero.is-reveal-ready .pf-reveal-fade {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Tier 2 motion variants (main pages) ---------- */
+/* Outline-title wipe — left-to-right reveal for big stroke titles.
+   Uses a mask (not clip-path) so the element keeps its full layout box and
+   IntersectionObserver still fires; clip-path collapses the box to zero area
+   and the observer never triggers. */
+.pf-hero.is-reveal-ready .pf-reveal-wipe {
+  -webkit-mask-image: linear-gradient(to right, #000 50%, transparent 50%);
+  mask-image: linear-gradient(to right, #000 50%, transparent 50%);
+  -webkit-mask-size: 200% 100%;
+  mask-size: 200% 100%;
+  -webkit-mask-position: 100% 0;
+  mask-position: 100% 0;
+  transition:
+    -webkit-mask-position 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    mask-position 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rvd, 0ms);
+}
+.pf-hero.is-reveal-ready .pf-reveal-wipe.is-in {
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
+/* Image reveal — gentle scale + fade for photos */
+.pf-hero.is-reveal-ready .pf-reveal-img {
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rvd, 0ms);
+}
+.pf-hero.is-reveal-ready .pf-reveal-img.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-hero.is-reveal-ready .pf-reveal-wipe,
+  .pf-hero.is-reveal-ready .pf-reveal-img {
+    opacity: 1;
+    transform: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+    transition: none;
+  }
+}
+
+/* ---------- Hover micro-interactions ---------- */
+/* Nav: animated underline (distinct from the active line-through) */
+.pf-navLink {
+  position: relative;
+}
+.pf-navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: #baff2b;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pf-navLink:hover::after {
+  transform: scaleX(1);
+}
+
+/* CTA buttons: fill on hover */
+.pf-cta {
+  transition:
+    background 220ms ease,
+    color 220ms ease,
+    transform 220ms ease;
+}
+.pf-cta:hover {
+  background: #baff2b;
+  color: #0b0b0b;
+  transform: translateY(-2px);
+}
+
+/* Photo cards: slow zoom on hover */
+.pf-lifeUnplugImg,
+.pf-ddMockImg,
+.pf-atMockImg {
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pf-lifeUnplugCard:hover .pf-lifeUnplugImg {
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-navLink::after,
+  .pf-cta,
+  .pf-lifeUnplugImg,
+  .pf-ddMockImg,
+  .pf-atMockImg {
+    transition: none;
+  }
+}

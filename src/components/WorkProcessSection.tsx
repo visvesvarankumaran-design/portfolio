@@ -1,3 +1,7 @@
+import type { CSSProperties } from 'react'
+
+const d = (ms: number) => ({ ['--rvd']: `${ms}ms` }) as CSSProperties
+
 /** Research → Design → Test — same staggered cards as on /work */
 export function WorkProcessSection() {
   return (
@@ -7,7 +11,7 @@ export function WorkProcessSection() {
     >
       <div className="pf-workProcessInner">
         <div className="pf-workProcessStepRow">
-          <article className="pf-workProcessCard">
+          <article className="pf-workProcessCard pf-reveal">
             <span className="pf-workProcessNum">01</span>
             <h2 className="pf-workProcessTitle">RESEARCH</h2>
             <p className="pf-workProcessBody">
@@ -17,7 +21,7 @@ export function WorkProcessSection() {
           </article>
         </div>
         <div className="pf-workProcessStepRow pf-workProcessStepRow--2">
-          <article className="pf-workProcessCard">
+          <article className="pf-workProcessCard pf-reveal" style={d(100)}>
             <span className="pf-workProcessNum">02</span>
             <h2 className="pf-workProcessTitle">DESIGN</h2>
             <p className="pf-workProcessBody">
@@ -27,7 +31,7 @@ export function WorkProcessSection() {
           </article>
         </div>
         <div className="pf-workProcessStepRow pf-workProcessStepRow--3">
-          <article className="pf-workProcessCard">
+          <article className="pf-workProcessCard pf-reveal" style={d(200)}>
             <span className="pf-workProcessNum">03</span>
             <h2 className="pf-workProcessTitle">TEST</h2>
             <p className="pf-workProcessBody">
