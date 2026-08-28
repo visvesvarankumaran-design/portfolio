@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react'
+import { Suspense, useEffect, useLayoutEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 
 function navClassName(isActive: boolean) {
@@ -34,6 +34,9 @@ export function SiteLayout() {
 
   return (
     <div className="pf-page">
+      <a className="pf-skipLink" href="#main-content">
+        Skip to content
+      </a>
       <header className="pf-header">
         <nav className="pf-nav" aria-label="Primary">
           <NavLink to="/" end className={({ isActive }) => navClassName(isActive)}>
@@ -51,7 +54,11 @@ export function SiteLayout() {
         </nav>
       </header>
 
-      <Outlet />
+      <Suspense fallback={null}>
+        <div id="main-content">
+          <Outlet />
+        </div>
+      </Suspense>
     </div>
   )
 }

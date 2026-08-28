@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import type { PointerEvent as RPointerEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 type Project = {
@@ -117,37 +118,124 @@ export function ProjectShowcase({
   workEnd?: boolean
 }) {
   const [index, setIndex] = useState(0)
+  const [drag, setDrag] = useState(0)
+  const [dragging, setDragging] = useState(false)
   const n = PROJECTS.length
-  const hovering = useRef(false)
 
-  // Auto-advance right-to-left; pauses on hover and for reduced-motion users.
-  useEffect(() => {
-    if (n <= 1) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const id = window.setInterval(() => {
-      if (!hovering.current) setIndex((i) => (i + 1) % n)
-    }, 5500)
-    return () => window.clearInterval(id)
-  }, [n])
+  // Drag/swipe state kept in refs so the fast pointer stream never reads stale
+  // React state. No auto-advance — the carousel only moves on user intent.
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const startX = useRef(0)
+  const startTime = useRef(0)
+  const dragRef = useRef(0)
+  const movedRef = useRef(false)
+  const widthRef = useRef(1)
+  const draggingRef = useRef(false)
+  const wheelCooldown = useRef(0)
 
   const go = (i: number) => setIndex((i + n) % n)
+
+  // Keep the live index readable inside window listeners without re-binding them.
+  const indexRef = useRef(0)
+  indexRef.current = index
+
+  // Move/up are bound to `window` during a drag (not the element), so the drag
+  // keeps tracking even if the pointer leaves the card — the reliable slider
+  // pattern. Stable identities so add/removeEventListener always match.
+  const handleMove = useCallback(
+    (e: PointerEvent) => {
+      if (!draggingRef.current) return
+      let dx = e.clientX - startX.current
+      if (Math.abs(dx) > 6) movedRef.current = true
+      const idx = indexRef.current
+      if ((idx === 0 && dx > 0) || (idx === n - 1 && dx < 0)) dx *= 0.35
+      dragRef.current = dx
+      setDrag(dx)
+    },
+    [n],
+  )
+
+  const handleUp = useCallback(() => {
+    if (!draggingRef.current) return
+    draggingRef.current = false
+    setDragging(false)
+    const dx = dragRef.current
+    const dist = Math.abs(dx)
+    const dt = Math.max(performance.now() - startTime.current, 1)
+    // advance on a decent drag (12% of the width) OR a quick flick
+    const flick = dist > 40 && dist / dt > 0.5
+    const passed = dist > widthRef.current * 0.12 || flick
+    if (passed && dx < 0) setIndex((i) => (i + 1) % n)
+    else if (passed && dx > 0) setIndex((i) => (i - 1 + n) % n)
+    dragRef.current = 0
+    setDrag(0)
+    window.removeEventListener('pointermove', handleMove)
+    window.removeEventListener('pointerup', handleUp)
+    window.removeEventListener('pointercancel', handleUp)
+  }, [n, handleMove])
+
+  const onPointerDown = (e: RPointerEvent<HTMLDivElement>) => {
+    if (n <= 1) return
+    if (e.pointerType === 'mouse' && e.button !== 0) return
+    startX.current = e.clientX
+    startTime.current = performance.now()
+    dragRef.current = 0
+    movedRef.current = false
+    widthRef.current = viewportRef.current?.offsetWidth || 1
+    draggingRef.current = true
+    setDragging(true)
+    window.addEventListener('pointermove', handleMove)
+    window.addEventListener('pointerup', handleUp)
+    window.addEventListener('pointercancel', handleUp)
+  }
+
+  // Safety: drop listeners if the component unmounts mid-drag.
+  useEffect(
+    () => () => {
+      window.removeEventListener('pointermove', handleMove)
+      window.removeEventListener('pointerup', handleUp)
+      window.removeEventListener('pointercancel', handleUp)
+    },
+    [handleMove, handleUp],
+  )
+
+  // Trackpad / horizontal-wheel scroll → move between projects. Native listener
+  // with passive:false so we can preventDefault (stops the browser back/forward
+  // swipe). Vertical scrolling is ignored so the page still scrolls normally.
+  useEffect(() => {
+    const el = viewportRef.current
+    if (!el || n <= 1) return
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return
+      e.preventDefault()
+      if (Math.abs(e.deltaX) < 12) return
+      const now = performance.now()
+      if (now < wheelCooldown.current) return
+      if (e.deltaX > 0) setIndex((i) => (i + 1) % n)
+      else setIndex((i) => (i - 1 + n) % n)
+      wheelCooldown.current = now + 450
+    }
+    el.addEventListener('wheel', onWheel, { passive: false })
+    return () => el.removeEventListener('wheel', onWheel)
+  }, [n])
 
   return (
     <div
       className={`pf-projects${workEnd ? ' pf-projects--workEnd' : ''}`}
-      onMouseEnter={() => {
-        hovering.current = true
-      }}
-      onMouseLeave={() => {
-        hovering.current = false
-      }}
       aria-roledescription="carousel"
       aria-label="Selected projects"
     >
-      <div className="pf-projectsViewport">
+      <div
+        className={`pf-projectsViewport${dragging ? ' is-dragging' : ''}`}
+        ref={viewportRef}
+        onPointerDown={onPointerDown}
+      >
         <div
           className="pf-projectsTrack"
-          style={{ transform: `translateX(-${index * 100}%)` }}
+          style={{
+            transform: `translateX(calc(${-index * 100}% + ${drag}px))`,
+            transition: dragging ? 'none' : undefined,
+          }}
         >
           {PROJECTS.map((p, i) => {
             const card = (
@@ -172,6 +260,15 @@ export function ProjectShowcase({
                     state={{ from, fromLabel }}
                     aria-label={`Open ${p.title} case study`}
                     tabIndex={i === index ? 0 : -1}
+                    draggable={false}
+                    onClickCapture={(e) => {
+                      // A drag ends in a click — swallow it so swiping never
+                      // opens the case study.
+                      if (movedRef.current) {
+                        e.preventDefault()
+                        e.stopPropagation()
+                      }
+                    }}
                   >
                     {card}
                   </Link>
@@ -186,14 +283,6 @@ export function ProjectShowcase({
 
       {n > 1 ? (
         <div className="pf-projectsNav">
-          <button
-            type="button"
-            className="pf-projectsArrow"
-            aria-label="Previous project"
-            onClick={() => go(index - 1)}
-          >
-            ‹
-          </button>
           <div className="pf-projectsDots" role="tablist">
             {PROJECTS.map((p, i) => (
               <button
@@ -207,14 +296,6 @@ export function ProjectShowcase({
               />
             ))}
           </div>
-          <button
-            type="button"
-            className="pf-projectsArrow"
-            aria-label="Next project"
-            onClick={() => go(index + 1)}
-          >
-            ›
-          </button>
         </div>
       ) : null}
     </div>

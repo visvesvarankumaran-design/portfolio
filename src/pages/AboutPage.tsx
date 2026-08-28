@@ -48,7 +48,9 @@ export function AboutPage() {
           problems into simple, human experiences that just click. I started in
           frontend development and moved into design; across 3 years that mix
           has taught me to design not just for screens, but for moments people
-          remember.
+          remember. Along the way I’ve helped ship a fintech platform that
+          reached up to ~2M people and built a 120-plus-component Figma design
+          system that took new-screen design from days to hours.
         </p>
       </section>
 

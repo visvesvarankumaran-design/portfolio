@@ -1,13 +1,37 @@
 import './portfolio.css'
+import { lazy } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { SiteLayout } from './SiteLayout'
 import { HomePage } from './pages/HomePage'
-import { WorkPage } from './pages/WorkPage'
-import { AboutPage } from './pages/AboutPage'
-import { BiteSplitCaseStudy } from './pages/BiteSplitCaseStudy'
-import { CarePayCaseStudy } from './pages/CarePayCaseStudy'
-import { AirTicketCaseStudy } from './pages/AirTicketCaseStudy'
-import { DailyDiaryCaseStudy } from './pages/DailyDiaryCaseStudy'
+
+// Home is eager (the landing); everything else loads on demand as its own
+// chunk, so the first paint ships less JavaScript.
+const WorkPage = lazy(() =>
+  import('./pages/WorkPage').then((m) => ({ default: m.WorkPage })),
+)
+const AboutPage = lazy(() =>
+  import('./pages/AboutPage').then((m) => ({ default: m.AboutPage })),
+)
+const BiteSplitCaseStudy = lazy(() =>
+  import('./pages/BiteSplitCaseStudy').then((m) => ({
+    default: m.BiteSplitCaseStudy,
+  })),
+)
+const CarePayCaseStudy = lazy(() =>
+  import('./pages/CarePayCaseStudy').then((m) => ({
+    default: m.CarePayCaseStudy,
+  })),
+)
+const AirTicketCaseStudy = lazy(() =>
+  import('./pages/AirTicketCaseStudy').then((m) => ({
+    default: m.AirTicketCaseStudy,
+  })),
+)
+const DailyDiaryCaseStudy = lazy(() =>
+  import('./pages/DailyDiaryCaseStudy').then((m) => ({
+    default: m.DailyDiaryCaseStudy,
+  })),
+)
 
 export default function App() {
   return (
