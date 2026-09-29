@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react'
 import { AboutDetailBlock } from '../components/AboutDetailBlock'
 import { BrandsHeroSection } from '../components/BrandsHeroSection'
 import { ContactCtaFooter } from '../components/ContactCtaFooter.tsx'
+import { PlaygroundGrid } from '../components/PlaygroundGrid'
 import { ProjectShowcase } from '../components/ProjectShowcase'
 import { SkillsSection } from '../components/SkillsSection'
 import { useReveal } from '../hooks/useReveal'
@@ -73,6 +74,7 @@ export function HomePage() {
           <div className="pf-playKicker pf-reveal" style={d(160)}>
             NO RULES, JUST EXPERIMENT
           </div>
+          <PlaygroundGrid />
         </div>
       </section>
 

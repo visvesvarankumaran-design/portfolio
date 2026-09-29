@@ -1467,6 +1467,162 @@
   font-size: var(--pf-kicker);
 }
 
+/* Playground grid & cards */
+.pf-playGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 64px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 24px;
+}
+
+.pf-playCard {
+  background: #1a1a1a;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pf-playCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.pf-playCard__media {
+  aspect-ratio: 4 / 3;
+  background: #0f0f0f;
+  overflow: hidden;
+}
+
+.pf-playCard__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.pf-playCard:hover .pf-playCard__media img {
+  transform: scale(1.03);
+}
+
+.pf-playCard__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+}
+
+.pf-playCard__title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+  padding: 18px 20px;
+  text-align: center;
+}
+
+.pf-playCard--clickable {
+  cursor: pointer;
+}
+
+/* Lightbox */
+.pf-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: pf-lightbox-in 0.25s ease;
+}
+
+@keyframes pf-lightbox-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.pf-lightbox__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.pf-lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.pf-lightbox__content {
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pf-lightbox__content img {
+  max-width: 100%;
+  max-height: calc(85vh - 48px);
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+.pf-lightbox__title {
+  margin: 16px 0 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .pf-playGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pf-playGrid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    gap: 20px;
+  }
+
+  .pf-lightbox {
+    padding: 16px;
+  }
+
+  .pf-lightbox__close {
+    top: 12px;
+    right: 12px;
+  }
+}
+
 @media (max-width: 640px) {
   .pf-header {
     padding-top: 22px;
