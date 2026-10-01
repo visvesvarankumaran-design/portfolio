@@ -1467,81 +1467,351 @@
   font-size: var(--pf-kicker);
 }
 
-/* Playground grid & cards */
-.pf-playGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin-top: 64px;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
+/* Playground — each screen is a LinkedIn-style post: author row, title and
+   two-line caption, the screen, then tags. Dark surface + lime accent. */
+.pf-playCarousel {
+  max-width: 1240px;
+  margin: 56px auto 0;
   padding: 0 24px;
 }
 
-.pf-playCard {
-  background: #1a1a1a;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Horizontal scroll-snap track: 3 cards per view on desktop, swipeable */
+.pf-playGrid {
+  --play-gap: 28px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 2 * var(--play-gap)) / 3);
+  gap: var(--play-gap);
+  align-items: start;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  /* room for the hover lift so it isn't clipped by the scroller */
+  padding: 8px 0 12px;
 }
 
-.pf-playCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+.pf-playGrid::-webkit-scrollbar {
+  display: none;
 }
 
-.pf-playCard__media {
-  aspect-ratio: 4 / 3;
-  background: #0f0f0f;
-  overflow: hidden;
+.pf-playGrid > .pf-post {
+  scroll-snap-align: start;
 }
 
-.pf-playCard__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.pf-playCard:hover .pf-playCard__media img {
-  transform: scale(1.03);
-}
-
-.pf-playCard__placeholder {
-  width: 100%;
-  height: 100%;
+.pf-playNav {
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.15);
-  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  gap: 14px;
+  margin-top: 24px;
 }
 
-.pf-playCard__title {
-  font-size: 16px;
-  font-weight: 500;
-  color: #fff;
-  margin: 0;
-  padding: 18px 20px;
-  text-align: center;
+.pf-playNav__btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(238, 238, 238, 0.22);
+  border-radius: 50%;
+  background: transparent;
+  color: #eeeeee;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 }
 
-.pf-playCard--clickable {
+.pf-playNav__btn svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pf-playNav__btn:hover:not(:disabled) {
+  background: #baff2b;
+  border-color: #baff2b;
+  color: #0b0b0b;
+}
+
+.pf-playNav__btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.pf-post {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: left;
+  background: #111111;
+  border: 1px solid rgba(238, 238, 238, 0.1);
+  border-radius: 14px;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  color: #eeeeee;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.pf-post--clickable {
   cursor: pointer;
 }
 
-/* Lightbox */
+.pf-post--clickable:hover,
+.pf-post--clickable:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(186, 255, 43, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+.pf-post--clickable:focus-visible {
+  outline: 2px solid #baff2b;
+  outline-offset: 3px;
+}
+
+/* Author row */
+.pf-post__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 16px 0;
+}
+
+.pf-post__avatar {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(238, 238, 238, 0.15);
+}
+
+.pf-post__who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pf-post__name {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #eeeeee;
+}
+
+.pf-post__sub {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: rgba(238, 238, 238, 0.55);
+}
+
+/* Title + two-line caption */
+.pf-post__text {
+  padding: 12px 16px 14px;
+}
+
+.pf-post__title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #eeeeee;
+}
+
+.pf-post__desc {
+  margin: 4px 0 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  min-height: 3em;
+  color: rgba(238, 238, 238, 0.72);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* The screen, full-bleed like a post image */
+.pf-post__media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 5;
+  background: radial-gradient(80% 60% at 50% 40%, #1b1b1b 0%, #0a0a0a 100%);
+  border-top: 1px solid rgba(238, 238, 238, 0.06);
+  border-bottom: 1px solid rgba(238, 238, 238, 0.06);
+}
+
+/* Frame fills the 4:5 area; the screen scales to fit inside it, whatever its size */
+.pf-post__frame {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-post__media img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 90%;
+  max-height: calc(100% - 40px);
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.6));
+  transition: transform 0.4s ease;
+}
+
+/* Web screens are light full pages — give them soft corners like a browser shot */
+.pf-post__media--web img {
+  max-width: 86%;
+  border-radius: 6px;
+  /* hairline edge so dark screenshots don't melt into the dark frame */
+  outline: 1px solid rgba(238, 238, 238, 0.12);
+}
+
+.pf-post--clickable:hover .pf-post__media img {
+  transform: scale(1.03);
+}
+
+/* Multi-image posts: arrows, counter and dots (LinkedIn-style) */
+.pf-post__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid rgba(238, 238, 238, 0.2);
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.72);
+  color: #eeeeee;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-50%);
+  transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.pf-post__arrow svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pf-post__arrow--prev {
+  left: 10px;
+}
+
+.pf-post__arrow--next {
+  right: 10px;
+}
+
+.pf-post__media:hover .pf-post__arrow,
+.pf-post__arrow:focus-visible,
+.pf-lightbox .pf-post__arrow {
+  opacity: 1;
+}
+
+.pf-post__arrow:hover {
+  background: #baff2b;
+  color: #0b0b0b;
+}
+
+/* Touch screens have no hover — keep the arrows visible */
+@media (hover: none) {
+  .pf-post__arrow {
+    opacity: 1;
+  }
+}
+
+.pf-post__count {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.72);
+  font-size: 12px;
+  font-weight: 600;
+  color: #eeeeee;
+}
+
+.pf-post__dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.6);
+  transform: translateX(-50%);
+}
+
+.pf-post__dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(238, 238, 238, 0.4);
+  cursor: pointer;
+  transition: width 0.2s ease, background 0.2s ease;
+}
+
+.pf-post__dot.is-active {
+  width: 18px;
+  background: #baff2b;
+}
+
+.pf-post__soon {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(238, 238, 238, 0.3);
+}
+
+/* Hashtags */
+.pf-post__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin: 0;
+  padding: 12px 16px 14px;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #baff2b;
+}
+
+/* Open post (modal) */
 .pf-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 9999;
-  background: rgba(0, 0, 0, 0.92);
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
+  background: rgba(6, 6, 6, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   animation: pf-lightbox-in 0.25s ease;
 }
 
@@ -1554,72 +1824,99 @@
   }
 }
 
+.pf-lightbox__content.pf-post {
+  width: min(560px, 100%);
+  max-height: calc(100svh - 48px);
+  overflow-y: auto;
+  animation: pf-post-in 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes pf-post-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pf-lightbox__content .pf-post__desc {
+  display: block;
+  min-height: 0;
+}
+
+.pf-lightbox__media.pf-post__media {
+  aspect-ratio: auto;
+  height: min(58svh, 660px);
+}
+
+/* Web posts open wider, and the full page scrolls inside the frame */
+.pf-lightbox__content--web.pf-post {
+  width: min(920px, 100%);
+}
+
+.pf-lightbox__content--web .pf-lightbox__media.pf-post__media {
+  height: min(calc(100svh - 290px), 760px);
+}
+
+.pf-lightbox__content--web .pf-post__frame {
+  display: block;
+  overflow-y: auto;
+  padding: 20px 56px 44px;
+}
+
+.pf-lightbox__content--web .pf-post__media img {
+  width: 100%;
+  max-width: 100%;
+  max-height: none;
+  filter: none;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
+}
+
 .pf-lightbox__close {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 44px;
-  height: 44px;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid rgba(238, 238, 238, 0.15);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: #fff;
+  background: rgba(238, 238, 238, 0.06);
+  color: #eeeeee;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .pf-lightbox__close:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: #baff2b;
+  color: #0b0b0b;
 }
 
-.pf-lightbox__content {
-  max-width: 90vw;
-  max-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.pf-lightbox__content img {
-  max-width: 100%;
-  max-height: calc(85vh - 48px);
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-}
-
-.pf-lightbox__title {
-  margin: 16px 0 0;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  text-align: center;
-}
-
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .pf-playGrid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    padding: 0 16px;
+    grid-auto-columns: calc((100% - var(--play-gap)) / 2);
   }
 }
 
 @media (max-width: 640px) {
+  .pf-playCarousel {
+    padding: 0 8px;
+  }
+
+  /* One card plus a peek of the next, so it reads as swipeable */
   .pf-playGrid {
-    grid-template-columns: 1fr;
-    max-width: 320px;
-    gap: 20px;
+    --play-gap: 16px;
+    grid-auto-columns: 86%;
   }
 
   .pf-lightbox {
-    padding: 16px;
-  }
-
-  .pf-lightbox__close {
-    top: 12px;
-    right: 12px;
+    padding: 12px;
   }
 }
 
